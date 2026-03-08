@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discover Your Personal Values</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+
+  <!-- LANDING SCREEN -->
+  <div id="landing">
+    <h1>Discover Your Personal Values</h1>
+    <p>Answer 310 situational questions across 62 core values to uncover what truly matters to you. Each value gets 5 real-life scenarios from different areas of life.</p>
+    <div class="info-cards">
+      <div class="info-card">
+        <div class="icon">🎯</div>
+        <h3>62 Core Values</h3>
+        <p>From Acceptance to Wisdom, explore a comprehensive set of human values.</p>
+      </div>
+      <div class="info-card">
+        <div class="icon">💬</div>
+        <h3>310 Scenarios</h3>
+        <p>5 concrete situations per value from work, relationships, personal life, social, and leisure contexts.</p>
+      </div>
+      <div class="info-card">
+        <div class="icon">📊</div>
+        <h3>Ranked Results</h3>
+        <p>Get your values ranked from most to least important based on your averaged scores.</p>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="startQuiz()">Start Discovery →</button>
+    <div id="landingRestart" class="restart-wrap" style="display:none">
+      <button class="btn btn-secondary" onclick="restartTest()">↻ Restart Test</button>
+    </div>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div id="quiz">
+    <div class="progress-wrap">
+      <div class="progress-header">
+        <span id="progressLabel">Value 1 of 62</span>
+        <span id="progressPct">0%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+    <div class="summary-toggle">
+      <button class="btn btn-secondary" onclick="toggleSummary()" id="summaryBtn">📋 Summary</button>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-skip" onclick="restartTest()">↻ Restart</button>
+        <button class="btn btn-end" onclick="endTest()">✖ End Test</button>
+      </div>
+    </div>
+    <div class="summary-panel" id="summaryPanel">
+      <h3>Values Overview</h3>
+      <div class="summary-stats" id="summaryStats"></div>
+      <div class="summary-grid" id="summaryGrid"></div>
+    </div>
+    <div id="skippedBanner" class="skipped-banner" style="display:none">
+      <span>⏭ You have <strong id="skippedCount">0</strong> skipped value(s)</span>
+      <button class="btn btn-skip" onclick="goToNextSkipped()">Review next skipped</button>
+    </div>
+    <div class="value-card" id="valueCard"></div>
+    <div class="nav-row">
+      <div class="nav-left">
+        <button class="btn btn-secondary" id="prevBtn" onclick="prevValue()">← Previous</button>
+      </div>
+      <div class="nav-right">
+        <button class="btn btn-skip" id="skipBtn" onclick="skipValue()">⏭ Skip</button>
+        <button class="btn btn-primary" id="nextBtn" onclick="nextValue()">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div id="results">
+    <h2>Your Values Profile</h2>
+    <p class="subtitle">Ranked from most to least important based on your responses</p>
+    <div id="partialNotice" class="partial-notice" style="display:none"></div>
+    <div id="resultsList"></div>
+    <div class="restart-wrap">
+      <button class="btn btn-secondary" onclick="restartTest()">↻ Restart Test</button>
+    </div>
+  </div>
+</div>
+
+<script src="data/values-data.js"></script>
+<script src="data/value-descriptions.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
