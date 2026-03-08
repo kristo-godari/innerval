@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Discover Your Personal Values</title>
+<title>Innerval — Discover Your Personal Values</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,7 +11,17 @@
 <!-- SITE HEADER -->
 <header class="site-header" id="siteHeader">
   <div class="header-inner">
-    <a href="#" class="logo" onclick="goHome()">&#9670; Values</a>
+    <a href="#" class="logo" onclick="goHome()">
+      <svg class="logo-icon" width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="46" stroke="#4f46e5" stroke-width="5" fill="none"/>
+        <circle cx="50" cy="50" r="30" stroke="#818cf8" stroke-width="3" fill="none"/>
+        <polygon points="50,12 44,50 56,50" fill="#7c3aed"/>
+        <polygon points="50,88 44,50 56,50" fill="#c4b5fd"/>
+        <circle cx="50" cy="50" r="6" fill="#4f46e5"/>
+        <circle cx="50" cy="50" r="2.5" fill="white"/>
+      </svg>
+      <span>Innerval</span>
+    </a>
     <nav class="nav-links" id="navLinks">
       <a href="#about" onclick="goSection('about')">About</a>
       <a href="#how" onclick="goSection('how')">How It Works</a>
@@ -188,7 +198,7 @@
           <div class="contact-card">
             <div class="contact-icon">&#9993;</div>
             <h3>Email</h3>
-            <p>hello@valuesquiz.app</p>
+            <p>hello@innerval.app</p>
           </div>
           <div class="contact-card">
             <div class="contact-icon">&#128172;</div>
@@ -271,7 +281,17 @@
 <footer class="site-footer" id="siteFooter">
   <div class="footer-inner">
     <div class="footer-brand">
-      <span class="logo">&#9670; Values</span>
+      <span class="logo">
+        <svg class="logo-icon" width="24" height="24" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="46" stroke="#fff" stroke-width="5" fill="none"/>
+          <circle cx="50" cy="50" r="30" stroke="rgba(255,255,255,.5)" stroke-width="3" fill="none"/>
+          <polygon points="50,12 44,50 56,50" fill="#c4b5fd"/>
+          <polygon points="50,88 44,50 56,50" fill="rgba(255,255,255,.35)"/>
+          <circle cx="50" cy="50" r="6" fill="#fff"/>
+          <circle cx="50" cy="50" r="2.5" fill="#1e293b"/>
+        </svg>
+        <span>Innerval</span>
+      </span>
       <p>Discover what truly matters to you.</p>
     </div>
     <div class="footer-links">
@@ -288,7 +308,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; 2026 Values Quiz. All rights reserved.</p>
+    <p>&copy; 2026 Innerval. All rights reserved.</p>
   </div>
 </footer>
 
