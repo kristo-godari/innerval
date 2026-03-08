@@ -3,16 +3,65 @@ const answers = {};
 const skippedSet = new Set();
 
 // ---- Navigation helpers ----
-function goHome() {
-  if (document.getElementById('landing').style.display !== 'none') {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+function isInQuizOrResults() {
+  return document.getElementById('landing').style.display === 'none';
+}
+
+function updateLandingButtons() {
+  const hasProgress = loadProgress();
+  const restartWrap = document.getElementById('landingRestart');
+  const heroBtn = document.querySelector('.btn-hero span');
+  if (hasProgress && Object.keys(hasProgress.answers).length > 0) {
+    restartWrap.style.display = '';
+    heroBtn.textContent = 'Continue Test';
+  } else {
+    restartWrap.style.display = 'none';
+    heroBtn.textContent = 'Begin Your Journey';
   }
 }
 
+function showLeaveModal(navigateFn) {
+  showModal({
+    icon: '🚪',
+    title: 'Leave the Quiz?',
+    message: 'Your progress is saved automatically. You can come back and continue later.',
+    buttons: [
+      { label: 'Stay', cls: 'btn-primary' },
+      { label: 'Save & Leave', cls: 'btn-secondary', action: navigateFn },
+      { label: 'Restart', cls: 'btn-end', action: function() { doRestart(); navigateFn(); } }
+    ]
+  });
+}
+
+function goHome() {
+  if (isInQuizOrResults()) {
+    showLeaveModal(function() {
+      document.getElementById('quiz').style.display = 'none';
+      document.getElementById('results').style.display = 'none';
+      document.getElementById('landing').style.display = 'block';
+      updateLandingButtons();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    return;
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 function goSection(id) {
-  // If not on landing, go there first
-  if (document.getElementById('landing').style.display === 'none') return;
-  const el = document.getElementById(id);
+  if (isInQuizOrResults()) {
+    showLeaveModal(function() {
+      document.getElementById('quiz').style.display = 'none';
+      document.getElementById('results').style.display = 'none';
+      document.getElementById('landing').style.display = 'block';
+      updateLandingButtons();
+      setTimeout(function() {
+        var el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    });
+    return;
+  }
+  var el = document.getElementById(id);
   if (el) el.scrollIntoView({ behavior: 'smooth' });
   // Close mobile nav
   document.getElementById('navLinks').classList.remove('open');
@@ -27,13 +76,17 @@ window.addEventListener('scroll', function() {
   document.getElementById('siteHeader').classList.toggle('scrolled', window.scrollY > 10);
 });
 
-function setHeaderFooterVisible(visible) {
-  const header = document.getElementById('siteHeader');
-  const footer = document.getElementById('siteFooter');
-  if (header) header.style.display = visible ? '' : 'none';
-  if (footer) footer.style.display = visible ? '' : 'none';
-  document.body.style.paddingTop = visible ? '' : '0';
-}
+// Intercept external page links (e.g. privacy.html, terms.html) during quiz/results
+document.addEventListener('click', function(e) {
+  if (!isInQuizOrResults()) return;
+  const link = e.target.closest('a[href]');
+  if (!link) return;
+  const href = link.getAttribute('href');
+  // Only intercept links to other pages (not # anchors or javascript:)
+  if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
+  e.preventDefault();
+  showLeaveModal(function() { window.location.href = href; });
+});
 
 // ---- Custom Modal ----
 function showModal({ icon, title, message, buttons }) {
@@ -59,7 +112,6 @@ function closeModal() {
 function startQuiz() {
   document.getElementById('landing').style.display = 'none';
   document.getElementById('quiz').style.display = 'block';
-  setHeaderFooterVisible(false);
   currentIndex = 0;
   saveProgress();
   renderValue();
@@ -429,7 +481,7 @@ function doRestart() {
   document.getElementById('results').style.display = 'none';
   document.getElementById('quiz').style.display = 'none';
   document.getElementById('landing').style.display = 'block';
-  setHeaderFooterVisible(true);
+  updateLandingButtons();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -438,7 +490,7 @@ function doRestart() {
   const saved = loadProgress();
   if (!saved) return;
   // Show restart on landing page since progress exists
-  document.getElementById('landingRestart').style.display = '';
+  updateLandingButtons();
   // Restore answers
   Object.entries(saved.answers).forEach(([k, v]) => { answers[k] = v; });
   currentIndex = saved.currentIndex || 0;
@@ -447,12 +499,10 @@ function doRestart() {
   if (saved.screen === 'results') {
     document.getElementById('landing').style.display = 'none';
     document.getElementById('results').style.display = 'block';
-    setHeaderFooterVisible(false);
     showResults();
   } else if (saved.screen === 'quiz') {
     document.getElementById('landing').style.display = 'none';
     document.getElementById('quiz').style.display = 'block';
-    setHeaderFooterVisible(false);
     renderValue();
   }
 })();
