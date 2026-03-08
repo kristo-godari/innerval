@@ -2,6 +2,27 @@ let currentIndex = 0;
 const answers = {};
 const skippedSet = new Set();
 
+// ---- Custom Modal ----
+function showModal({ icon, title, message, buttons }) {
+  document.getElementById('modalIcon').textContent = icon || '';
+  document.getElementById('modalTitle').textContent = title || '';
+  document.getElementById('modalMessage').textContent = message || '';
+  const actionsEl = document.getElementById('modalActions');
+  actionsEl.innerHTML = '';
+  buttons.forEach(b => {
+    const btn = document.createElement('button');
+    btn.className = 'btn ' + (b.cls || 'btn-secondary');
+    btn.textContent = b.label;
+    btn.onclick = () => { closeModal(); if (b.action) b.action(); };
+    actionsEl.appendChild(btn);
+  });
+  document.getElementById('modalOverlay').classList.add('visible');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('visible');
+}
+
 function startQuiz() {
   document.getElementById('landing').style.display = 'none';
   document.getElementById('quiz').style.display = 'block';
@@ -137,7 +158,12 @@ function goToNextSkipped() {
 
 function nextValue() {
   if (!allAnsweredForCurrent()) {
-    alert('Please answer all 5 questions before continuing, or use Skip to come back later.');
+    showModal({
+      icon: '✏️',
+      title: 'Incomplete Answers',
+      message: 'Please answer all 5 questions before continuing, or use Skip to come back later.',
+      buttons: [{ label: 'Got it', cls: 'btn-primary' }]
+    });
     return;
   }
   skippedSet.delete(currentIndex);
@@ -184,11 +210,23 @@ function jumpToValue(index) {
 function endTest() {
   const completed = getCompletedCount();
   if (completed === 0) {
-    alert('Please complete at least one value before ending the test.');
+    showModal({
+      icon: '⚠️',
+      title: 'No Values Completed',
+      message: 'Please complete at least one value before ending the test.',
+      buttons: [{ label: 'Got it', cls: 'btn-primary' }]
+    });
     return;
   }
-  if (!confirm(`You have completed ${completed} of ${VALUES_DATA.length} values. End now and see results?`)) return;
-  showResults();
+  showModal({
+    icon: '🏁',
+    title: 'End Test?',
+    message: `You have completed ${completed} of ${VALUES_DATA.length} values. End now and see results?`,
+    buttons: [
+      { label: 'Cancel', cls: 'btn-secondary' },
+      { label: 'See Results', cls: 'btn-primary', action: showResults }
+    ]
+  });
 }
 
 function toggleSummary() {
@@ -336,13 +374,22 @@ function clearProgress() {
 }
 
 function restartTest() {
-  if (!confirm('This will erase all your progress. Are you sure?')) return;
+  showModal({
+    icon: '🔄',
+    title: 'Restart Test?',
+    message: 'This will erase all your progress. Are you sure?',
+    buttons: [
+      { label: 'Cancel', cls: 'btn-secondary' },
+      { label: 'Restart', cls: 'btn-end', action: doRestart }
+    ]
+  });
+}
+
+function doRestart() {
   clearProgress();
-  // Reset state
   currentIndex = 0;
   Object.keys(answers).forEach(k => delete answers[k]);
   skippedSet.clear();
-  // Reset UI
   document.getElementById('results').style.display = 'none';
   document.getElementById('quiz').style.display = 'none';
   document.getElementById('landing').style.display = 'block';
