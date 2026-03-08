@@ -363,11 +363,13 @@ function showResults() {
     else if (i === 2) rankClass = 'bronze';
 
     const hue = Math.round((pct / 100) * 120);
+    const desc = VALUE_DESCRIPTIONS[s.name] || '';
     html += `
       <div class="result-row">
         <div class="rank ${rankClass}">#${i + 1}</div>
         <div class="result-info">
           <div class="result-name">${s.name}</div>
+          ${desc ? `<div class="result-desc">${desc}</div>` : ''}
           <div class="result-bar-wrap">
             <div class="result-bar" style="width:${pct}%;background:hsl(${hue},70%,50%)"></div>
           </div>
@@ -454,6 +456,19 @@ function doRestart() {
     renderValue();
   }
 })();
+
+function downloadPDF() {
+  const element = document.getElementById('results');
+  const opt = {
+    margin:       [10, 10, 10, 10],
+    filename:     'innerval-values-report.pdf',
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2, useCORS: true },
+    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+  };
+  html2pdf().set(opt).from(element).save();
+}
 
 function handleContactSubmit(e) {
   e.preventDefault();
