@@ -86,6 +86,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .contact-icon{font-size:1.8rem;margin-bottom:10px}
 .contact-card h3{font-size:.95rem;margin-bottom:4px;color:var(--text)}
 .contact-card p{font-size:.85rem;color:var(--muted);margin:0}
+.contact-form{margin-top:24px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:.85rem;font-weight:600;color:var(--text);margin-bottom:6px}
+.form-group input,.form-group textarea{width:100%;padding:10px 12px;font-size:.9rem;font-family:inherit;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);transition:border-color .2s,box-shadow .2s;outline:none}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(79,70,229,.1)}
+.form-group textarea{resize:vertical}
+.btn-contact{width:100%;padding:12px;font-size:.95rem}
+.form-success{text-align:center;color:var(--green);font-size:.9rem;margin-top:12px;font-weight:500}
 
 /* CTA section */
 .cta-section{text-align:center;padding:40px 0 0;border-top:1px solid var(--border)}
