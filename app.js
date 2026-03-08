@@ -2,6 +2,39 @@ let currentIndex = 0;
 const answers = {};
 const skippedSet = new Set();
 
+// ---- Navigation helpers ----
+function goHome() {
+  if (document.getElementById('landing').style.display !== 'none') {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function goSection(id) {
+  // If not on landing, go there first
+  if (document.getElementById('landing').style.display === 'none') return;
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+  // Close mobile nav
+  document.getElementById('navLinks').classList.remove('open');
+}
+
+function toggleNav() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// Header shadow on scroll
+window.addEventListener('scroll', function() {
+  document.getElementById('siteHeader').classList.toggle('scrolled', window.scrollY > 10);
+});
+
+function setHeaderFooterVisible(visible) {
+  const header = document.getElementById('siteHeader');
+  const footer = document.getElementById('siteFooter');
+  if (header) header.style.display = visible ? '' : 'none';
+  if (footer) footer.style.display = visible ? '' : 'none';
+  document.body.style.paddingTop = visible ? '' : '0';
+}
+
 // ---- Custom Modal ----
 function showModal({ icon, title, message, buttons }) {
   document.getElementById('modalIcon').textContent = icon || '';
@@ -26,6 +59,7 @@ function closeModal() {
 function startQuiz() {
   document.getElementById('landing').style.display = 'none';
   document.getElementById('quiz').style.display = 'block';
+  setHeaderFooterVisible(false);
   currentIndex = 0;
   saveProgress();
   renderValue();
@@ -393,6 +427,7 @@ function doRestart() {
   document.getElementById('results').style.display = 'none';
   document.getElementById('quiz').style.display = 'none';
   document.getElementById('landing').style.display = 'block';
+  setHeaderFooterVisible(true);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -410,10 +445,12 @@ function doRestart() {
   if (saved.screen === 'results') {
     document.getElementById('landing').style.display = 'none';
     document.getElementById('results').style.display = 'block';
+    setHeaderFooterVisible(false);
     showResults();
   } else if (saved.screen === 'quiz') {
     document.getElementById('landing').style.display = 'none';
     document.getElementById('quiz').style.display = 'block';
+    setHeaderFooterVisible(false);
     renderValue();
   }
 })();

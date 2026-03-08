@@ -7,32 +7,204 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+<!-- SITE HEADER -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a href="#" class="logo" onclick="goHome()">&#9670; Values</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about" onclick="goSection('about')">About</a>
+      <a href="#how" onclick="goSection('how')">How It Works</a>
+      <a href="#faq" onclick="goSection('faq')">FAQ</a>
+      <a href="#contact" onclick="goSection('contact')">Contact</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" onclick="toggleNav()" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
 <div class="container">
 
   <!-- LANDING SCREEN -->
   <div id="landing">
-    <h1>Discover Your Personal Values</h1>
-    <p>Answer 310 situational questions across 62 core values to uncover what truly matters to you. Each value gets 5 real-life scenarios from different areas of life.</p>
+    <div class="hero">
+      <div class="hero-text">
+        <div class="hero-badge">Self-Discovery Quiz</div>
+        <h1>Discover What <span class="highlight">Truly Matters</span> to You</h1>
+        <p class="hero-sub">A comprehensive assessment that maps your personal values through real-life scenarios — helping you understand the principles that guide your decisions, relationships, and life direction.</p>
+        <button class="btn btn-primary btn-hero" onclick="startQuiz()">
+          <span>Begin Your Journey</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+        <div id="landingRestart" class="restart-wrap" style="display:none">
+          <button class="btn btn-secondary" onclick="restartTest()">↻ Restart Test</button>
+        </div>
+      </div>
+      <div class="hero-image">
+        <svg width="280" height="200" viewBox="0 0 280 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background circle -->
+          <circle cx="140" cy="100" r="90" fill="url(#heroGrad)" opacity="0.12"/>
+          <!-- Compass body -->
+          <circle cx="140" cy="100" r="60" stroke="#4f46e5" stroke-width="3" fill="white"/>
+          <circle cx="140" cy="100" r="52" stroke="#e2e8f0" stroke-width="1"/>
+          <!-- Cardinal ticks -->
+          <line x1="140" y1="48" x2="140" y2="56" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="140" y1="144" x2="140" y2="152" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="88" y1="100" x2="96" y2="100" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="184" y1="100" x2="192" y2="100" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Needle north (purple) -->
+          <polygon points="140,58 133,100 147,100" fill="#7c3aed"/>
+          <!-- Needle south (light) -->
+          <polygon points="140,142 133,100 147,100" fill="#c4b5fd"/>
+          <!-- Center dot -->
+          <circle cx="140" cy="100" r="5" fill="#4f46e5"/>
+          <circle cx="140" cy="100" r="2.5" fill="white"/>
+          <!-- Heart accent -->
+          <path d="M200 55 C200 47, 212 42, 212 52 C212 42, 224 47, 224 55 C224 68, 212 76, 212 76 C212 76, 200 68, 200 55Z" fill="#7c3aed" opacity="0.7"/>
+          <!-- Star accents -->
+          <circle cx="68" cy="60" r="3" fill="#eab308" opacity="0.7"/>
+          <circle cx="56" cy="80" r="2" fill="#eab308" opacity="0.5"/>
+          <circle cx="220" cy="140" r="2.5" fill="#22c55e" opacity="0.6"/>
+          <circle cx="76" cy="145" r="2" fill="#4f46e5" opacity="0.4"/>
+          <!-- Sparkle dots -->
+          <circle cx="210" cy="55" r="1.5" fill="#818cf8" opacity="0.5"/>
+          <circle cx="230" cy="70" r="1" fill="#818cf8" opacity="0.4"/>
+          <defs>
+            <radialGradient id="heroGrad" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0%" stop-color="#7c3aed"/>
+              <stop offset="100%" stop-color="#4f46e5"/>
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+    </div>
+
+    <div class="stats-strip">
+      <div class="stat-item">
+        <span class="stat-number">62</span>
+        <span class="stat-label">Core Values</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number">310</span>
+        <span class="stat-label">Scenarios</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number">5</span>
+        <span class="stat-label">Life Areas</span>
+      </div>
+    </div>
+
+    <div class="how-it-works" id="how">
+      <h2 class="section-title">How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Rate Scenarios</h3>
+            <p>For each value, you'll see 5 real-life situations from work, relationships, personal growth, social life, and leisure. Rate how much each resonates with you.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>Be Honest</h3>
+            <p>There are no right or wrong answers. Rate based on how you actually feel — not how you think you should feel. Authenticity gives the best results.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Get Your Profile</h3>
+            <p>Your values are ranked from most to least important, organized into tiers. Discover your core values — the ones that define who you are.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="info-cards">
       <div class="info-card">
         <div class="icon">🎯</div>
-        <h3>62 Core Values</h3>
-        <p>From Acceptance to Wisdom, explore a comprehensive set of human values.</p>
+        <h3>Comprehensive</h3>
+        <p>62 values from Acceptance to Wisdom — covering the full spectrum of what people find meaningful.</p>
       </div>
       <div class="info-card">
-        <div class="icon">💬</div>
-        <h3>310 Scenarios</h3>
-        <p>5 concrete situations per value from work, relationships, personal life, social, and leisure contexts.</p>
+        <div class="icon">⏱️</div>
+        <h3>Flexible Pace</h3>
+        <p>Skip values and come back later. Your progress is saved automatically — close the tab and resume anytime.</p>
       </div>
       <div class="info-card">
-        <div class="icon">📊</div>
-        <h3>Ranked Results</h3>
-        <p>Get your values ranked from most to least important based on your averaged scores.</p>
+        <div class="icon">🔒</div>
+        <h3>Private</h3>
+        <p>Everything stays in your browser. No accounts, no data collection — your answers are yours alone.</p>
       </div>
     </div>
-    <button class="btn btn-primary" onclick="startQuiz()">Start Discovery →</button>
-    <div id="landingRestart" class="restart-wrap" style="display:none">
-      <button class="btn btn-secondary" onclick="restartTest()">↻ Restart Test</button>
+
+    <!-- ABOUT SECTION -->
+    <div class="landing-section" id="about">
+      <h2 class="section-title">About This Quiz</h2>
+      <div class="about-content">
+        <p>Understanding your personal values is one of the most powerful tools for self-awareness. Values are the fundamental beliefs that guide your behaviour, decisions, and sense of fulfilment.</p>
+        <p>This quiz presents you with <strong>310 real-life scenarios</strong> spanning <strong>62 universally recognised values</strong> — from Acceptance and Courage to Wisdom and Adventure. By rating how each scenario resonates with you, you build an authentic map of what matters most in your life.</p>
+        <p>Whether you're navigating a career change, improving relationships, or simply seeking clarity, knowing your values gives you a compass for every decision.</p>
+      </div>
+    </div>
+
+    <!-- FAQ SECTION -->
+    <div class="landing-section" id="faq">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>How long does the quiz take?</summary>
+          <p>If you complete all 62 values it takes roughly 30–45 minutes, but you can skip values and return to them later. Your progress is saved automatically.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Is my data stored anywhere?</summary>
+          <p>No. All answers are stored locally in your browser using localStorage. Nothing is sent to any server — your data never leaves your device.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can I retake the quiz?</summary>
+          <p>Absolutely. Use the Restart button at any time to clear your progress and start fresh.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do I have to complete all 62 values?</summary>
+          <p>No — you can end the test early and see partial results for the values you've completed. However, a full profile gives you the most accurate ranking.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What do the tiers in the results mean?</summary>
+          <p>Values are grouped into five tiers based on your scores: Core Values (top ~16%), Very Important, Important, Moderate, and Less Important. The tiers help you see which values are truly central to who you are.</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- CONTACT SECTION -->
+    <div class="landing-section" id="contact">
+      <h2 class="section-title">Contact</h2>
+      <div class="contact-content">
+        <p>Have feedback, suggestions, or found a bug? We'd love to hear from you.</p>
+        <div class="contact-cards">
+          <div class="contact-card">
+            <div class="contact-icon">&#9993;</div>
+            <h3>Email</h3>
+            <p>hello@valuesquiz.app</p>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">&#128172;</div>
+            <h3>Feedback</h3>
+            <p>Use the form below or email us directly with your thoughts.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <p class="cta-text">Ready to discover your values?</p>
+      <button class="btn btn-primary btn-hero" onclick="startQuiz()">
+        <span>Start the Quiz</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </button>
     </div>
   </div>
 
@@ -94,6 +266,31 @@
     <div class="modal-actions" id="modalActions"></div>
   </div>
 </div>
+
+<!-- SITE FOOTER -->
+<footer class="site-footer" id="siteFooter">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo">&#9670; Values</span>
+      <p>Discover what truly matters to you.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Navigation</h4>
+      <a href="#about" onclick="goSection('about')">About</a>
+      <a href="#how" onclick="goSection('how')">How It Works</a>
+      <a href="#faq" onclick="goSection('faq')">FAQ</a>
+      <a href="#contact" onclick="goSection('contact')">Contact</a>
+    </div>
+    <div class="footer-links">
+      <h4>Legal</h4>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Values Quiz. All rights reserved.</p>
+  </div>
+</footer>
 
 <script src="data/values-data.js"></script>
 <script src="data/value-descriptions.js"></script>
