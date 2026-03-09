@@ -1,0 +1,31 @@
+/* Results screen styles. */
+
+#results{display:none}
+#results h2{font-size:2rem;text-align:center;margin-bottom:8px}
+#results .subtitle{text-align:center;color:var(--muted);margin-bottom:32px}
+.top-values{display:grid;gap:16px;margin-bottom:40px}
+.result-row{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;transition:transform .2s}
+.result-row:hover{transform:translateX(4px)}
+.rank{font-size:1.3rem;font-weight:800;width:40px;text-align:center;flex-shrink:0}
+.rank.gold{color:#eab308}.rank.silver{color:#94a3b8}.rank.bronze{color:#d97706}
+.result-info{flex:1;min-width:0}
+.result-name{font-weight:700;font-size:1.05rem}
+.result-desc{font-size:.85rem;color:var(--muted);margin:4px 0 6px;line-height:1.4}
+.result-bar-wrap{height:8px;background:var(--border);border-radius:99px;margin-top:6px;overflow:hidden}
+.result-bar{height:100%;border-radius:99px;transition:width 1s ease}
+.result-score{font-size:1.1rem;font-weight:700;color:var(--primary);flex-shrink:0;min-width:50px;text-align:right}
+.tier-label{font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin:24px 0 12px;padding:8px 0;border-bottom:2px solid var(--border)}
+
+/* Results Action Bar */
+.results-actions{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.results-actions .btn{padding:10px 20px;font-size:.85rem}
+.export-note{font-size:.8rem;color:var(--muted);margin-bottom:20px;line-height:1.5}
+.export-note strong{color:var(--text)}
+
+/* Partial Results Notice */
+.partial-notice{text-align:center;background:#fef3c7;border:1px solid #fde68a;border-radius:var(--radius);padding:12px 16px;margin-bottom:24px;font-size:.9rem;color:#92400e}
+
+/* Results Explore CTA */
+.results-explore-cta{background:linear-gradient(135deg,rgba(79,70,229,.06),rgba(124,58,237,.06));border:1px solid rgba(79,70,229,.15);border-radius:var(--radius);padding:20px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.results-explore-cta p{font-size:.9rem;color:var(--muted);margin:0;flex:1;min-width:200px}
+.results-explore-cta .btn{flex-shrink:0}
