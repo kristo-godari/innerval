@@ -371,7 +371,53 @@
   <div id="exploreValues" style="display:none">
     <div class="explore-header">
       <h2>Explore Values</h2>
-      <p class="subtitle">Browse all 62 values — find what inspires you and build your aspirations</p>
+      <p class="subtitle">Discover who you are and who you want to become</p>
+    </div>
+
+    <!-- Dashboard: My Values + My Aspirations -->
+    <div class="explore-dashboard" id="exploreDashboard">
+      <!-- My Values (from quiz) -->
+      <div class="dashboard-card dashboard-values" id="dashboardMyValues" style="display:none">
+        <div class="dashboard-card-header">
+          <div class="dashboard-card-icon">🧭</div>
+          <div>
+            <h3>My Values</h3>
+            <p class="dashboard-card-desc">Discovered from your assessment</p>
+          </div>
+        </div>
+        <div id="myValuesList" class="my-values-list"></div>
+        <div class="dashboard-card-footer" id="myValuesFooter"></div>
+      </div>
+
+      <!-- My Aspirations -->
+      <div class="dashboard-card dashboard-aspirations" id="dashboardAspirations">
+        <div class="dashboard-card-header">
+          <div class="dashboard-card-icon">⭐</div>
+          <div>
+            <h3>My Aspirations</h3>
+            <p class="dashboard-card-desc">Values you want to cultivate</p>
+          </div>
+        </div>
+        <div id="aspirationsList" class="aspirations-list"></div>
+        <div id="aspirationsEmpty" class="aspirations-empty">
+          <p>No aspirations yet. Browse the values below and tap ⭐ to add values you want to cultivate.</p>
+        </div>
+        <div class="dashboard-card-footer" id="aspirationsPanelActions" style="display:none">
+          <button class="btn btn-secondary btn-sm" onclick="clearAllAspirations()">Clear All</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Create Plan CTA -->
+    <div class="explore-plan-cta" id="explorePlanCta" style="display:none">
+      <div class="plan-cta-info">
+        <strong>Ready to grow?</strong>
+        <span id="planCtaDesc">Create a personalised plan based on your values and aspirations</span>
+      </div>
+      <button class="btn btn-primary btn-plan-cta" id="createPlanBtn" onclick="showGrowthPlan()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        Create My Plan
+      </button>
     </div>
 
     <div class="explore-toolbar">
@@ -380,29 +426,6 @@
         <input type="text" id="exploreSearch" placeholder="Search values..." oninput="filterExploreValues()">
       </div>
       <div class="explore-filters" id="exploreFilters"></div>
-      <button class="btn btn-aspirations-toggle" id="aspirationsToggleBtn" onclick="toggleAspirationsPanel()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        My Aspirations (<span id="aspirationsCount">0</span>)
-      </button>
-    </div>
-
-    <!-- Aspirations Panel -->
-    <div class="aspirations-panel" id="aspirationsPanel" style="display:none">
-      <div class="aspirations-panel-header">
-        <h3>⭐ My Aspirations</h3>
-        <p class="aspirations-panel-desc">Values you want to cultivate and grow into</p>
-      </div>
-      <div id="aspirationsList" class="aspirations-list"></div>
-      <div id="aspirationsEmpty" class="aspirations-empty">
-        <p>No aspirations yet. Browse the values below and tap the ⭐ button to add values you want to cultivate.</p>
-      </div>
-      <div class="aspirations-panel-actions" id="aspirationsPanelActions" style="display:none">
-        <button class="btn btn-secondary btn-sm" onclick="clearAllAspirations()">Clear All</button>
-        <button class="btn btn-compare btn-sm" id="createPlanBtn" onclick="showGrowthPlan()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-          Create My Plan
-        </button>
-      </div>
     </div>
 
     <!-- Value Cards Grid -->
@@ -424,7 +447,7 @@
   <div id="growthPlan" style="display:none">
     <div class="plan-header">
       <h2>Your Growth Plan</h2>
-      <p class="subtitle">A personalised AI prompt to create your step-by-step value cultivation plan</p>
+      <p class="subtitle">A personalised AI prompt based on your values and aspirations</p>
     </div>
 
     <div class="plan-context" id="planContext"></div>

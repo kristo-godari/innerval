@@ -1263,7 +1263,9 @@ function doShowExplore() {
   loadAspirations();
   renderExploreFilters();
   renderExploreGrid();
+  renderMyValuesPanel();
   updateAspirationsUI();
+  updatePlanCta();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -1352,26 +1354,8 @@ function toggleAspiration(name) {
 }
 
 function updateAspirationsUI() {
-  const count = aspirations.size;
-  document.getElementById('aspirationsCount').textContent = count;
-  const btn = document.getElementById('aspirationsToggleBtn');
-  if (count > 0) {
-    btn.classList.add('has-items');
-  } else {
-    btn.classList.remove('has-items');
-  }
-  // Update panel content
   renderAspirationsPanel();
-}
-
-function toggleAspirationsPanel() {
-  const panel = document.getElementById('aspirationsPanel');
-  if (panel.style.display === 'none') {
-    panel.style.display = 'block';
-    renderAspirationsPanel();
-  } else {
-    panel.style.display = 'none';
-  }
+  updatePlanCta();
 }
 
 function renderAspirationsPanel() {
@@ -1396,6 +1380,64 @@ function renderAspirationsPanel() {
       '<span class="remove-asp" onclick="event.stopPropagation();toggleAspiration(\'' + escapeName(name) + '\')" title="Remove">&times;</span>' +
     '</span>';
   }).join('');
+}
+
+function renderMyValuesPanel() {
+  const results = getQuizResults();
+  const panel = document.getElementById('dashboardMyValues');
+  const listEl = document.getElementById('myValuesList');
+  const footerEl = document.getElementById('myValuesFooter');
+  const dashboard = document.getElementById('exploreDashboard');
+
+  if (!results || results.length === 0) {
+    panel.style.display = 'none';
+    dashboard.classList.add('single-card');
+    return;
+  }
+
+  panel.style.display = '';
+  dashboard.classList.remove('single-card');
+  const top = results.slice(0, 5);
+  const total = results.length;
+
+  listEl.innerHTML = top.map(function(v, i) {
+    const d = VALUE_EXPLORE_DATA[v.name];
+    return '<div class="my-value-item" onclick="openExploreDetail(\'' + escapeName(v.name) + '\')">' +
+      '<span class="my-value-rank">#' + (i + 1) + '</span>' +
+      '<span class="my-value-emoji">' + (d ? d.emoji : '') + '</span>' +
+      '<span class="my-value-name">' + v.name + '</span>' +
+      '<span class="my-value-score">' + v.avg.toFixed(1) + '</span>' +
+    '</div>';
+  }).join('');
+
+  if (total > 5) {
+    footerEl.innerHTML = '<span class="my-values-more">' + (total - 5) + ' more values assessed</span>';
+  } else {
+    footerEl.innerHTML = '';
+  }
+}
+
+function updatePlanCta() {
+  const results = getQuizResults();
+  const hasResults = results && results.length > 0;
+  const hasAspirations = aspirations.size > 0;
+  const cta = document.getElementById('explorePlanCta');
+  const desc = document.getElementById('planCtaDesc');
+
+  if (!hasResults && !hasAspirations) {
+    cta.style.display = 'none';
+    return;
+  }
+
+  cta.style.display = 'flex';
+
+  if (hasResults && hasAspirations) {
+    desc.textContent = 'Based on your assessed values and aspirations';
+  } else if (hasResults) {
+    desc.textContent = 'Based on your assessed values';
+  } else {
+    desc.textContent = 'Based on your aspirations';
+  }
 }
 
 function clearAllAspirations() {
@@ -1468,11 +1510,15 @@ loadAspirations();
 // ================================================================
 
 function showGrowthPlan() {
-  if (aspirations.size === 0) {
+  const results = getQuizResults();
+  const hasResults = results && results.length > 0;
+  const hasAspirations = aspirations.size > 0;
+
+  if (!hasResults && !hasAspirations) {
     showModal({
-      icon: '⭐',
-      title: 'No Aspirations Selected',
-      message: 'Add at least one value to your aspirations list before creating a plan.',
+      icon: '📋',
+      title: 'Nothing to Plan Yet',
+      message: 'Take the assessment to discover your values, or add aspirations — values you want to cultivate.',
       buttons: [{ label: 'Got it', cls: 'btn-primary' }]
     });
     return;
@@ -1503,31 +1549,48 @@ function renderGrowthPlan() {
   const results = getQuizResults();
   const hasResults = results && results.length > 0;
   const aspirationNames = [...aspirations];
+  const hasAspirations = aspirationNames.length > 0;
 
   // Render context card
   const contextEl = document.getElementById('planContext');
+  let contextHtml = '';
+
   if (hasResults) {
     const topValues = results.slice(0, 5).map(v => v.name + ' (' + v.avg.toFixed(1) + '/5)');
-    contextEl.innerHTML =
-      '<div class="plan-context-card plan-context-full">' +
+    contextHtml +=
+      '<div class="plan-context-card plan-context-values">' +
         '<div class="plan-context-icon">🧭</div>' +
         '<div class="plan-context-info">' +
-          '<strong>Full Plan</strong> — based on your quiz results + aspirations' +
-          '<div class="plan-context-detail">Your top values: ' + topValues.join(', ') + '</div>' +
-          '<div class="plan-context-detail">Aspirations: ' + aspirationNames.join(', ') + '</div>' +
-        '</div>' +
-      '</div>';
-  } else {
-    contextEl.innerHTML =
-      '<div class="plan-context-card plan-context-aspirations">' +
-        '<div class="plan-context-icon">⭐</div>' +
-        '<div class="plan-context-info">' +
-          '<strong>Aspirations Plan</strong> — based on your selected aspirations' +
-          '<div class="plan-context-detail">Aspirations: ' + aspirationNames.join(', ') + '</div>' +
-          '<div class="plan-context-tip">💡 Take the quiz first to get a richer plan that considers your current values alongside your aspirations.</div>' +
+          '<strong>My Values</strong> — discovered from your assessment' +
+          '<div class="plan-context-detail">Top values: ' + topValues.join(', ') + '</div>' +
         '</div>' +
       '</div>';
   }
+
+  if (hasAspirations) {
+    contextHtml +=
+      '<div class="plan-context-card plan-context-aspirations">' +
+        '<div class="plan-context-icon">⭐</div>' +
+        '<div class="plan-context-info">' +
+          '<strong>My Aspirations</strong> — values you want to cultivate' +
+          '<div class="plan-context-detail">' + aspirationNames.join(', ') + '</div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  if (hasResults && hasAspirations) {
+    contextHtml =
+      '<div class="plan-context-summary">Your plan combines who you are with who you want to become</div>' +
+      contextHtml;
+  } else if (hasResults && !hasAspirations) {
+    contextHtml +=
+      '<div class="plan-context-tip">💡 Add aspirations in Explore Values to get a richer plan that bridges your current values with where you want to grow.</div>';
+  } else if (!hasResults && hasAspirations) {
+    contextHtml +=
+      '<div class="plan-context-tip">💡 Take the assessment to discover your current values — your plan will be even more personalised.</div>';
+  }
+
+  contextEl.innerHTML = contextHtml;
 
   // Build the prompt
   const prompt = buildGrowthPrompt(results, aspirationNames);
@@ -1535,12 +1598,12 @@ function renderGrowthPlan() {
 
   // Reset copy button
   const copyBtn = document.getElementById('copyPromptBtn');
-  copyBtn.querySelector('svg + span, span');
   copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Prompt';
 }
 
 function buildGrowthPrompt(results, aspirationNames) {
   const hasResults = results && results.length > 0;
+  const hasAspirations = aspirationNames && aspirationNames.length > 0;
 
   let prompt = 'I want to create a personal growth plan to cultivate specific values in my life. ';
   prompt += 'Please create a detailed, step-by-step plan with concrete daily routines, weekly practices, and monthly milestones that will help me develop these values.\n\n';
@@ -1556,7 +1619,7 @@ function buildGrowthPrompt(results, aspirationNames) {
       { label: 'Less Important', pct: 1.0 }
     ];
 
-    prompt += '=== MY CURRENT VALUES (from assessment) ===\n';
+    prompt += '=== MY VALUES (from assessment) ===\n';
     prompt += 'I recently completed a personal values assessment where I rated ' + count + ' values. ';
     prompt += 'Here are my results ranked from most to least important:\n\n';
 
@@ -1564,7 +1627,7 @@ function buildGrowthPrompt(results, aspirationNames) {
     results.forEach((v, i) => {
       const pct = (i + 1) / count;
       while (tierIdx < tiers.length - 1 && pct > tiers[tierIdx].pct) tierIdx++;
-      if (i < 10 || aspirationNames.includes(v.name)) {
+      if (i < 10 || (hasAspirations && aspirationNames.includes(v.name))) {
         prompt += '  ' + (i + 1) + '. ' + v.name + ' — ' + v.avg.toFixed(1) + '/5';
         if (i === 0) prompt += ' [strongest]';
         prompt += '\n';
@@ -1575,48 +1638,74 @@ function buildGrowthPrompt(results, aspirationNames) {
     prompt += '\nMy strongest values (already well-developed): ';
     prompt += results.slice(0, 5).map(v => v.name).join(', ') + '\n';
 
-    const resultMap = {};
-    results.forEach(v => { resultMap[v.name] = v.avg; });
-    const aspirationsInResults = aspirationNames.filter(n => resultMap[n] !== undefined);
-    const aspirationsNotInResults = aspirationNames.filter(n => resultMap[n] === undefined);
+    if (hasAspirations) {
+      const resultMap = {};
+      results.forEach(v => { resultMap[v.name] = v.avg; });
+      const aspirationsInResults = aspirationNames.filter(n => resultMap[n] !== undefined);
 
-    if (aspirationsInResults.length > 0) {
-      prompt += '\nCurrent scores for my aspiration values:\n';
-      aspirationsInResults.forEach(name => {
-        prompt += '  - ' + name + ': ' + resultMap[name].toFixed(1) + '/5\n';
-      });
+      if (aspirationsInResults.length > 0) {
+        prompt += '\nCurrent scores for my aspiration values:\n';
+        aspirationsInResults.forEach(name => {
+          prompt += '  - ' + name + ': ' + resultMap[name].toFixed(1) + '/5\n';
+        });
+      }
     }
 
     prompt += '\n';
   }
 
-  prompt += '=== VALUES I WANT TO CULTIVATE (my aspirations) ===\n';
-  aspirationNames.forEach(name => {
-    const data = VALUE_EXPLORE_DATA[name];
-    if (data) {
-      prompt += '- ' + name + ': ' + data.shortDesc + '\n';
-    } else {
-      prompt += '- ' + name + '\n';
-    }
-  });
+  if (hasAspirations) {
+    prompt += '=== MY ASPIRATIONS (values I want to cultivate) ===\n';
+    aspirationNames.forEach(name => {
+      const data = VALUE_EXPLORE_DATA[name];
+      if (data) {
+        prompt += '- ' + name + ': ' + data.shortDesc + '\n';
+      } else {
+        prompt += '- ' + name + '\n';
+      }
+    });
+    prompt += '\n';
+  }
 
-  prompt += '\n=== WHAT I NEED FROM YOU ===\n';
+  prompt += '=== WHAT I NEED FROM YOU ===\n';
   prompt += 'Please provide:\n';
-  prompt += '1. A brief analysis of my aspirations' + (hasResults ? ' in the context of my current values' : '') + '\n';
-  prompt += '2. For EACH aspiration value, provide:\n';
-  prompt += '   a. Why this value matters and how it connects to a fulfilling life\n';
-  prompt += '   b. 2-3 daily micro-habits or routines (5-15 minutes each) to practise this value\n';
-  prompt += '   c. 1-2 weekly practices or exercises (30-60 minutes) to deepen this value\n';
-  prompt += '   d. A monthly reflection prompt or milestone to track growth\n';
-  prompt += '   e. Common obstacles and how to overcome them\n';
-  prompt += '3. A suggested morning and evening routine that integrates all the aspiration values\n';
-  prompt += '4. A 90-day roadmap broken into three phases (Foundation, Practice, Integration)\n';
-  prompt += '5. Ways to measure progress and signs that the values are becoming part of who I am\n';
 
-  if (hasResults) {
+  if (hasResults && hasAspirations) {
+    prompt += '1. A brief analysis of how my current values and aspirations relate — where I am vs where I want to be\n';
+    prompt += '2. For EACH aspiration value, provide:\n';
+    prompt += '   a. Why this value matters and how it connects to a fulfilling life\n';
+    prompt += '   b. 2-3 daily micro-habits or routines (5-15 minutes each) to practise this value\n';
+    prompt += '   c. 1-2 weekly practices or exercises (30-60 minutes) to deepen this value\n';
+    prompt += '   d. A monthly reflection prompt or milestone to track growth\n';
+    prompt += '   e. Common obstacles and how to overcome them\n';
+    prompt += '3. A suggested morning and evening routine that integrates the aspiration values\n';
+    prompt += '4. A 90-day roadmap broken into three phases (Foundation, Practice, Integration)\n';
+    prompt += '5. Ways to measure progress and signs that the values are becoming part of who I am\n';
     prompt += '\nIMPORTANT: Consider my existing strong values as strengths to build on. ';
     prompt += 'Show me how my current values can support and accelerate the cultivation of my aspiration values. ';
     prompt += 'For aspiration values where I scored low, provide extra attention and gentler starting points.\n';
+  } else if (hasResults) {
+    prompt += '1. An analysis of my values profile — what my top values reveal about who I am\n';
+    prompt += '2. For my top 5 values, provide:\n';
+    prompt += '   a. How to lean into this strength more intentionally\n';
+    prompt += '   b. 1-2 daily practices to live this value more fully\n';
+    prompt += '   c. Potential blind spots when this value is overemphasised\n';
+    prompt += '3. For my weakest 3 values, suggest:\n';
+    prompt += '   a. Whether growing these would benefit me, and why\n';
+    prompt += '   b. Gentle starting points if I want to develop them\n';
+    prompt += '4. A suggested morning and evening routine aligned with my core values\n';
+    prompt += '5. A 90-day roadmap to live more intentionally according to my values\n';
+  } else {
+    prompt += '1. A brief analysis of my aspirations\n';
+    prompt += '2. For EACH aspiration value, provide:\n';
+    prompt += '   a. Why this value matters and how it connects to a fulfilling life\n';
+    prompt += '   b. 2-3 daily micro-habits or routines (5-15 minutes each) to practise this value\n';
+    prompt += '   c. 1-2 weekly practices or exercises (30-60 minutes) to deepen this value\n';
+    prompt += '   d. A monthly reflection prompt or milestone to track growth\n';
+    prompt += '   e. Common obstacles and how to overcome them\n';
+    prompt += '3. A suggested morning and evening routine that integrates all the aspiration values\n';
+    prompt += '4. A 90-day roadmap broken into three phases (Foundation, Practice, Integration)\n';
+    prompt += '5. Ways to measure progress and signs that the values are becoming part of who I am\n';
   }
 
   prompt += '\nMake the plan practical, actionable, and realistic for someone with a busy schedule. ';
@@ -1644,6 +1733,8 @@ function backToExploreFromPlan() {
   document.getElementById('exploreValues').style.display = 'block';
   loadAspirations();
   renderExploreGrid();
+  renderMyValuesPanel();
   updateAspirationsUI();
+  updatePlanCta();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
