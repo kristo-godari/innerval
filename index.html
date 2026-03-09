@@ -25,6 +25,7 @@
     <nav class="nav-links" id="navLinks">
       <a href="#" onclick="goHome()">Home</a>
       <a href="#" onclick="startQuiz()" class="nav-action nav-quiz">Start Quiz</a>
+      <a href="#" onclick="showExploreValues()" class="nav-action nav-explore">Explore Values</a>
       <a href="#" onclick="showCompareUpload()" class="nav-action nav-compare">Compare</a>
       <a href="#about" onclick="goSection('about')">About</a>
       <a href="#contact" onclick="goSection('contact')">Contact</a>
@@ -49,9 +50,9 @@
             <span>Begin Your Journey</span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
-          <button class="btn btn-secondary btn-hero" onclick="showCompareUpload()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            <span>Compare Two Results</span>
+          <button class="btn btn-secondary btn-hero" onclick="showExploreValues()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <span>Explore Values</span>
           </button>
         </div>
         <div id="landingRestart" class="restart-wrap" style="display:none">
@@ -172,6 +173,11 @@
         <h3>Compare Results</h3>
         <p>Upload two exported profiles and see how they align — with a radar chart, tier comparison, category breakdown, and an overall alignment score.</p>
       </div>
+      <div class="info-card">
+        <div class="icon">🧭</div>
+        <h3>Explore &amp; Aspire</h3>
+        <p>Browse all 62 values with rich descriptions, examples, and reasons to cultivate each one. Build your personal aspirations list of values you want to grow into.</p>
+      </div>
     </div>
 
     <!-- ABOUT SECTION -->
@@ -266,6 +272,22 @@
       </div>
     </div>
 
+    <!-- WHO YOU WANT TO BE SECTION -->
+    <div class="landing-section" id="aspirations-info">
+      <h2 class="section-title">Who Do You Want to Be?</h2>
+      <div class="about-content">
+        <p>Knowing your current values is powerful — but <strong>choosing who you want to become</strong> is transformative. Your values today aren't set in stone. You can intentionally cultivate new ones that align with the person you aspire to be.</p>
+        <p>Our <strong>Explore Values</strong> gallery lets you browse all 62 values with rich descriptions, real-life examples, and compelling reasons to cultivate each one. Find values that inspire you and add them to your <strong>My Aspirations</strong> list — your personal roadmap for growth.</p>
+        <p>Whether you've taken the quiz or not, exploring values is a powerful exercise in self-reflection. Discover what resonates, build your aspirations, and start the journey toward the person you want to become.</p>
+      </div>
+      <div style="text-align:center;margin-top:20px">
+        <button class="btn btn-primary btn-hero" onclick="showExploreValues()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <span>Explore All Values</span>
+        </button>
+      </div>
+    </div>
+
     <div class="cta-section">
       <p class="cta-text">Ready to discover your values?</p>
       <button class="btn btn-primary btn-hero" onclick="startQuiz()">
@@ -334,8 +356,64 @@
       </div>
     </div>
     <p class="export-note">💡 <strong>Download Report</strong> saves a visual PDF. <strong>Export Data</strong> saves JSON for comparison. <strong>Compare With Someone</strong> lets you upload another person's export to see how you align.</p>
+    <div class="results-explore-cta">
+      <p>🧭 <strong>Now that you know your values</strong> — explore all 62 values in depth and build a list of values you want to cultivate.</p>
+      <button class="btn btn-compare" onclick="showExploreValues()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Explore Values &amp; Set Aspirations
+      </button>
+    </div>
     <div id="partialNotice" class="partial-notice" style="display:none"></div>
     <div id="resultsList"></div>
+  </div>
+
+  <!-- EXPLORE VALUES SCREEN -->
+  <div id="exploreValues" style="display:none">
+    <div class="explore-header">
+      <h2>Explore Values</h2>
+      <p class="subtitle">Browse all 62 values — find what inspires you and build your aspirations</p>
+    </div>
+
+    <div class="explore-toolbar">
+      <div class="explore-search">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="exploreSearch" placeholder="Search values..." oninput="filterExploreValues()">
+      </div>
+      <div class="explore-filters" id="exploreFilters"></div>
+      <button class="btn btn-aspirations-toggle" id="aspirationsToggleBtn" onclick="toggleAspirationsPanel()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        My Aspirations (<span id="aspirationsCount">0</span>)
+      </button>
+    </div>
+
+    <!-- Aspirations Panel -->
+    <div class="aspirations-panel" id="aspirationsPanel" style="display:none">
+      <div class="aspirations-panel-header">
+        <h3>⭐ My Aspirations</h3>
+        <p class="aspirations-panel-desc">Values you want to cultivate and grow into</p>
+      </div>
+      <div id="aspirationsList" class="aspirations-list"></div>
+      <div id="aspirationsEmpty" class="aspirations-empty">
+        <p>No aspirations yet. Browse the values below and tap the ⭐ button to add values you want to cultivate.</p>
+      </div>
+      <div class="aspirations-panel-actions" id="aspirationsPanelActions" style="display:none">
+        <button class="btn btn-secondary btn-sm" onclick="clearAllAspirations()">Clear All</button>
+      </div>
+    </div>
+
+    <!-- Value Cards Grid -->
+    <div class="explore-grid" id="exploreGrid"></div>
+    <div class="explore-empty" id="exploreEmpty" style="display:none">
+      <p>No values match your search. Try a different keyword or clear the filters.</p>
+    </div>
+
+    <!-- Value Detail Modal -->
+    <div class="explore-detail-overlay" id="exploreDetailOverlay">
+      <div class="explore-detail">
+        <button class="explore-detail-close" onclick="closeExploreDetail()">&times;</button>
+        <div id="exploreDetailContent"></div>
+      </div>
+    </div>
   </div>
 
   <!-- COMPARE UPLOAD SCREEN -->
@@ -491,6 +569,7 @@
       <h4>Navigation</h4>
       <a href="#about" onclick="goSection('about')">About</a>
       <a href="#how" onclick="goSection('how')">How It Works</a>
+      <a href="#" onclick="showExploreValues()">Explore Values</a>
       <a href="#faq" onclick="goSection('faq')">FAQ</a>
       <a href="#contact" onclick="goSection('contact')">Contact</a>
     </div>
@@ -508,6 +587,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js" integrity="sha512-MpDFIChbcXl2QgipQrt1VcPHMldRILetapBl5MPCA9Y8r7qvlwx1/Mc9hNTzY+kS5kX6PdoDq41ws1HiVNLdZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="data/values-data.js"></script>
 <script src="data/value-descriptions.js"></script>
+<script src="data/value-explore-data.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
