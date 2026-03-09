@@ -7,7 +7,8 @@ function isInQuizOrResults() {
   return document.getElementById('landing').style.display === 'none' &&
     document.getElementById('compareUpload').style.display !== 'block' &&
     document.getElementById('compareResults').style.display !== 'block' &&
-    document.getElementById('exploreValues').style.display !== 'block';
+    document.getElementById('exploreValues').style.display !== 'block' &&
+    document.getElementById('growthPlan').style.display !== 'block';
 }
 
 function isInAnyActiveScreen() {
@@ -616,7 +617,7 @@ let compareData2 = null;
 let compareFromResultsMode = false;
 
 function hideAllScreens() {
-  ['landing', 'quiz', 'results', 'compareUpload', 'compareResults', 'exploreValues'].forEach(id => {
+  ['landing', 'quiz', 'results', 'compareUpload', 'compareResults', 'exploreValues', 'growthPlan'].forEach(id => {
     document.getElementById(id).style.display = 'none';
   });
 }
@@ -1461,3 +1462,188 @@ document.addEventListener('keydown', function(e) {
 
 // Load aspirations on page load
 loadAspirations();
+
+// ================================================================
+// GROWTH PLAN
+// ================================================================
+
+function showGrowthPlan() {
+  if (aspirations.size === 0) {
+    showModal({
+      icon: '⭐',
+      title: 'No Aspirations Selected',
+      message: 'Add at least one value to your aspirations list before creating a plan.',
+      buttons: [{ label: 'Got it', cls: 'btn-primary' }]
+    });
+    return;
+  }
+  hideAllScreens();
+  document.getElementById('growthPlan').style.display = 'block';
+  renderGrowthPlan();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function getQuizResults() {
+  const completedValues = [];
+  VALUES_DATA.forEach((v, vi) => {
+    if (isValueCompleted(vi)) {
+      let sum = 0;
+      for (let qi = 0; qi < 5; qi++) {
+        sum += answers[`${vi}_${qi}`] || 0;
+      }
+      completedValues.push({ name: v.name, avg: sum / 5 });
+    }
+  });
+  if (completedValues.length === 0) return null;
+  completedValues.sort((a, b) => b.avg - a.avg);
+  return completedValues;
+}
+
+function renderGrowthPlan() {
+  const results = getQuizResults();
+  const hasResults = results && results.length > 0;
+  const aspirationNames = [...aspirations];
+
+  // Render context card
+  const contextEl = document.getElementById('planContext');
+  if (hasResults) {
+    const topValues = results.slice(0, 5).map(v => v.name + ' (' + v.avg.toFixed(1) + '/5)');
+    contextEl.innerHTML =
+      '<div class="plan-context-card plan-context-full">' +
+        '<div class="plan-context-icon">🧭</div>' +
+        '<div class="plan-context-info">' +
+          '<strong>Full Plan</strong> — based on your quiz results + aspirations' +
+          '<div class="plan-context-detail">Your top values: ' + topValues.join(', ') + '</div>' +
+          '<div class="plan-context-detail">Aspirations: ' + aspirationNames.join(', ') + '</div>' +
+        '</div>' +
+      '</div>';
+  } else {
+    contextEl.innerHTML =
+      '<div class="plan-context-card plan-context-aspirations">' +
+        '<div class="plan-context-icon">⭐</div>' +
+        '<div class="plan-context-info">' +
+          '<strong>Aspirations Plan</strong> — based on your selected aspirations' +
+          '<div class="plan-context-detail">Aspirations: ' + aspirationNames.join(', ') + '</div>' +
+          '<div class="plan-context-tip">💡 Take the quiz first to get a richer plan that considers your current values alongside your aspirations.</div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  // Build the prompt
+  const prompt = buildGrowthPrompt(results, aspirationNames);
+  document.getElementById('planPromptText').textContent = prompt;
+
+  // Reset copy button
+  const copyBtn = document.getElementById('copyPromptBtn');
+  copyBtn.querySelector('svg + span, span');
+  copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Prompt';
+}
+
+function buildGrowthPrompt(results, aspirationNames) {
+  const hasResults = results && results.length > 0;
+
+  let prompt = 'I want to create a personal growth plan to cultivate specific values in my life. ';
+  prompt += 'Please create a detailed, step-by-step plan with concrete daily routines, weekly practices, and monthly milestones that will help me develop these values.\n\n';
+
+  if (hasResults) {
+    // Include current values context
+    const count = results.length;
+    const tiers = [
+      { label: 'Core Values', pct: 0.16 },
+      { label: 'Very Important', pct: 0.32 },
+      { label: 'Important', pct: 0.56 },
+      { label: 'Moderate', pct: 0.80 },
+      { label: 'Less Important', pct: 1.0 }
+    ];
+
+    prompt += '=== MY CURRENT VALUES (from assessment) ===\n';
+    prompt += 'I recently completed a personal values assessment where I rated ' + count + ' values. ';
+    prompt += 'Here are my results ranked from most to least important:\n\n';
+
+    let tierIdx = 0;
+    results.forEach((v, i) => {
+      const pct = (i + 1) / count;
+      while (tierIdx < tiers.length - 1 && pct > tiers[tierIdx].pct) tierIdx++;
+      if (i < 10 || aspirationNames.includes(v.name)) {
+        prompt += '  ' + (i + 1) + '. ' + v.name + ' — ' + v.avg.toFixed(1) + '/5';
+        if (i === 0) prompt += ' [strongest]';
+        prompt += '\n';
+      }
+    });
+
+    // Show which aspirations are already strong vs weak
+    prompt += '\nMy strongest values (already well-developed): ';
+    prompt += results.slice(0, 5).map(v => v.name).join(', ') + '\n';
+
+    const resultMap = {};
+    results.forEach(v => { resultMap[v.name] = v.avg; });
+    const aspirationsInResults = aspirationNames.filter(n => resultMap[n] !== undefined);
+    const aspirationsNotInResults = aspirationNames.filter(n => resultMap[n] === undefined);
+
+    if (aspirationsInResults.length > 0) {
+      prompt += '\nCurrent scores for my aspiration values:\n';
+      aspirationsInResults.forEach(name => {
+        prompt += '  - ' + name + ': ' + resultMap[name].toFixed(1) + '/5\n';
+      });
+    }
+
+    prompt += '\n';
+  }
+
+  prompt += '=== VALUES I WANT TO CULTIVATE (my aspirations) ===\n';
+  aspirationNames.forEach(name => {
+    const data = VALUE_EXPLORE_DATA[name];
+    if (data) {
+      prompt += '- ' + name + ': ' + data.shortDesc + '\n';
+    } else {
+      prompt += '- ' + name + '\n';
+    }
+  });
+
+  prompt += '\n=== WHAT I NEED FROM YOU ===\n';
+  prompt += 'Please provide:\n';
+  prompt += '1. A brief analysis of my aspirations' + (hasResults ? ' in the context of my current values' : '') + '\n';
+  prompt += '2. For EACH aspiration value, provide:\n';
+  prompt += '   a. Why this value matters and how it connects to a fulfilling life\n';
+  prompt += '   b. 2-3 daily micro-habits or routines (5-15 minutes each) to practise this value\n';
+  prompt += '   c. 1-2 weekly practices or exercises (30-60 minutes) to deepen this value\n';
+  prompt += '   d. A monthly reflection prompt or milestone to track growth\n';
+  prompt += '   e. Common obstacles and how to overcome them\n';
+  prompt += '3. A suggested morning and evening routine that integrates all the aspiration values\n';
+  prompt += '4. A 90-day roadmap broken into three phases (Foundation, Practice, Integration)\n';
+  prompt += '5. Ways to measure progress and signs that the values are becoming part of who I am\n';
+
+  if (hasResults) {
+    prompt += '\nIMPORTANT: Consider my existing strong values as strengths to build on. ';
+    prompt += 'Show me how my current values can support and accelerate the cultivation of my aspiration values. ';
+    prompt += 'For aspiration values where I scored low, provide extra attention and gentler starting points.\n';
+  }
+
+  prompt += '\nMake the plan practical, actionable, and realistic for someone with a busy schedule. ';
+  prompt += 'Focus on small, consistent actions rather than dramatic changes. ';
+  prompt += 'Use a warm, encouraging tone.';
+
+  return prompt;
+}
+
+function copyPlanPrompt() {
+  const text = document.getElementById('planPromptText').textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    const btn = document.getElementById('copyPromptBtn');
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Copied!';
+    btn.classList.add('copied');
+    setTimeout(function() {
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Prompt';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+function backToExploreFromPlan() {
+  hideAllScreens();
+  document.getElementById('exploreValues').style.display = 'block';
+  loadAspirations();
+  renderExploreGrid();
+  updateAspirationsUI();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
