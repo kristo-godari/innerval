@@ -267,9 +267,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .hero-buttons{display:flex;gap:12px;flex-wrap:wrap}
 @media(max-width:600px){.hero-buttons{justify-content:center}}
 
-/* Compare nav link */
-.nav-compare{color:var(--primary)!important;position:relative}
-.nav-compare::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--primary);border-radius:2px;opacity:.5}
+/* Nav action links (Start Quiz & Compare) */
+.nav-action{font-weight:700;letter-spacing:0;transition:color .15s!important}
+.nav-quiz{color:var(--primary)!important}
+.nav-quiz:hover{color:#4338ca!important}
+.nav-compare{color:var(--text)!important}
+.nav-compare:hover{color:#000!important}
 
 /* --- Compare Upload Screen --- */
 #compareUpload{padding:0 0 40px}
