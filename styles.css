@@ -168,6 +168,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .restart-wrap{text-align:center;margin-top:40px;padding-top:32px;border-top:1px solid var(--border);display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
 .restart-wrap .btn-primary{display:inline-flex;align-items:center;gap:8px}
 
+/* RESULTS ACTION BAR */
+.results-actions{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.results-actions .btn{padding:10px 20px;font-size:.85rem}
+.export-note{font-size:.8rem;color:var(--muted);margin-bottom:20px;line-height:1.5}
+.export-note strong{color:var(--text)}
+
 /* SKIP & END BUTTONS */
 .btn-skip{background:#fef3c7;color:#92400e;border:1px solid #fde68a}
 .btn-skip:hover{background:#fde68a}

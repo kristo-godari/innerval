@@ -82,8 +82,8 @@ document.addEventListener('click', function(e) {
   const link = e.target.closest('a[href]');
   if (!link) return;
   const href = link.getAttribute('href');
-  // Only intercept links to other pages (not # anchors or javascript:)
-  if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
+  // Only intercept links to other pages (not # anchors, javascript:, or blob:)
+  if (!href || href.startsWith('#') || href.startsWith('javascript:') || href.startsWith('blob:')) return;
   e.preventDefault();
   showLeaveModal(function() { window.location.href = href; });
 });
@@ -518,6 +518,56 @@ function downloadPDF() {
     pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
   };
   html2pdf().set(opt).from(element).save();
+}
+
+function exportResultsJSON() {
+  const completedValues = [];
+  VALUES_DATA.forEach((v, vi) => {
+    if (isValueCompleted(vi)) {
+      let sum = 0;
+      const questionScores = [];
+      for (let qi = 0; qi < 5; qi++) {
+        const score = answers[`${vi}_${qi}`] || 0;
+        sum += score;
+        questionScores.push({
+          area: v.questions[qi].area,
+          question: v.questions[qi].text,
+          score: score
+        });
+      }
+      completedValues.push({
+        name: v.name,
+        average: parseFloat((sum / 5).toFixed(2)),
+        questions: questionScores
+      });
+    }
+  });
+
+  completedValues.sort((a, b) => b.average - a.average);
+
+  const result = {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    totalValues: VALUES_DATA.length,
+    completedCount: completedValues.length,
+    values: completedValues.map((v, i) => ({
+      rank: i + 1,
+      name: v.name,
+      average: v.average,
+      questions: v.questions
+    }))
+  };
+
+  const blob = new Blob([JSON.stringify(result, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  const date = new Date().toISOString().slice(0, 10);
+  a.download = 'innerval-results-' + date + '.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 function handleContactSubmit(e) {
