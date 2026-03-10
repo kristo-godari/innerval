@@ -1,6 +1,39 @@
 // Quiz screen: rendering values, answering, skipping, summary panel.
 
 function startQuiz() {
+  const saved = loadProgress();
+  const hasResults = saved && saved.screen === 'results' && Object.keys(saved.answers).length > 0;
+  const hasProgress = saved && saved.screen === 'quiz' && Object.keys(saved.answers).length > 0;
+
+  if (hasResults) {
+    showModal({
+      icon: '📊',
+      title: 'Previous Results Found',
+      message: 'You have results from a previous test. Would you like to view them or start a new test?',
+      buttons: [
+        { label: 'View Results', cls: 'btn-primary', action: function() {
+          Object.entries(saved.answers).forEach(function(entry) { answers[entry[0]] = entry[1]; });
+          currentIndex = saved.currentIndex || 0;
+          (saved.skipped || []).forEach(function(i) { skippedSet.add(i); });
+          showResults();
+        }},
+        { label: 'New Test', cls: 'btn-end', action: function() {
+          doRestart();
+          startQuiz();
+        }}
+      ]
+    });
+    return;
+  }
+
+  if (hasProgress) {
+    // Existing progress in quiz — just continue
+    hideAllScreens();
+    document.getElementById('quiz').style.display = 'block';
+    renderValue();
+    return;
+  }
+
   hideAllScreens();
   document.getElementById('quiz').style.display = 'block';
   currentIndex = 0;

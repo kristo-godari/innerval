@@ -20,7 +20,7 @@ function updateLandingButtons() {
   const heroBtn = document.querySelector('.btn-hero span');
   if (hasProgress && Object.keys(hasProgress.answers).length > 0) {
     restartWrap.style.display = '';
-    heroBtn.textContent = 'Continue Test';
+    heroBtn.textContent = hasProgress.screen === 'results' ? 'View Results' : 'Continue Test';
   } else {
     restartWrap.style.display = 'none';
     heroBtn.textContent = 'Begin Your Journey';
@@ -35,7 +35,7 @@ function showLeaveModal(navigateFn) {
     buttons: [
       { label: 'Stay', cls: 'btn-primary' },
       { label: 'Save & Leave', cls: 'btn-secondary', action: navigateFn },
-      { label: 'Restart', cls: 'btn-end', action: function() { doRestart(); navigateFn(); } }
+      { label: 'Leave & Lose Progress', cls: 'btn-end', action: function() { doRestart(); navigateFn(); } }
     ]
   });
 }
