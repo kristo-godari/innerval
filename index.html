@@ -50,83 +50,86 @@
 
   <!-- LANDING SCREEN -->
   <div id="landing">
+
+    <!-- HERO -->
     <div class="hero">
-      <div class="hero-text">
-        <div class="hero-badge">Self-Discovery Quiz</div>
-        <h1>Discover What <span class="highlight">Truly Matters</span> to You</h1>
-        <p class="hero-sub">A comprehensive assessment that maps your personal values through real-life scenarios — helping you understand the principles that guide your decisions, relationships, and life direction.</p>
+      <div class="hero-bg">
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+      </div>
+      <div class="hero-content">
+        <div class="hero-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+          Trusted Self-Discovery Tool
+        </div>
+        <h1>Discover What<br><span class="highlight">Truly Matters</span> to You</h1>
+        <p class="hero-sub">Rate 310 real-life scenarios across 62 core values. Get a deeply personal values profile that reveals the principles guiding your decisions, relationships, and life direction.</p>
         <div class="hero-buttons">
           <button class="btn btn-primary btn-hero" onclick="startQuiz()">
             <span>Begin Your Journey</span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
-          <button class="btn btn-secondary btn-hero" onclick="showExploreValues()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <button class="btn btn-ghost btn-hero" onclick="showExploreValues()">
             <span>Explore Values</span>
+          </button>
+          <button class="btn btn-ghost btn-hero" onclick="showCompareUpload()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span>Compare</span>
           </button>
         </div>
         <div id="landingRestart" class="restart-wrap" style="display:none">
-          <button class="btn btn-secondary" onclick="restartTest()">↻ Restart Test</button>
+          <button class="btn btn-secondary" onclick="restartTest()">Restart Test</button>
         </div>
-      </div>
-      <div class="hero-image">
-        <svg width="280" height="200" viewBox="0 0 280 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Background circle -->
-          <circle cx="140" cy="100" r="90" fill="url(#heroGrad)" opacity="0.12"/>
-          <!-- Compass body -->
-          <circle cx="140" cy="100" r="60" stroke="#4f46e5" stroke-width="3" fill="white"/>
-          <circle cx="140" cy="100" r="52" stroke="#e2e8f0" stroke-width="1"/>
-          <!-- Cardinal ticks -->
-          <line x1="140" y1="48" x2="140" y2="56" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="140" y1="144" x2="140" y2="152" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="88" y1="100" x2="96" y2="100" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="184" y1="100" x2="192" y2="100" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round"/>
-          <!-- Needle north (purple) -->
-          <polygon points="140,58 133,100 147,100" fill="#7c3aed"/>
-          <!-- Needle south (light) -->
-          <polygon points="140,142 133,100 147,100" fill="#c4b5fd"/>
-          <!-- Center dot -->
-          <circle cx="140" cy="100" r="5" fill="#4f46e5"/>
-          <circle cx="140" cy="100" r="2.5" fill="white"/>
-          <!-- Heart accent -->
-          <path d="M200 55 C200 47, 212 42, 212 52 C212 42, 224 47, 224 55 C224 68, 212 76, 212 76 C212 76, 200 68, 200 55Z" fill="#7c3aed" opacity="0.7"/>
-          <!-- Star accents -->
-          <circle cx="68" cy="60" r="3" fill="#eab308" opacity="0.7"/>
-          <circle cx="56" cy="80" r="2" fill="#eab308" opacity="0.5"/>
-          <circle cx="220" cy="140" r="2.5" fill="#22c55e" opacity="0.6"/>
-          <circle cx="76" cy="145" r="2" fill="#4f46e5" opacity="0.4"/>
-          <!-- Sparkle dots -->
-          <circle cx="210" cy="55" r="1.5" fill="#818cf8" opacity="0.5"/>
-          <circle cx="230" cy="70" r="1" fill="#818cf8" opacity="0.4"/>
-          <defs>
-            <radialGradient id="heroGrad" cx="0.5" cy="0.5" r="0.5">
-              <stop offset="0%" stop-color="#7c3aed"/>
-              <stop offset="100%" stop-color="#4f46e5"/>
-            </radialGradient>
-          </defs>
-        </svg>
+        <div class="hero-trust">
+          <div class="hero-trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            100% Private
+          </div>
+          <div class="hero-trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            No Account Needed
+          </div>
+          <div class="hero-trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Auto-Saves Progress
+          </div>
+        </div>
       </div>
     </div>
 
+    <!-- STATS -->
     <div class="stats-strip">
       <div class="stat-item">
+        <div class="stat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+        </div>
         <span class="stat-number">62</span>
         <span class="stat-label">Core Values</span>
       </div>
-      <div class="stat-divider"></div>
       <div class="stat-item">
+        <div class="stat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
         <span class="stat-number">310</span>
         <span class="stat-label">Scenarios</span>
       </div>
-      <div class="stat-divider"></div>
       <div class="stat-item">
+        <div class="stat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
         <span class="stat-number">5</span>
         <span class="stat-label">Life Areas</span>
       </div>
     </div>
 
+    <!-- HOW IT WORKS -->
     <div class="how-it-works" id="how">
-      <h2 class="section-title">How It Works</h2>
+      <div class="section-header">
+        <span class="section-eyebrow">Simple Process</span>
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-desc">Three straightforward steps to uncover your personal values</p>
+      </div>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
@@ -135,6 +138,7 @@
             <p>For each value, you'll see 5 real-life situations from work, relationships, personal growth, social life, and leisure. Rate how much each resonates with you.</p>
           </div>
         </div>
+        <div class="step-connector"></div>
         <div class="step">
           <div class="step-num">2</div>
           <div class="step-content">
@@ -142,82 +146,117 @@
             <p>There are no right or wrong answers. Rate based on how you actually feel — not how you think you should feel. Authenticity gives the best results.</p>
           </div>
         </div>
+        <div class="step-connector"></div>
         <div class="step">
           <div class="step-num">3</div>
           <div class="step-content">
             <h3>Get Your Profile</h3>
-            <p>Your values are ranked from most to least important, organized into tiers. Discover your core values — the ones that define who you are. Download a PDF report, export your raw data as JSON, or compare your results with someone else's.</p>
+            <p>Your values are ranked into tiers. Discover your core values, download a PDF report, export data, or compare with someone else.</p>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="info-cards">
-      <div class="info-card">
-        <div class="icon">🎯</div>
-        <h3>Comprehensive</h3>
-        <p>62 values from Acceptance to Wisdom — covering the full spectrum of what people find meaningful.</p>
+    <!-- FEATURES -->
+    <div class="features-section">
+      <div class="section-header">
+        <span class="section-eyebrow">Everything You Need</span>
+        <h2 class="section-title">Powerful Features</h2>
+        <p class="section-desc">A complete toolkit for understanding and growing your values</p>
       </div>
-      <div class="info-card">
-        <div class="icon">⏱️</div>
-        <h3>Flexible Pace</h3>
-        <p>Skip values and come back later. Your progress is saved automatically — close the tab and resume anytime.</p>
-      </div>
-      <div class="info-card">
-        <div class="icon">🔒</div>
-        <h3>Private</h3>
-        <p>Everything stays in your browser. No accounts, no data collection — your answers are yours alone.</p>
-      </div>
-      <div class="info-card">
-        <div class="icon">📄</div>
-        <h3>Downloadable Report</h3>
-        <p>When you're done, download your full values profile as a beautifully formatted PDF — perfect for reflection or sharing with a coach.</p>
-      </div>
-      <div class="info-card">
-        <div class="icon">📤</div>
-        <h3>Export Your Data</h3>
-        <p>Export your raw results as a JSON file. Save snapshots over time to track how your values evolve, or share with someone for comparison.</p>
-      </div>
-      <div class="info-card">
-        <div class="icon">👥</div>
-        <h3>Compare Results</h3>
-        <p>Upload two exported profiles and see how they align — with a radar chart, tier comparison, category breakdown, and an overall alignment score.</p>
-      </div>
-      <div class="info-card">
-        <div class="icon">🧭</div>
-        <h3>Explore &amp; Aspire</h3>
-        <p>Browse all 62 values with rich descriptions, examples, and reasons to cultivate each one. Build your personal aspirations list of values you want to grow into.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-indigo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          </div>
+          <h3>Comprehensive Assessment</h3>
+          <p>62 values from Acceptance to Wisdom — covering the full spectrum of what people find meaningful.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-emerald">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>Flexible Pace</h3>
+          <p>Skip values and come back later. Your progress is saved automatically — close the tab and resume anytime.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-rose">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <h3>Completely Private</h3>
+          <p>Everything stays in your browser. No accounts, no data collection — your answers are yours alone.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-amber">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </div>
+          <h3>PDF Report</h3>
+          <p>Download your full values profile as a beautifully formatted PDF — perfect for reflection or sharing with a coach.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-sky">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Compare Results</h3>
+          <p>Upload two profiles and see how they align — with a radar chart, tier comparison, and an overall alignment score.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-violet">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </div>
+          <h3>Explore &amp; Aspire</h3>
+          <p>Browse all 62 values with rich descriptions and examples. Build your personal aspirations list for growth.</p>
+        </div>
       </div>
     </div>
 
     <!-- ABOUT SECTION -->
     <div class="landing-section" id="about">
-      <h2 class="section-title">About This Quiz</h2>
-      <div class="about-content">
-        <p>Understanding your personal values is one of the most powerful tools for self-awareness. Values are the fundamental beliefs that guide your behaviour, decisions, and sense of fulfilment.</p>
-        <p>This quiz presents you with <strong>310 real-life scenarios</strong> spanning <strong>62 universally recognised values</strong> — from Acceptance and Courage to Wisdom and Adventure. By rating how each scenario resonates with you, you build an authentic map of what matters most in your life.</p>
-        <p>Whether you're navigating a career change, improving relationships, or simply seeking clarity, knowing your values gives you a compass for every decision.</p>
+      <div class="section-header">
+        <span class="section-eyebrow">Our Story</span>
+        <h2 class="section-title">About Innerval</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="about-card-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          </div>
+          <h3>Why Values Matter</h3>
+          <p>Understanding your personal values is one of the most powerful tools for self-awareness. Values are the fundamental beliefs that guide your behaviour, decisions, and sense of fulfilment. Whether you're navigating a career change, improving relationships, or simply seeking clarity, knowing your values gives you a compass for every decision.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="12" r="10"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <h3>Why We Built This</h3>
+          <p>Most values tests online are shallow — a handful of vague questions that tell you nothing new. <strong>Shallow questions produce shallow answers.</strong> That's why Innerval uses <strong>310 situational scenarios</strong>. Each one places you in a concrete moment so your answers come from instinct, not overthinking. The depth is what makes the results meaningful.</p>
+        </div>
       </div>
     </div>
 
-    <!-- WHY THIS EXISTS SECTION -->
-    <div class="landing-section" id="why">
-      <h2 class="section-title">Why Innerval Exists</h2>
-      <div class="about-content">
-        <p>If you've ever searched for a personal values test online, you know the frustration. Most websites only cover a handful of values, ask you a dozen vague questions, and then claim to know what drives you. We tried them — many of them — and walked away feeling like the results barely scratched the surface.</p>
-        <p>The problem? <strong>Shallow questions produce shallow answers.</strong> A quick quiz with generic prompts like <em>"How important is honesty to you?"</em> doesn't push you to really think. You end up rating everything as important and learning nothing new about yourself.</p>
-        <p>That's exactly why we built Innerval. Yes, <strong>300+ situational questions</strong> is a lot — and that's by design. Each scenario places you in a concrete, real-life moment so your answers come naturally, from instinct rather than overthinking. It's the difference between being asked <em>"Do you value courage?"</em> and being shown a situation where courage actually matters — and seeing how you honestly respond.</p>
-        <p>Take your time with it. There's no rush, and your progress saves automatically. The depth is what makes the results meaningful — and what finally gives you a values profile you can actually trust.</p>
+    <!-- ASPIRATIONS SECTION -->
+    <div class="landing-section aspirations-banner" id="aspirations-info">
+      <div class="aspirations-banner-content">
+        <span class="section-eyebrow section-eyebrow-light">Go Beyond Discovery</span>
+        <h2 class="section-title section-title-light">Who Do You Want to Be?</h2>
+        <p>Your values today aren't set in stone. Browse all 62 values, find the ones that inspire you, and build your personal <strong>Aspirations</strong> list — your roadmap for intentional growth.</p>
+        <button class="btn btn-white btn-hero" onclick="showExploreValues()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <span>Explore All Values</span>
+        </button>
       </div>
     </div>
 
     <!-- FAQ SECTION -->
     <div class="landing-section" id="faq">
-      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="section-header">
+        <span class="section-eyebrow">Got Questions?</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+      </div>
       <div class="faq-list">
         <details class="faq-item">
           <summary>How long does the quiz take?</summary>
-          <p>If you complete all 62 values it takes roughly 30–45 minutes, but you can skip values and return to them later. Your progress is saved automatically.</p>
+          <p>If you complete all 62 values it takes roughly 30-45 minutes, but you can skip values and return to them later. Your progress is saved automatically.</p>
         </details>
         <details class="faq-item">
           <summary>Is my data stored anywhere?</summary>
@@ -248,29 +287,38 @@
 
     <!-- CONTACT SECTION -->
     <div class="landing-section" id="contact">
-      <h2 class="section-title">Contact</h2>
+      <div class="section-header">
+        <span class="section-eyebrow">Get in Touch</span>
+        <h2 class="section-title">Contact</h2>
+        <p class="section-desc">Have feedback, suggestions, or found a bug? We'd love to hear from you.</p>
+      </div>
       <div class="contact-content">
-        <p>Have feedback, suggestions, or found a bug? We'd love to hear from you.</p>
         <div class="contact-cards">
           <div class="contact-card">
-            <div class="contact-icon">&#9993;</div>
+            <div class="contact-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
             <h3>Email</h3>
             <p>hello@innerval.app</p>
           </div>
           <div class="contact-card">
-            <div class="contact-icon">&#128172;</div>
+            <div class="contact-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
             <h3>Feedback</h3>
             <p>Use the form below or email us directly with your thoughts.</p>
           </div>
         </div>
         <form class="contact-form" onsubmit="handleContactSubmit(event)">
-          <div class="form-group">
-            <label for="contact-name">Name</label>
-            <input type="text" id="contact-name" name="name" required placeholder="Your name">
-          </div>
-          <div class="form-group">
-            <label for="contact-email">Email</label>
-            <input type="email" id="contact-email" name="email" required placeholder="you@example.com">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contact-name">Name</label>
+              <input type="text" id="contact-name" name="name" required placeholder="Your name">
+            </div>
+            <div class="form-group">
+              <label for="contact-email">Email</label>
+              <input type="email" id="contact-email" name="email" required placeholder="you@example.com">
+            </div>
           </div>
           <div class="form-group">
             <label for="contact-message">Message</label>
@@ -282,28 +330,16 @@
       </div>
     </div>
 
-    <!-- WHO YOU WANT TO BE SECTION -->
-    <div class="landing-section" id="aspirations-info">
-      <h2 class="section-title">Who Do You Want to Be?</h2>
-      <div class="about-content">
-        <p>Knowing your current values is powerful — but <strong>choosing who you want to become</strong> is transformative. Your values today aren't set in stone. You can intentionally cultivate new ones that align with the person you aspire to be.</p>
-        <p>Our <strong>Explore Values</strong> gallery lets you browse all 62 values with rich descriptions, real-life examples, and compelling reasons to cultivate each one. Find values that inspire you and add them to your <strong>My Aspirations</strong> list — your personal roadmap for growth.</p>
-        <p>Whether you've taken the quiz or not, exploring values is a powerful exercise in self-reflection. Discover what resonates, build your aspirations, and start the journey toward the person you want to become.</p>
-      </div>
-      <div style="text-align:center;margin-top:20px">
-        <button class="btn btn-primary btn-hero" onclick="showExploreValues()">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          <span>Explore All Values</span>
+    <!-- FINAL CTA -->
+    <div class="cta-section">
+      <div class="cta-content">
+        <h2>Ready to discover your values?</h2>
+        <p>Join the journey of self-discovery. It takes about 30 minutes and your progress saves automatically.</p>
+        <button class="btn btn-primary btn-hero" onclick="startQuiz()">
+          <span>Start the Quiz Now</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </button>
       </div>
-    </div>
-
-    <div class="cta-section">
-      <p class="cta-text">Ready to discover your values?</p>
-      <button class="btn btn-primary btn-hero" onclick="startQuiz()">
-        <span>Start the Quiz</span>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </button>
     </div>
   </div>
 

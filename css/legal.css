@@ -1,12 +1,13 @@
 /* Legal pages: Privacy Policy, Terms of Service. */
 
-.legal-page{padding:40px 0 20px}
-.legal-page h1{font-size:2rem;font-weight:800;margin-bottom:8px;color:var(--text)}
-.legal-updated{font-size:.85rem;color:var(--muted);margin-bottom:36px}
-.legal-page section{margin-bottom:28px}
-.legal-page h2{font-size:1.15rem;font-weight:700;color:var(--text);margin-bottom:10px}
+.legal-page{padding:48px 0 20px}
+.legal-page h1{font-size:2rem;font-weight:800;margin-bottom:8px;color:var(--text);letter-spacing:-.01em}
+.legal-updated{font-size:.85rem;color:var(--muted);margin-bottom:40px;display:inline-block;background:rgba(79,70,229,.06);padding:4px 12px;border-radius:8px;font-weight:500}
+.legal-page section{margin-bottom:32px}
+.legal-page h2{font-size:1.15rem;font-weight:700;color:var(--text);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
 .legal-page p{font-size:.95rem;color:var(--muted);line-height:1.8;margin-bottom:10px}
 .legal-page p:last-child{margin-bottom:0}
 .legal-page strong{color:var(--text)}
-.legal-page ul{list-style:disc;padding-left:24px;margin:10px 0}
-.legal-page li{font-size:.95rem;color:var(--muted);line-height:1.8;margin-bottom:4px}
+.legal-page ul{list-style:none;padding-left:0;margin:10px 0}
+.legal-page li{font-size:.95rem;color:var(--muted);line-height:1.8;margin-bottom:6px;padding-left:20px;position:relative}
+.legal-page li::before{content:'';position:absolute;left:0;top:12px;width:6px;height:6px;border-radius:50%;background:var(--primary);opacity:.4}

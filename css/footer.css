@@ -1,18 +1,21 @@
 /* Site footer. */
 
-.site-footer{background:var(--text);color:rgba(255,255,255,.7);margin-top:0}
-.footer-inner{max-width:720px;margin:0 auto;padding:48px 16px 32px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px}
+.site-footer{background:linear-gradient(135deg,#1e293b,#0f172a);color:rgba(255,255,255,.7);margin-top:0}
+.footer-inner{max-width:800px;margin:0 auto;padding:56px 16px 36px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px}
+@media(min-width:1024px){.footer-inner{max-width:1100px;padding:64px 32px 44px;gap:60px}}
+@media(min-width:1400px){.footer-inner{max-width:1320px;padding:72px 48px 52px;gap:80px}}
 .footer-brand .logo{color:#fff;font-size:1rem}
-.footer-brand p{font-size:.85rem;margin-top:8px;line-height:1.5}
-.footer-links{display:flex;flex-direction:column;gap:8px}
-.footer-links h4{color:#fff;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
-.footer-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:.85rem;transition:color .15s}
-.footer-links a:hover{color:#fff}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.1);text-align:center;padding:20px 16px}
-.footer-bottom p{font-size:.8rem;color:rgba(255,255,255,.4)}
+.footer-brand p{font-size:.85rem;margin-top:10px;line-height:1.6;color:rgba(255,255,255,.5)}
+.footer-links{display:flex;flex-direction:column;gap:10px}
+.footer-links h4{color:rgba(255,255,255,.9);font-size:.78rem;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:4px;font-weight:700}
+.footer-links a{color:rgba(255,255,255,.5);text-decoration:none;font-size:.85rem;transition:all .2s;display:inline-block}
+.footer-links a:hover{color:#fff;transform:translateX(2px)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);text-align:center;padding:20px 16px}
+.footer-bottom p{font-size:.8rem;color:rgba(255,255,255,.3)}
 
 /* Responsive */
 @media(max-width:600px){
-  .footer-inner{grid-template-columns:1fr;gap:24px;text-align:center}
+  .footer-inner{grid-template-columns:1fr;gap:28px;text-align:center;padding:40px 16px 28px}
   .footer-links{align-items:center}
+  .footer-links a:hover{transform:none}
 }

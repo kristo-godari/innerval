@@ -1,11 +1,11 @@
 /* Results screen styles. */
 
 #results{display:none}
-#results h2{font-size:2rem;text-align:center;margin-bottom:8px}
-#results .subtitle{text-align:center;color:var(--muted);margin-bottom:32px}
-.top-values{display:grid;gap:16px;margin-bottom:40px}
-.result-row{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;transition:transform .2s}
-.result-row:hover{transform:translateX(4px)}
+#results h2{font-size:2rem;text-align:center;margin-bottom:8px;font-weight:800;letter-spacing:-.01em}
+#results .subtitle{text-align:center;color:var(--muted);margin-bottom:32px;font-size:1rem}
+.top-values{display:grid;gap:12px;margin-bottom:40px}
+.result-row{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 22px;transition:all .25s}
+.result-row:hover{transform:translateX(4px);box-shadow:0 4px 16px rgba(0,0,0,.06)}
 .rank{font-size:1.3rem;font-weight:800;width:40px;text-align:center;flex-shrink:0}
 .rank.gold{color:#eab308}.rank.silver{color:#94a3b8}.rank.bronze{color:#d97706}
 .result-info{flex:1;min-width:0}
@@ -14,18 +14,37 @@
 .result-bar-wrap{height:8px;background:var(--border);border-radius:99px;margin-top:6px;overflow:hidden}
 .result-bar{height:100%;border-radius:99px;transition:width 1s ease}
 .result-score{font-size:1.1rem;font-weight:700;color:var(--primary);flex-shrink:0;min-width:50px;text-align:right}
-.tier-label{font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin:24px 0 12px;padding:8px 0;border-bottom:2px solid var(--border)}
+.tier-label{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);margin:32px 0 14px;padding:10px 16px;border-bottom:none;background:rgba(79,70,229,.04);border-radius:10px;display:flex;align-items:center;gap:8px}
 
 /* Results Action Bar */
-.results-actions{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.results-actions .btn{padding:10px 20px;font-size:.85rem}
-.export-note{font-size:.8rem;color:var(--muted);margin-bottom:20px;line-height:1.5}
+.results-actions{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px}
+.results-actions .btn{padding:10px 20px;font-size:.85rem;border-radius:10px}
+.export-note{font-size:.8rem;color:var(--muted);margin-bottom:20px;line-height:1.5;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 18px}
 .export-note strong{color:var(--text)}
 
 /* Partial Results Notice */
-.partial-notice{text-align:center;background:#fef3c7;border:1px solid #fde68a;border-radius:var(--radius);padding:12px 16px;margin-bottom:24px;font-size:.9rem;color:#92400e}
+.partial-notice{text-align:center;background:linear-gradient(135deg,rgba(234,179,8,.08),rgba(234,179,8,.04));border:1px solid #fde68a;border-radius:14px;padding:14px 20px;margin-bottom:24px;font-size:.9rem;color:#92400e;font-weight:500}
 
 /* Results Explore CTA */
-.results-explore-cta{background:linear-gradient(135deg,rgba(79,70,229,.06),rgba(124,58,237,.06));border:1px solid rgba(79,70,229,.15);border-radius:var(--radius);padding:20px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.results-explore-cta{background:linear-gradient(135deg,rgba(79,70,229,.06),rgba(124,58,237,.06));border:1px solid rgba(79,70,229,.15);border-radius:16px;padding:24px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .results-explore-cta p{font-size:.9rem;color:var(--muted);margin:0;flex:1;min-width:200px}
 .results-explore-cta .btn{flex-shrink:0}
+
+@media(max-width:600px){
+  .results-actions{flex-direction:column;align-items:stretch}
+  .results-explore-cta{flex-direction:column;text-align:center}
+}
+
+/* Large screens — two-column results grid */
+@media(min-width:1024px){
+  #results h2{font-size:2.2rem}
+  .top-values{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .tier-label{grid-column:1/-1}
+  .result-row{padding:20px 28px}
+  .result-name{font-size:1.1rem}
+}
+@media(min-width:1400px){
+  #results h2{font-size:2.5rem}
+  .top-values{gap:20px}
+  .result-row{padding:24px 32px}
+}
