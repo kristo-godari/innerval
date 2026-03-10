@@ -2,7 +2,7 @@
 
 .legal-page{padding:48px 0 20px}
 .legal-page h1{font-size:2rem;font-weight:800;margin-bottom:8px;color:var(--text);letter-spacing:-.01em}
-.legal-updated{font-size:.85rem;color:var(--muted);margin-bottom:40px;display:inline-block;background:rgba(79,70,229,.06);padding:4px 12px;border-radius:8px;font-weight:500}
+.legal-updated{font-size:.85rem;color:var(--muted);margin-bottom:40px;display:inline-block;background:rgba(192,107,94,.08);padding:4px 12px;border-radius:8px;font-weight:500}
 .legal-page section{margin-bottom:32px}
 .legal-page h2{font-size:1.15rem;font-weight:700;color:var(--text);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
 .legal-page p{font-size:.95rem;color:var(--muted);line-height:1.8;margin-bottom:10px}

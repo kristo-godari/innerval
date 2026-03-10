@@ -319,10 +319,10 @@ function renderRadarChart(valsA, valsB, mapA, mapB) {
     return s;
   }
 
-  svg += makePolygon(mapA, '#4f46e5', 0.15);
-  svg += makePolygon(mapB, '#e11d48', 0.15);
-  svg += makePoints(mapA, '#4f46e5');
-  svg += makePoints(mapB, '#e11d48');
+  svg += makePolygon(mapA, '#c06b5e', 0.15);
+  svg += makePolygon(mapB, '#9b7db8', 0.15);
+  svg += makePoints(mapA, '#c06b5e');
+  svg += makePoints(mapB, '#9b7db8');
 
   document.getElementById('radarChart').innerHTML = svg;
 }

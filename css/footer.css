@@ -1,6 +1,6 @@
 /* Site footer. */
 
-.site-footer{background:linear-gradient(135deg,#1e293b,#0f172a);color:rgba(255,255,255,.7);margin-top:0}
+.site-footer{background:linear-gradient(135deg,#3d2c2e,#2a1e1f);color:rgba(255,255,255,.7);margin-top:0}
 .footer-inner{max-width:800px;margin:0 auto;padding:56px 16px 36px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px}
 @media(min-width:1024px){.footer-inner{max-width:1100px;padding:64px 32px 44px;gap:60px}}
 @media(min-width:1400px){.footer-inner{max-width:1320px;padding:72px 48px 52px;gap:80px}}
