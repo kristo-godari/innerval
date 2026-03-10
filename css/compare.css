@@ -9,13 +9,21 @@
 .compare-dropzones{display:flex;gap:20px;align-items:stretch;margin-bottom:32px}
 @media(max-width:600px){.compare-dropzones{flex-direction:column}}
 .dropzone{flex:1;background:var(--card);border:2px dashed var(--border);border-radius:18px;padding:36px 24px;text-align:center;transition:all .25s;cursor:default;display:flex;flex-direction:column;align-items:center;gap:12px}
-.dropzone:hover{border-color:var(--primary-light);background:rgba(192,107,94,.03)}
-.dropzone.dragover{border-color:var(--primary);background:rgba(192,107,94,.06);transform:scale(1.02)}
-.dropzone.loaded{border-color:var(--green);border-style:solid;background:rgba(90,158,111,.05)}
-.dropzone-icon{font-size:2.2rem}
-.dropzone-label{font-size:1.1rem;font-weight:700;color:var(--text)}
+#dropzone1:hover{border-color:#d49a90;background:rgba(192,107,94,.03)}
+#dropzone1.dragover{border-color:#c06b5e;background:rgba(192,107,94,.06);transform:scale(1.02)}
+#dropzone2:hover{border-color:#bfa8d4;background:rgba(155,125,184,.03)}
+#dropzone2.dragover{border-color:#9b7db8;background:rgba(155,125,184,.06);transform:scale(1.02)}
+.dropzone.loaded{border-style:solid}
+#dropzone1.loaded{border-color:#c06b5e;background:rgba(192,107,94,.05)}
+#dropzone2.loaded{border-color:#9b7db8;background:rgba(155,125,184,.05)}
+.dropzone-icon{font-size:2.2rem;line-height:1}
+#dropzone1 .dropzone-icon{color:#c06b5e}
+#dropzone2 .dropzone-icon{color:#9b7db8}
+#dropzone1 .dropzone-label{font-size:1.1rem;font-weight:700;color:#c06b5e}
+#dropzone2 .dropzone-label{font-size:1.1rem;font-weight:700;color:#9b7db8}
 .dropzone-hint{font-size:.85rem;color:var(--muted)}
-.dropzone-file{font-size:.85rem;color:var(--green);font-weight:600}
+#dropzone1 .dropzone-file{font-size:.85rem;color:#c06b5e;font-weight:600}
+#dropzone2 .dropzone-file{font-size:.85rem;color:#9b7db8;font-weight:600}
 
 .dropzone-divider{display:flex;align-items:center;justify-content:center;padding:0 4px}
 .dropzone-divider span{background:linear-gradient(135deg,var(--primary),#9b7db8);color:#fff;font-size:.85rem;font-weight:800;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(192,107,94,.2)}
