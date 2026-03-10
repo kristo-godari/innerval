@@ -3,7 +3,7 @@
 let activeCategory = 'All';
 
 function showExploreValues() {
-  if (isInQuizOrResults()) {
+  if (isInQuiz()) {
     showLeaveModal(doShowExplore);
     return;
   }

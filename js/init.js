@@ -30,9 +30,9 @@ window.addEventListener('scroll', function() {
   document.getElementById('siteHeader').classList.toggle('scrolled', window.scrollY > 10);
 });
 
-// Intercept external page links during quiz/results
+// Intercept external page links during quiz
 document.addEventListener('click', function(e) {
-  if (!isInQuizOrResults()) return;
+  if (!isInQuiz()) return;
   const link = e.target.closest('a[href]');
   if (!link) return;
   const href = link.getAttribute('href');

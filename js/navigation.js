@@ -6,12 +6,8 @@ function hideAllScreens() {
   });
 }
 
-function isInQuizOrResults() {
-  return document.getElementById('landing').style.display === 'none' &&
-    document.getElementById('compareUpload').style.display !== 'block' &&
-    document.getElementById('compareResults').style.display !== 'block' &&
-    document.getElementById('exploreValues').style.display !== 'block' &&
-    document.getElementById('growthPlan').style.display !== 'block';
+function isInQuiz() {
+  return document.getElementById('quiz').style.display === 'block';
 }
 
 function isInAnyActiveScreen() {
@@ -52,7 +48,7 @@ function navigateToLanding() {
 }
 
 function goHome() {
-  if (isInQuizOrResults()) {
+  if (isInQuiz()) {
     showLeaveModal(navigateToLanding);
     return;
   }
@@ -74,7 +70,7 @@ function goSection(id) {
     }, 100);
   }
 
-  if (isInQuizOrResults()) {
+  if (isInQuiz()) {
     showLeaveModal(scrollToSection);
     return;
   }

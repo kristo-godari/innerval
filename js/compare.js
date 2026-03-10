@@ -7,7 +7,7 @@ let compareFromResultsMode = false;
 // --- Upload & File Handling ---
 
 function showCompareUpload() {
-  if (isInQuizOrResults()) {
+  if (isInQuiz()) {
     showLeaveModal(function() {
       doShowCompareUpload();
     });
