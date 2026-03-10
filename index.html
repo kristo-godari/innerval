@@ -348,37 +348,50 @@
 
   <!-- QUIZ SCREEN -->
   <div id="quiz">
-    <div class="progress-wrap">
-      <div class="progress-header">
-        <span id="progressLabel">Value 1 of 62</span>
-        <span id="progressPct">0%</span>
+    <div id="previousResultsBanner" class="previous-results-banner" style="display:none">
+      <div class="previous-results-icon">📊</div>
+      <div class="previous-results-content">
+        <h3>Previous Results Found</h3>
+        <p>You have results from a previous test. Would you like to view them or start fresh?</p>
       </div>
-      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-    </div>
-    <div class="summary-toggle">
-      <button class="btn btn-secondary" onclick="toggleSummary()" id="summaryBtn">📋 Summary</button>
-      <div style="display:flex;gap:8px">
-        <button class="btn btn-skip" onclick="restartTest()">↻ Restart</button>
-        <button class="btn btn-end" onclick="endTest()">✖ End Test</button>
+      <div class="previous-results-actions">
+        <button class="btn btn-primary" onclick="viewPreviousResults()">View Results</button>
+        <button class="btn btn-end" onclick="startNewTest()">New Test</button>
       </div>
     </div>
-    <div class="summary-panel" id="summaryPanel">
-      <h3>Values Overview</h3>
-      <div class="summary-stats" id="summaryStats"></div>
-      <div class="summary-grid" id="summaryGrid"></div>
-    </div>
-    <div id="skippedBanner" class="skipped-banner" style="display:none">
-      <span>⏭ You have <strong id="skippedCount">0</strong> skipped value(s)</span>
-      <button class="btn btn-skip" onclick="goToNextSkipped()">Review next skipped</button>
-    </div>
-    <div class="value-card" id="valueCard"></div>
-    <div class="nav-row">
-      <div class="nav-left">
-        <button class="btn btn-secondary" id="prevBtn" onclick="prevValue()">← Previous</button>
+    <div id="quizContent">
+      <div class="progress-wrap">
+        <div class="progress-header">
+          <span id="progressLabel">Value 1 of 62</span>
+          <span id="progressPct">0%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
       </div>
-      <div class="nav-right">
-        <button class="btn btn-skip" id="skipBtn" onclick="skipValue()">⏭ Skip</button>
-        <button class="btn btn-primary" id="nextBtn" onclick="nextValue()">Next →</button>
+      <div class="summary-toggle">
+        <button class="btn btn-secondary" onclick="toggleSummary()" id="summaryBtn">📋 Summary</button>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-skip" onclick="restartTest()">↻ Restart</button>
+          <button class="btn btn-end" onclick="endTest()">✖ End Test</button>
+        </div>
+      </div>
+      <div class="summary-panel" id="summaryPanel">
+        <h3>Values Overview</h3>
+        <div class="summary-stats" id="summaryStats"></div>
+        <div class="summary-grid" id="summaryGrid"></div>
+      </div>
+      <div id="skippedBanner" class="skipped-banner" style="display:none">
+        <span>⏭ You have <strong id="skippedCount">0</strong> skipped value(s)</span>
+        <button class="btn btn-skip" onclick="goToNextSkipped()">Review next skipped</button>
+      </div>
+      <div class="value-card" id="valueCard"></div>
+      <div class="nav-row">
+        <div class="nav-left">
+          <button class="btn btn-secondary" id="prevBtn" onclick="prevValue()">← Previous</button>
+        </div>
+        <div class="nav-right">
+          <button class="btn btn-skip" id="skipBtn" onclick="skipValue()">⏭ Skip</button>
+          <button class="btn btn-primary" id="nextBtn" onclick="nextValue()">Next →</button>
+        </div>
       </div>
     </div>
   </div>

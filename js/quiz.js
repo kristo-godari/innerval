@@ -5,38 +5,46 @@ function startQuiz() {
   const hasResults = saved && saved.screen === 'results' && Object.keys(saved.answers).length > 0;
   const hasProgress = saved && saved.screen === 'quiz' && Object.keys(saved.answers).length > 0;
 
-  if (hasResults) {
-    showModal({
-      icon: '📊',
-      title: 'Previous Results Found',
-      message: 'You have results from a previous test. Would you like to view them or start a new test?',
-      buttons: [
-        { label: 'View Results', cls: 'btn-primary', action: function() {
-          Object.entries(saved.answers).forEach(function(entry) { answers[entry[0]] = entry[1]; });
-          currentIndex = saved.currentIndex || 0;
-          (saved.skipped || []).forEach(function(i) { skippedSet.add(i); });
-          showResults();
-        }},
-        { label: 'New Test', cls: 'btn-end', action: function() {
-          doRestart();
-          startQuiz();
-        }}
-      ]
-    });
-    return;
-  }
+  hideAllScreens();
+  document.getElementById('quiz').style.display = 'block';
 
-  if (hasProgress) {
-    // Existing progress in quiz — just continue
-    hideAllScreens();
-    document.getElementById('quiz').style.display = 'block';
+  if (hasResults) {
+    Object.entries(saved.answers).forEach(function(entry) { answers[entry[0]] = entry[1]; });
+    currentIndex = saved.currentIndex || 0;
+    (saved.skipped || []).forEach(function(i) { skippedSet.add(i); });
+    showPreviousResultsBanner(true);
     renderValue();
     return;
   }
 
-  hideAllScreens();
-  document.getElementById('quiz').style.display = 'block';
+  showPreviousResultsBanner(false);
+
+  if (hasProgress) {
+    renderValue();
+    return;
+  }
+
   currentIndex = 0;
+  saveProgress();
+  renderValue();
+}
+
+function showPreviousResultsBanner(show) {
+  document.getElementById('previousResultsBanner').style.display = show ? 'flex' : 'none';
+  document.getElementById('quizContent').style.display = show ? 'none' : '';
+}
+
+function viewPreviousResults() {
+  showPreviousResultsBanner(false);
+  showResults();
+}
+
+function startNewTest() {
+  showPreviousResultsBanner(false);
+  clearProgress();
+  currentIndex = 0;
+  Object.keys(answers).forEach(k => delete answers[k]);
+  skippedSet.clear();
   saveProgress();
   renderValue();
 }
