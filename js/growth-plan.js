@@ -40,10 +40,6 @@ function renderPlanContext(results, hasResults, aspirationNames, hasAspirations)
   const contextEl = document.getElementById('planContext');
   let html = '';
 
-  if (hasResults && hasAspirations) {
-    html += '<div class="plan-context-summary">Your plan combines who you are with who you want to become</div>';
-  }
-
   if (hasResults) {
     const topValues = results.slice(0, 5).map(v => v.name + ' (' + v.avg.toFixed(1) + '/5)');
     html += '<div class="plan-context-card plan-context-values">' +
