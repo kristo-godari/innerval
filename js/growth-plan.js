@@ -1,5 +1,22 @@
 // Growth plan: prompt generation and UI.
 
+var GROWTH_TIERS = [
+  { label: 'Core Values', pct: 0.16 },
+  { label: 'Very Important', pct: 0.32 },
+  { label: 'Important', pct: 0.56 },
+  { label: 'Moderate', pct: 0.80 },
+  { label: 'Less Important', pct: 1.0 }
+];
+
+var GROWTH_PROMPTS = (function() {
+  var prompts = {};
+  var sections = GROWTH_PROMPTS_TEXT.split(/^===([A-Z_]+)===$/gm);
+  for (var i = 1; i < sections.length; i += 2) {
+    prompts[sections[i]] = sections[i + 1].trim();
+  }
+  return prompts;
+})();
+
 function showGrowthPlan() {
   const results = getCompletedValues();
   const hasResults = results.length > 0;
@@ -73,16 +90,16 @@ function renderPlanContext(results, hasResults, aspirationNames, hasAspirations)
 function buildGrowthPrompt(results, aspirationNames) {
   const hasResults = results && results.length > 0;
   const hasAspirations = aspirationNames && aspirationNames.length > 0;
+  const P = GROWTH_PROMPTS;
 
-  let prompt = 'I want to create a personal growth plan to cultivate specific values in my life. ';
-  prompt += 'Please create a detailed, step-by-step plan with concrete daily routines, weekly practices, and monthly milestones that will help me develop these values.\n\n';
+  let prompt = P.INTRO + '\n\n';
 
   if (hasResults) {
     prompt += buildResultsSection(results, hasAspirations, aspirationNames);
   }
 
   if (hasAspirations) {
-    prompt += '=== MY ASPIRATIONS (values I want to cultivate) ===\n';
+    prompt += P.ASPIRATIONS_HEADER + '\n';
     aspirationNames.forEach(name => {
       const data = VALUE_EXPLORE_DATA[name];
       prompt += data ? '- ' + name + ': ' + data.shortDesc + '\n' : '- ' + name + '\n';
@@ -91,26 +108,18 @@ function buildGrowthPrompt(results, aspirationNames) {
   }
 
   prompt += buildInstructionsSection(hasResults, hasAspirations);
-  prompt += '\nMake the plan practical, actionable, and realistic for someone with a busy schedule. ';
-  prompt += 'Focus on small, consistent actions rather than dramatic changes. ';
-  prompt += 'Use a warm, encouraging tone.';
+  prompt += '\n' + P.CLOSING;
 
   return prompt;
 }
 
 function buildResultsSection(results, hasAspirations, aspirationNames) {
   const count = results.length;
-  const tiers = [
-    { label: 'Core Values', pct: 0.16 },
-    { label: 'Very Important', pct: 0.32 },
-    { label: 'Important', pct: 0.56 },
-    { label: 'Moderate', pct: 0.80 },
-    { label: 'Less Important', pct: 1.0 }
-  ];
+  const P = GROWTH_PROMPTS;
+  const tiers = GROWTH_TIERS;
 
-  let section = '=== MY VALUES (from assessment) ===\n';
-  section += 'I recently completed a personal values assessment where I rated ' + count + ' values. ';
-  section += 'Here are my results ranked from most to least important:\n\n';
+  let section = P.RESULTS_HEADER + '\n';
+  section += P.RESULTS_INTRO.replace('{count}', count) + '\n\n';
 
   let tierIdx = 0;
   results.forEach((v, i) => {
@@ -118,12 +127,12 @@ function buildResultsSection(results, hasAspirations, aspirationNames) {
     while (tierIdx < tiers.length - 1 && pct > tiers[tierIdx].pct) tierIdx++;
     if (i < 10 || (hasAspirations && aspirationNames.includes(v.name))) {
       section += '  ' + (i + 1) + '. ' + v.name + ' — ' + v.avg.toFixed(1) + '/5';
-      if (i === 0) section += ' [strongest]';
+      if (i === 0) section += P.STRONGEST_LABEL;
       section += '\n';
     }
   });
 
-  section += '\nMy strongest values (already well-developed): ';
+  section += '\n' + P.STRONGEST_VALUES_PREFIX + ' ';
   section += results.slice(0, 5).map(v => v.name).join(', ') + '\n';
 
   if (hasAspirations) {
@@ -131,7 +140,7 @@ function buildResultsSection(results, hasAspirations, aspirationNames) {
     results.forEach(v => { resultMap[v.name] = v.avg; });
     const aspirationsInResults = aspirationNames.filter(n => resultMap[n] !== undefined);
     if (aspirationsInResults.length > 0) {
-      section += '\nCurrent scores for my aspiration values:\n';
+      section += '\n' + P.ASPIRATIONS_SCORES_HEADER + '\n';
       aspirationsInResults.forEach(name => {
         section += '  - ' + name + ': ' + resultMap[name].toFixed(1) + '/5\n';
       });
@@ -142,44 +151,16 @@ function buildResultsSection(results, hasAspirations, aspirationNames) {
 }
 
 function buildInstructionsSection(hasResults, hasAspirations) {
-  let section = '=== WHAT I NEED FROM YOU ===\nPlease provide:\n';
+  const P = GROWTH_PROMPTS;
+  let section = P.INSTRUCTIONS_HEADER + '\n';
 
   if (hasResults && hasAspirations) {
-    section += '1. A brief analysis of how my current values and aspirations relate — where I am vs where I want to be\n';
-    section += '2. For EACH aspiration value, provide:\n';
-    section += '   a. Why this value matters and how it connects to a fulfilling life\n';
-    section += '   b. 2-3 daily micro-habits or routines (5-15 minutes each) to practise this value\n';
-    section += '   c. 1-2 weekly practices or exercises (30-60 minutes) to deepen this value\n';
-    section += '   d. A monthly reflection prompt or milestone to track growth\n';
-    section += '   e. Common obstacles and how to overcome them\n';
-    section += '3. A suggested morning and evening routine that integrates the aspiration values\n';
-    section += '4. A 90-day roadmap broken into three phases (Foundation, Practice, Integration)\n';
-    section += '5. Ways to measure progress and signs that the values are becoming part of who I am\n';
-    section += '\nIMPORTANT: Consider my existing strong values as strengths to build on. ';
-    section += 'Show me how my current values can support and accelerate the cultivation of my aspiration values. ';
-    section += 'For aspiration values where I scored low, provide extra attention and gentler starting points.\n';
+    section += P.INSTRUCTIONS_RESULTS_AND_ASPIRATIONS + '\n';
+    section += '\n' + P.INSTRUCTIONS_RESULTS_AND_ASPIRATIONS_NOTE + '\n';
   } else if (hasResults) {
-    section += '1. An analysis of my values profile — what my top values reveal about who I am\n';
-    section += '2. For my top 5 values, provide:\n';
-    section += '   a. How to lean into this strength more intentionally\n';
-    section += '   b. 1-2 daily practices to live this value more fully\n';
-    section += '   c. Potential blind spots when this value is overemphasised\n';
-    section += '3. For my weakest 3 values, suggest:\n';
-    section += '   a. Whether growing these would benefit me, and why\n';
-    section += '   b. Gentle starting points if I want to develop them\n';
-    section += '4. A suggested morning and evening routine aligned with my core values\n';
-    section += '5. A 90-day roadmap to live more intentionally according to my values\n';
+    section += P.INSTRUCTIONS_RESULTS_ONLY + '\n';
   } else {
-    section += '1. A brief analysis of my aspirations\n';
-    section += '2. For EACH aspiration value, provide:\n';
-    section += '   a. Why this value matters and how it connects to a fulfilling life\n';
-    section += '   b. 2-3 daily micro-habits or routines (5-15 minutes each) to practise this value\n';
-    section += '   c. 1-2 weekly practices or exercises (30-60 minutes) to deepen this value\n';
-    section += '   d. A monthly reflection prompt or milestone to track growth\n';
-    section += '   e. Common obstacles and how to overcome them\n';
-    section += '3. A suggested morning and evening routine that integrates all the aspiration values\n';
-    section += '4. A 90-day roadmap broken into three phases (Foundation, Practice, Integration)\n';
-    section += '5. Ways to measure progress and signs that the values are becoming part of who I am\n';
+    section += P.INSTRUCTIONS_ASPIRATIONS_ONLY + '\n';
   }
 
   return section;
