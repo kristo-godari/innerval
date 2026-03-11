@@ -41,7 +41,7 @@
       <a href="#" onclick="showExploreValues()" class="nav-action nav-explore">Explore Values</a>
       <a href="#" onclick="showCompareUpload()" class="nav-action nav-compare">Compare</a>
       <a href="#about" onclick="goSection('about')">About</a>
-      <a href="#contact" onclick="goSection('contact')">Contact</a>
+      <a href="#author" onclick="goSection('author')">Contact</a>
     </nav>
     <button class="nav-toggle" id="navToggle" onclick="toggleNav()" aria-label="Toggle menu">
       <span></span><span></span><span></span>
@@ -296,48 +296,38 @@
       </div>
     </div>
 
-    <!-- CONTACT SECTION -->
-    <div class="landing-section" id="contact">
+    <!-- ABOUT / CONTACT / SUPPORT -->
+    <div class="landing-section" id="author">
       <div class="section-header">
-        <span class="section-eyebrow">Get in Touch</span>
-        <h2 class="section-title">Contact</h2>
-        <p class="section-desc">Have feedback, suggestions, or found a bug? We'd love to hear from you.</p>
+        <span class="section-eyebrow">Connect</span>
+        <h2 class="section-title">About & Contact</h2>
       </div>
-      <div class="contact-content">
-        <div class="contact-cards">
-          <div class="contact-card">
-            <div class="contact-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            </div>
-            <h3>Email</h3>
-            <p>hello@innerval.app</p>
-          </div>
-          <div class="contact-card">
-            <div class="contact-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            </div>
-            <h3>Feedback</h3>
-            <p>Use the form below or email us directly with your thoughts.</p>
-          </div>
+      <div class="connect-grid">
+        <div class="connect-card connect-card--author">
+          <img src="images/author.png" alt="Kristo Godari" class="author-photo">
+          <h3>About the Author</h3>
+          <p>I'm Kristo Godari, a software engineer passionate about psychology and personal development. Innerval was born from the intersection of technology and self-awareness — a tool to make values discovery accessible, private, and meaningful.</p>
+          <a href="https://kristogodari.com" class="author-link" target="_blank" rel="noopener noreferrer">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            kristogodari.com
+          </a>
         </div>
-        <form class="contact-form" onsubmit="handleContactSubmit(event)">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="contact-name">Name</label>
-              <input type="text" id="contact-name" name="name" required placeholder="Your name">
-            </div>
-            <div class="form-group">
-              <label for="contact-email">Email</label>
-              <input type="email" id="contact-email" name="email" required placeholder="you@example.com">
-            </div>
+        <div class="connect-card" id="contact">
+          <div class="connect-card-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           </div>
-          <div class="form-group">
-            <label for="contact-message">Message</label>
-            <textarea id="contact-message" name="message" rows="5" required placeholder="Your feedback or message..."></textarea>
+          <h3>Contact</h3>
+          <p>Have a question, suggestion, or just want to say hello? Reach out anytime.</p>
+          <a href="mailto:kristo.godari@gmail.com" class="contact-email-link">kristo.godari@gmail.com</a>
+        </div>
+        <div class="connect-card" id="donate">
+          <div class="connect-card-icon connect-card-icon--coffee">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
           </div>
-          <button type="submit" class="btn btn-primary btn-contact">Send Message</button>
-          <p class="form-success" id="formSuccess" style="display:none;">Thanks for reaching out! We'll get back to you soon.</p>
-        </form>
+          <h3>Buy Me a Coffee</h3>
+          <p>Innerval is free and always will be. Your support helps keep it running.</p>
+          <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="kristo.godari" data-color="#FFDD00" data-emoji="" data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff"></script>
+        </div>
       </div>
     </div>
 
@@ -712,7 +702,7 @@
       <a href="#how" onclick="goSection('how')">How It Works</a>
       <a href="#" onclick="showExploreValues()">Explore Values</a>
       <a href="#faq" onclick="goSection('faq')">FAQ</a>
-      <a href="#contact" onclick="goSection('contact')">Contact</a>
+      <a href="#author" onclick="goSection('author')">Contact</a>
     </div>
     <div class="footer-links">
       <h4>Legal</h4>
