@@ -268,7 +268,10 @@ function renderRadarChart(valsA, valsB, mapA, mapB) {
   const topBNames = valsB.slice(0, 10).map(v => v.name);
   const labels = [...new Set([...topANames, ...topBNames])].slice(0, 12);
   const n = labels.length;
-  if (n < 3) return;
+  if (n < 3) {
+    document.getElementById('radarChart').innerHTML = '<text x="250" y="250" text-anchor="middle" fill="var(--muted)" font-size="14">At least 3 completed values are needed for a radar chart.</text>';
+    return;
+  }
 
   const cx = 250, cy = 250, maxR = 180;
   const angleStep = (2 * Math.PI) / n;
