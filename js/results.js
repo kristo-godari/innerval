@@ -70,15 +70,50 @@ function showResults() {
 
 function downloadPDF() {
   const element = document.getElementById('results');
+  // Temporarily constrain width so content fits A4 portrait without clipping
+  const origStyles = element.getAttribute('style') || '';
+  element.style.width = '180mm';
+  element.style.maxWidth = '180mm';
+  element.style.boxSizing = 'border-box';
+  element.style.overflow = 'hidden';
+  element.style.padding = '0 5mm';
+
+  // Manually insert spacer divs before result-rows that would be split across pages.
+  // After each spacer insertion, recalculate positions since the DOM shifts.
+  // A4 portrait content height = 297mm - 20mm margins = 277mm ≈ 1047px at 96dpi
+  const pageHeightPx = 1047;
+  const pageBreakers = [];
+
+  var rows = element.querySelectorAll('.result-row');
+  for (var i = 0; i < rows.length; i++) {
+    var containerTop = element.getBoundingClientRect().top + window.scrollY;
+    var rowRect = rows[i].getBoundingClientRect();
+    var rowTop = rowRect.top + window.scrollY - containerTop;
+    var rowBottom = rowTop + rowRect.height;
+    var pageOfTop = Math.floor(rowTop / pageHeightPx);
+    var pageOfBottom = Math.floor((rowBottom - 1) / pageHeightPx);
+    if (pageOfBottom > pageOfTop) {
+      var spacerHeight = (pageOfTop + 1) * pageHeightPx - rowTop;
+      var spacer = document.createElement('div');
+      spacer.style.height = spacerHeight + 'px';
+      spacer.className = 'pdf-page-spacer';
+      rows[i].parentNode.insertBefore(spacer, rows[i]);
+      pageBreakers.push(spacer);
+    }
+  }
+
   const opt = {
     margin: [10, 10, 10, 10],
-    filename: 'innerval-values-report.pdf',
+    filename: 'innerval-results-' + new Date().toISOString().slice(0, 10) + '.pdf',
     image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    html2canvas: { scale: 2, useCORS: true, scrollY: 0, width: element.scrollWidth },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
   };
-  html2pdf().set(opt).from(element).save();
+
+  html2pdf().set(opt).from(element).save().then(function() {
+    element.setAttribute('style', origStyles);
+    pageBreakers.forEach(function(s) { s.remove(); });
+  });
 }
 
 function exportResultsJSON() {
