@@ -45,7 +45,8 @@ function compareFromResults() {
   const dz1 = document.getElementById('dropzone1');
   dz1.classList.add('loaded');
   document.getElementById('dropFile1').style.display = 'block';
-  document.getElementById('dropFile1').textContent = '✓ Your current results (' + currentUserData.completedCount + ' values)';
+  var levelLabel = currentUserData.quizLevel && QUIZ_LEVELS[currentUserData.quizLevel] ? ' · ' + QUIZ_LEVELS[currentUserData.quizLevel].name : '';
+  document.getElementById('dropFile1').textContent = '✓ Your current results (' + currentUserData.completedCount + ' values' + levelLabel + ')';
   dz1.querySelector('.dropzone-hint').style.display = 'none';
   dz1.querySelector('.btn').style.display = 'none';
   updateCompareBtn();
@@ -141,7 +142,8 @@ function processFile(file, num) {
       dz.classList.add('loaded');
       const fileEl = document.getElementById('dropFile' + num);
       fileEl.style.display = 'block';
-      fileEl.textContent = '✓ ' + file.name + ' (' + data.completedCount + ' values)';
+      var levelLabel = data.quizLevel && QUIZ_LEVELS[data.quizLevel] ? ' · ' + QUIZ_LEVELS[data.quizLevel].name : '';
+      fileEl.textContent = '✓ ' + file.name + ' (' + data.completedCount + ' values' + levelLabel + ')';
       dz.querySelector('.dropzone-hint').style.display = 'none';
       dz.querySelector('.btn').style.display = 'none';
       updateCompareBtn();
@@ -219,14 +221,24 @@ function renderComparison(dataA, dataB) {
 
 function calculateAlignment(valsA, valsB, commonNames) {
   if (commonNames.length < 2) return 0;
+  const mapA = {};
+  const mapB = {};
+  valsA.forEach(v => { mapA[v.name] = v.average; });
+  valsB.forEach(v => { mapB[v.name] = v.average; });
+
+  // Re-rank common values by each person's averages (handles cross-level comparisons)
+  const sortedByA = [...commonNames].sort((a, b) => mapA[b] - mapA[a]);
+  const sortedByB = [...commonNames].sort((a, b) => mapB[b] - mapB[a]);
+
   const rankA = {};
   const rankB = {};
-  valsA.forEach(v => { rankA[v.name] = v.rank; });
-  valsB.forEach(v => { rankB[v.name] = v.rank; });
+  sortedByA.forEach((name, i) => { rankA[name] = i + 1; });
+  sortedByB.forEach((name, i) => { rankB[name] = i + 1; });
+
   const n = commonNames.length;
   let dSquaredSum = 0;
   commonNames.forEach(name => {
-    const d = (rankA[name] || 0) - (rankB[name] || 0);
+    const d = rankA[name] - rankB[name];
     dSquaredSum += d * d;
   });
   const rho = 1 - (6 * dSquaredSum) / (n * (n * n - 1));
@@ -254,13 +266,25 @@ function renderAlignmentRing(pct) {
   document.getElementById('alignmentDesc').textContent = desc;
 }
 
+function getLevelDisplayName(data) {
+  if (data.quizLevel && QUIZ_LEVELS[data.quizLevel]) return QUIZ_LEVELS[data.quizLevel].name;
+  return 'Full Spectrum';
+}
+
 function renderSummaryStats(common, onlyA, onlyB, dataA, dataB, alignment) {
+  const levelA = getLevelDisplayName(dataA);
+  const levelB = getLevelDisplayName(dataB);
+  let levelNote = '';
+  if (levelA !== levelB) {
+    levelNote = `<div class="compare-level-note">Note: Person A took the <strong>${levelA}</strong> assessment and Person B took <strong>${levelB}</strong>. Only shared values are compared.</div>`;
+  }
+
   document.getElementById('compareStats').innerHTML = `
     <div class="cstat-card"><div class="cstat-num">${common.length}</div><div class="cstat-label">Shared Values</div></div>
-    <div class="cstat-card"><div class="cstat-num">${dataA.completedCount}</div><div class="cstat-label">Person A Values</div></div>
-    <div class="cstat-card"><div class="cstat-num">${dataB.completedCount}</div><div class="cstat-label">Person B Values</div></div>
+    <div class="cstat-card"><div class="cstat-num">${dataA.completedCount}</div><div class="cstat-label">Person A Values<br><small>${levelA}</small></div></div>
+    <div class="cstat-card"><div class="cstat-num">${dataB.completedCount}</div><div class="cstat-label">Person B Values<br><small>${levelB}</small></div></div>
     <div class="cstat-card"><div class="cstat-num">${alignment}%</div><div class="cstat-label">Rank Alignment</div></div>
-  `;
+  ` + levelNote;
 }
 
 function renderRadarChart(valsA, valsB, mapA, mapB) {

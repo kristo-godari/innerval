@@ -23,6 +23,7 @@
 .export-note strong{color:var(--text)}
 
 /* Partial Results Notice */
+.results-level-badge{text-align:center;font-size:.85rem;font-weight:600;color:var(--muted);margin-bottom:8px;letter-spacing:.3px}
 .partial-notice{text-align:center;background:linear-gradient(135deg,rgba(212,160,74,.1),rgba(212,160,74,.05));border:1px solid #f0d890;border-radius:16px;padding:14px 20px;margin-bottom:24px;font-size:.9rem;color:#8b6914;font-weight:500}
 
 /* Results Explore CTA */

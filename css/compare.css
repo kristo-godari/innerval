@@ -56,6 +56,8 @@
 .cstat-card:hover{box-shadow:0 4px 16px rgba(54,43,43,.06)}
 .cstat-num{font-size:1.6rem;font-weight:800;color:var(--primary);line-height:1}
 .cstat-label{font-size:.75rem;color:var(--muted);margin-top:6px;text-transform:uppercase;letter-spacing:.6px;font-weight:600}
+.cstat-label small{display:block;margin-top:4px;font-size:.7rem;text-transform:none;letter-spacing:0;color:var(--text);font-weight:500;opacity:.7}
+.compare-level-note{grid-column:1/-1;background:rgba(212,160,74,.08);border:1px solid rgba(212,160,74,.25);border-radius:12px;padding:12px 18px;font-size:.85rem;color:var(--text);line-height:1.5;text-align:center}
 
 /* Section Layout */
 .compare-section{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:28px;margin-bottom:20px;box-shadow:0 1px 3px rgba(54,43,43,.04);overflow:hidden;position:relative}

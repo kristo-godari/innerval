@@ -17,6 +17,17 @@ function showResults() {
   const totalValues = getActiveTotal();
   const count = completedValues.length;
 
+  // Level badge
+  const levelBadge = document.getElementById('resultsLevelBadge');
+  const levelKey = quizLevel || 'full-spectrum';
+  const levelInfo = QUIZ_LEVELS[levelKey];
+  if (levelInfo) {
+    levelBadge.textContent = levelInfo.name + ' \u2014 ' + totalValues + ' values';
+    levelBadge.style.display = '';
+  } else {
+    levelBadge.style.display = 'none';
+  }
+
   // Partial results notice
   const notice = document.getElementById('partialNotice');
   if (count < totalValues) {

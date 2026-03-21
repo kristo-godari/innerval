@@ -18,7 +18,7 @@ var GROWTH_PROMPTS = (function() {
 })();
 
 function showGrowthPlan() {
-  const results = getCompletedValues();
+  const results = getActiveCompletedValues();
   const hasResults = results.length > 0;
   const hasAspirations = aspirations.size > 0;
 
@@ -38,7 +38,7 @@ function showGrowthPlan() {
 }
 
 function renderGrowthPlan() {
-  const results = getCompletedValues();
+  const results = getActiveCompletedValues();
   const hasResults = results.length > 0;
   const aspirationNames = [...aspirations];
   const hasAspirations = aspirationNames.length > 0;
