@@ -13,8 +13,8 @@ function showResults() {
   document.getElementById('results').style.display = 'block';
   saveProgress('results');
 
-  const completedValues = getCompletedValues();
-  const totalValues = VALUES_DATA.length;
+  const completedValues = getActiveCompletedValues();
+  const totalValues = getActiveTotal();
   const count = completedValues.length;
 
   // Partial results notice
@@ -117,7 +117,7 @@ function downloadPDF() {
 }
 
 function exportResultsJSON() {
-  const completedValues = getDetailedCompletedValues();
+  const completedValues = getActiveDetailedCompletedValues();
   const result = buildExportData(completedValues);
 
   const blob = new Blob([JSON.stringify(result, null, 2)], { type: 'application/json' });

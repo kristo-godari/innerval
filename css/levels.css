@@ -1,0 +1,397 @@
+/* Level selection screen: choose quiz depth */
+
+#levelSelect { display: none; }
+
+.level-select-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 0 48px;
+}
+
+.level-select-header {
+  text-align: center;
+  margin-bottom: 44px;
+  padding-top: 24px;
+}
+
+/* === LEVEL CARDS GRID === */
+
+.level-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 36px;
+}
+
+/* === INDIVIDUAL CARD === */
+
+.level-card {
+  position: relative;
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: 22px;
+  padding: 36px 24px 28px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.level-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+
+.level-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 48px rgba(54, 43, 43, 0.1), 0 4px 12px rgba(54, 43, 43, 0.05);
+  border-color: transparent;
+}
+
+.level-card:hover::before {
+  opacity: 1;
+}
+
+/* Card variants - gradient strips */
+.level-card--essentials::before {
+  background: linear-gradient(90deg, #d4a04a, #c06b5e);
+}
+
+.level-card--deep::before {
+  background: linear-gradient(90deg, #c06b5e, #9b7db8);
+}
+
+.level-card--full::before {
+  background: linear-gradient(90deg, #9b7db8, #c06b5e, #d4a04a);
+}
+
+/* === FEATURED CARD (Recommended) === */
+
+.level-card--featured {
+  border-color: rgba(192, 107, 94, 0.3);
+  box-shadow: 0 4px 24px rgba(192, 107, 94, 0.1);
+  background: linear-gradient(180deg, rgba(192, 107, 94, 0.03) 0%, var(--card) 40%);
+}
+
+.level-card--featured::before {
+  opacity: 1;
+}
+
+.level-card--featured:hover {
+  box-shadow: 0 16px 48px rgba(192, 107, 94, 0.15), 0 4px 12px rgba(192, 107, 94, 0.08);
+}
+
+.level-card-ribbon {
+  position: absolute;
+  top: 14px;
+  right: -32px;
+  background: linear-gradient(135deg, var(--primary), #9b7db8);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 5px 40px;
+  transform: rotate(35deg);
+  box-shadow: 0 2px 8px rgba(192, 107, 94, 0.3);
+}
+
+/* === DEPTH VISUALIZATION === */
+
+.level-card-depth {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.depth-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid;
+  transition: all 0.4s ease;
+}
+
+.ring-1 {
+  width: 32px;
+  height: 32px;
+  border-color: var(--primary);
+  background: radial-gradient(circle, rgba(192, 107, 94, 0.15) 0%, rgba(192, 107, 94, 0.05) 100%);
+  animation: ringPulse 3.5s ease-in-out infinite;
+}
+
+.ring-2 {
+  width: 56px;
+  height: 56px;
+  border-color: rgba(155, 125, 184, 0.6);
+  background: radial-gradient(circle, rgba(155, 125, 184, 0.08) 0%, transparent 100%);
+  animation: ringPulse 3.5s ease-in-out infinite 0.6s;
+}
+
+.ring-3 {
+  width: 80px;
+  height: 80px;
+  border-color: rgba(212, 160, 74, 0.45);
+  background: radial-gradient(circle, rgba(212, 160, 74, 0.06) 0%, transparent 100%);
+  animation: ringPulse 3.5s ease-in-out infinite 1.2s;
+}
+
+@keyframes ringPulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+
+.level-card:hover .depth-ring {
+  animation-play-state: paused;
+  opacity: 1;
+  transform: scale(1.06);
+}
+
+/* === CARD CONTENT === */
+
+.level-card-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.level-card-name {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+
+.level-card-desc {
+  font-size: 0.87rem;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+/* === CARD META (stats) === */
+
+.level-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.level-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+  justify-content: center;
+}
+
+.level-meta-item svg {
+  color: var(--primary);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+/* === CARD BUTTONS === */
+
+.btn-level {
+  width: 100%;
+  padding: 14px 24px;
+  border-radius: 14px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  letter-spacing: 0.01em;
+}
+
+.btn-level svg {
+  transition: transform 0.25s ease;
+}
+
+.btn-level:hover svg {
+  transform: translateX(3px);
+}
+
+.btn-level--essentials {
+  background: linear-gradient(135deg, #d4a04a, #c8943f);
+  color: #fff;
+}
+
+.btn-level--essentials:hover {
+  background: linear-gradient(135deg, #c8943f, #b88535);
+  box-shadow: 0 4px 16px rgba(212, 160, 74, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-level--deep {
+  background: linear-gradient(135deg, var(--primary), #a85a4e);
+  color: #fff;
+}
+
+.btn-level--deep:hover {
+  background: linear-gradient(135deg, #a85a4e, #954e42);
+  box-shadow: 0 4px 16px rgba(192, 107, 94, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-level--full {
+  background: linear-gradient(135deg, #9b7db8, #856ba3);
+  color: #fff;
+}
+
+.btn-level--full:hover {
+  background: linear-gradient(135deg, #856ba3, #745a92);
+  box-shadow: 0 4px 16px rgba(155, 125, 184, 0.35);
+  transform: translateY(-1px);
+}
+
+/* === BACK BUTTON === */
+
+.level-back {
+  text-align: center;
+}
+
+/* === ANIMATIONS === */
+
+.level-card {
+  animation: levelCardIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.level-card:nth-child(1) { animation-delay: 0.1s; }
+.level-card:nth-child(2) { animation-delay: 0.2s; }
+.level-card:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes levelCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === RESPONSIVE === */
+
+@media (max-width: 768px) {
+  .level-cards {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .level-select-header {
+    padding-top: 16px;
+    margin-bottom: 32px;
+  }
+
+  .level-card {
+    padding: 32px 20px 24px;
+  }
+
+  .level-card-ribbon {
+    top: 12px;
+    right: -34px;
+    font-size: 0.62rem;
+  }
+
+  .level-card-meta {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .level-meta-item {
+    font-size: 0.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .level-select-wrap {
+    max-width: 1040px;
+    padding: 32px 0 56px;
+  }
+
+  .level-cards {
+    gap: 24px;
+  }
+
+  .level-card {
+    padding: 40px 28px 32px;
+  }
+
+  .level-card-name {
+    font-size: 1.5rem;
+  }
+
+  .level-card-desc {
+    font-size: 0.92rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .level-select-wrap {
+    max-width: 1160px;
+    padding: 40px 0 64px;
+  }
+
+  .level-cards {
+    gap: 28px;
+  }
+
+  .level-card {
+    padding: 48px 32px 36px;
+  }
+
+  .level-card-depth {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 24px;
+  }
+
+  .ring-1 { width: 36px; height: 36px; }
+  .ring-2 { width: 64px; height: 64px; }
+  .ring-3 { width: 92px; height: 92px; }
+
+  .level-card-name {
+    font-size: 1.65rem;
+  }
+
+  .level-card-desc {
+    font-size: 0.95rem;
+  }
+
+  .btn-level {
+    padding: 16px 28px;
+    font-size: 0.98rem;
+  }
+}

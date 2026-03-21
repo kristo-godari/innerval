@@ -4,6 +4,9 @@
   const saved = loadProgress();
   if (!saved) return;
 
+  // Restore quiz level
+  quizLevel = saved.quizLevel || null;
+
   updateLandingButtons();
 
   // Restore answers
@@ -12,10 +15,13 @@
   (saved.skipped || []).forEach(i => skippedSet.add(i));
 
   if (saved.screen === 'results') {
+    // Default to full-spectrum for legacy saves without a level
+    if (!quizLevel) quizLevel = 'full-spectrum';
     document.getElementById('landing').style.display = 'none';
     document.getElementById('results').style.display = 'block';
     showResults();
   } else if (saved.screen === 'quiz') {
+    if (!quizLevel) quizLevel = 'full-spectrum';
     document.getElementById('landing').style.display = 'none';
     document.getElementById('quiz').style.display = 'block';
     renderValue();

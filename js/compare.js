@@ -52,7 +52,7 @@ function compareFromResults() {
 }
 
 function buildCurrentUserExport() {
-  const completedValues = getDetailedCompletedValues();
+  const completedValues = getActiveDetailedCompletedValues();
   if (completedValues.length === 0) return null;
   return buildExportData(completedValues);
 }

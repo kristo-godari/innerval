@@ -1,7 +1,7 @@
 // Screen management and navigation helpers.
 
 function hideAllScreens() {
-  ['landing', 'quiz', 'results', 'compareUpload', 'compareResults', 'exploreValues', 'growthPlan'].forEach(id => {
+  ['landing', 'levelSelect', 'quiz', 'results', 'compareUpload', 'compareResults', 'exploreValues', 'growthPlan'].forEach(id => {
     document.getElementById(id).style.display = 'none';
   });
 }

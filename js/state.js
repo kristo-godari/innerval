@@ -7,6 +7,119 @@ let currentIndex = 0;
 const answers = {};
 const skippedSet = new Set();
 let aspirations = new Set();
+let quizLevel = null; // 'essentials' | 'deep-dive' | 'full-spectrum'
+
+// --- Quiz Level Configuration ---
+
+const LEVEL_ESSENTIALS_NAMES = [
+  'Accountability', 'Compassion', 'Equality', 'Family', 'Financial stability',
+  'Freedom', 'Friendship', 'Growth', 'Health', 'Helpfulness', 'Honesty',
+  'Independence', 'Inner harmony', 'Job security', 'Justice', 'Love',
+  'Meaningful work', 'Peace', 'Respect', 'Security', 'Trust', 'Wisdom'
+];
+
+const LEVEL_DEEP_DIVE_NAMES = [
+  ...LEVEL_ESSENTIALS_NAMES,
+  'Acceptance', 'Authenticity', 'Competence', 'Contribution', 'Courage',
+  'Creativity', 'Curiosity', 'Determination', 'Discipline', 'Ethics',
+  'Forgiveness', 'Influence', 'Loyalty', 'Passion', 'Privacy',
+  'Spirituality', 'Success', 'Teamwork', 'Tolerance', 'Variety'
+];
+
+const QUIZ_LEVELS = {
+  essentials: {
+    key: 'essentials',
+    name: 'Essentials',
+    subtitle: 'Core values that define who you are',
+    valueNames: LEVEL_ESSENTIALS_NAMES,
+    time: '10\u201315 min'
+  },
+  'deep-dive': {
+    key: 'deep-dive',
+    name: 'Deep Dive',
+    subtitle: 'Extended values that shape your identity and drive',
+    valueNames: LEVEL_DEEP_DIVE_NAMES,
+    time: '20\u201325 min'
+  },
+  'full-spectrum': {
+    key: 'full-spectrum',
+    name: 'Full Spectrum',
+    subtitle: 'Complete assessment of all 62 values',
+    valueNames: null, // all values
+    time: '30\u201345 min'
+  }
+};
+
+// --- Active Level Helpers ---
+
+function getActiveIndices() {
+  if (!quizLevel || quizLevel === 'full-spectrum') {
+    return VALUES_DATA.map(function(_, i) { return i; });
+  }
+  var level = QUIZ_LEVELS[quizLevel];
+  if (!level || !level.valueNames) {
+    return VALUES_DATA.map(function(_, i) { return i; });
+  }
+  var names = new Set(level.valueNames);
+  var indices = [];
+  VALUES_DATA.forEach(function(v, i) {
+    if (names.has(v.name)) indices.push(i);
+  });
+  return indices;
+}
+
+function getActiveTotal() {
+  return getActiveIndices().length;
+}
+
+function getActiveCompletedCount() {
+  return getActiveIndices().reduce(function(n, vi) {
+    return n + (isValueCompleted(vi) ? 1 : 0);
+  }, 0);
+}
+
+function getActiveCompletedValues() {
+  var activeSet = new Set(getActiveIndices());
+  var completed = [];
+  VALUES_DATA.forEach(function(v, vi) {
+    if (activeSet.has(vi) && isValueCompleted(vi)) {
+      var sum = 0;
+      for (var qi = 0; qi < 5; qi++) {
+        sum += answers[vi + '_' + qi] || 0;
+      }
+      completed.push({ name: v.name, avg: sum / 5 });
+    }
+  });
+  completed.sort(function(a, b) { return b.avg - a.avg; });
+  return completed;
+}
+
+function getActiveDetailedCompletedValues() {
+  var activeSet = new Set(getActiveIndices());
+  var completed = [];
+  VALUES_DATA.forEach(function(v, vi) {
+    if (activeSet.has(vi) && isValueCompleted(vi)) {
+      var sum = 0;
+      var questionScores = [];
+      for (var qi = 0; qi < 5; qi++) {
+        var score = answers[vi + '_' + qi] || 0;
+        sum += score;
+        questionScores.push({
+          area: v.questions[qi].area,
+          question: v.questions[qi].text,
+          score: score
+        });
+      }
+      completed.push({
+        name: v.name,
+        average: parseFloat((sum / 5).toFixed(2)),
+        questions: questionScores
+      });
+    }
+  });
+  completed.sort(function(a, b) { return b.average - a.average; });
+  return completed;
+}
 
 // --- Quiz Progress Storage ---
 
@@ -15,7 +128,8 @@ function saveProgress(screen) {
     answers: { ...answers },
     currentIndex,
     skipped: [...skippedSet],
-    screen: screen || 'quiz'
+    screen: screen || 'quiz',
+    quizLevel: quizLevel
   };
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -110,7 +224,8 @@ function buildExportData(completedValues) {
   return {
     version: 1,
     exportedAt: new Date().toISOString(),
-    totalValues: VALUES_DATA.length,
+    quizLevel: quizLevel || 'full-spectrum',
+    totalValues: getActiveTotal(),
     completedCount: completedValues.length,
     values: completedValues.map((v, i) => ({
       rank: i + 1,

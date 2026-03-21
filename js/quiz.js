@@ -5,10 +5,10 @@ function startQuiz() {
   const hasResults = saved && saved.screen === 'results' && Object.keys(saved.answers).length > 0;
   const hasProgress = saved && saved.screen === 'quiz' && Object.keys(saved.answers).length > 0;
 
-  hideAllScreens();
-  document.getElementById('quiz').style.display = 'block';
-
   if (hasResults) {
+    quizLevel = saved.quizLevel || 'full-spectrum';
+    hideAllScreens();
+    document.getElementById('quiz').style.display = 'block';
     Object.entries(saved.answers).forEach(function(entry) { answers[entry[0]] = entry[1]; });
     currentIndex = saved.currentIndex || 0;
     (saved.skipped || []).forEach(function(i) { skippedSet.add(i); });
@@ -17,14 +17,35 @@ function startQuiz() {
     return;
   }
 
-  showPreviousResultsBanner(false);
-
   if (hasProgress) {
+    quizLevel = saved.quizLevel || 'full-spectrum';
+    hideAllScreens();
+    document.getElementById('quiz').style.display = 'block';
+    showPreviousResultsBanner(false);
     renderValue();
     return;
   }
 
-  currentIndex = 0;
+  // No saved progress — show level selection
+  showLevelSelect();
+}
+
+function showLevelSelect() {
+  hideAllScreens();
+  document.getElementById('levelSelect').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function selectLevel(level) {
+  quizLevel = level;
+  var activeIndices = getActiveIndices();
+  currentIndex = activeIndices[0];
+  Object.keys(answers).forEach(function(k) { delete answers[k]; });
+  skippedSet.clear();
+
+  hideAllScreens();
+  document.getElementById('quiz').style.display = 'block';
+  showPreviousResultsBanner(false);
   saveProgress();
   renderValue();
 }
@@ -43,49 +64,51 @@ function startNewTest() {
   showPreviousResultsBanner(false);
   clearProgress();
   currentIndex = 0;
-  Object.keys(answers).forEach(k => delete answers[k]);
+  quizLevel = null;
+  Object.keys(answers).forEach(function(k) { delete answers[k]; });
   skippedSet.clear();
-  saveProgress();
-  renderValue();
+  showLevelSelect();
 }
 
 function renderValue() {
-  const v = VALUES_DATA[currentIndex];
-  const total = VALUES_DATA.length;
-  const completed = getCompletedCount();
-  const pct = Math.round((completed / total) * 100);
+  var v = VALUES_DATA[currentIndex];
+  var activeIndices = getActiveIndices();
+  var total = activeIndices.length;
+  var completed = getActiveCompletedCount();
+  var pct = Math.round((completed / total) * 100);
+  var position = activeIndices.indexOf(currentIndex) + 1;
 
-  document.getElementById('progressLabel').textContent = `Completed ${completed} of ${total}`;
-  document.getElementById('progressPct').textContent = `${pct}%`;
-  document.getElementById('progressFill').style.width = `${pct}%`;
+  document.getElementById('progressLabel').textContent = 'Completed ' + completed + ' of ' + total;
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressFill').style.width = pct + '%';
 
-  const desc = VALUE_DESCRIPTIONS[v.name] || '';
-  let html = `<div class="value-name">${v.name}</div>`;
-  if (desc) html += `<div class="value-desc">${desc}</div>`;
-  html += `<div class="value-number">Value ${currentIndex + 1} of ${total} — Rate each scenario from 1 (Not at all) to 5 (Absolutely)</div>`;
+  var desc = VALUE_DESCRIPTIONS[v.name] || '';
+  var html = '<div class="value-name">' + v.name + '</div>';
+  if (desc) html += '<div class="value-desc">' + desc + '</div>';
+  html += '<div class="value-number">Value ' + position + ' of ' + total + ' \u2014 Rate each scenario from 1 (Not at all) to 5 (Absolutely)</div>';
 
-  v.questions.forEach((q, qi) => {
-    const key = `${currentIndex}_${qi}`;
-    const saved = answers[key] || 0;
-    html += `<div class="question">`;
-    html += `<div class="q-area">${q.area}</div>`;
-    html += `<div class="q-label">${q.text}</div>`;
-    html += `<div class="likert">`;
-    for (let s = 1; s <= 5; s++) {
-      html += `<label><input type="radio" name="q${key}" value="${s}" ${saved === s ? 'checked' : ''} onchange="saveAnswer('${key}',${s})"><span class="chip">${s}</span></label>`;
+  v.questions.forEach(function(q, qi) {
+    var key = currentIndex + '_' + qi;
+    var saved = answers[key] || 0;
+    html += '<div class="question">';
+    html += '<div class="q-area">' + q.area + '</div>';
+    html += '<div class="q-label">' + q.text + '</div>';
+    html += '<div class="likert">';
+    for (var s = 1; s <= 5; s++) {
+      html += '<label><input type="radio" name="q' + key + '" value="' + s + '" ' + (saved === s ? 'checked' : '') + ' onchange="saveAnswer(\'' + key + '\',' + s + ')"><span class="chip">' + s + '</span></label>';
     }
-    html += `</div>`;
-    html += `<div class="likert-labels"><span>Not at all</span><span>Absolutely</span></div>`;
-    html += `</div>`;
+    html += '</div>';
+    html += '<div class="likert-labels"><span>Not at all</span><span>Absolutely</span></div>';
+    html += '</div>';
   });
 
   document.getElementById('valueCard').innerHTML = html;
-  document.getElementById('prevBtn').disabled = currentIndex === 0;
+  document.getElementById('prevBtn').disabled = activeIndices.indexOf(currentIndex) === 0;
   document.getElementById('skipBtn').style.display = isValueCompleted(currentIndex) ? 'none' : '';
 
-  const allDone = getCompletedCount() === total;
-  const isLast = currentIndex === total - 1;
-  document.getElementById('nextBtn').textContent = (allDone || isLast) ? 'See Results →' : 'Next →';
+  var allDone = completed === total;
+  var isLast = activeIndices.indexOf(currentIndex) === activeIndices.length - 1;
+  document.getElementById('nextBtn').textContent = (allDone || isLast) ? 'See Results \u2192' : 'Next \u2192';
 
   updateSkippedBanner();
   updateSummaryPanel();
@@ -106,7 +129,7 @@ function saveAnswer(key, val) {
 function nextValue() {
   if (!isValueCompleted(currentIndex)) {
     showModal({
-      icon: '✏️',
+      icon: '\u270F\uFE0F',
       title: 'Incomplete Answers',
       message: 'Please answer all 5 questions before continuing, or use Skip to come back later.',
       buttons: [{ label: 'Got it', cls: 'btn-primary' }]
@@ -116,15 +139,20 @@ function nextValue() {
   skippedSet.delete(currentIndex);
   saveProgress();
 
-  if (getCompletedCount() === VALUES_DATA.length) {
+  var activeIndices = getActiveIndices();
+  var total = activeIndices.length;
+
+  if (getActiveCompletedCount() === total) {
     showResults();
     return;
   }
-  if (currentIndex < VALUES_DATA.length - 1) {
-    currentIndex++;
+
+  var currentPos = activeIndices.indexOf(currentIndex);
+  if (currentPos < activeIndices.length - 1) {
+    currentIndex = activeIndices[currentPos + 1];
     renderValue();
   } else {
-    const next = findNextUnanswered(0);
+    var next = findNextUnansweredActive(0);
     if (next !== -1) {
       currentIndex = next;
       renderValue();
@@ -135,8 +163,10 @@ function nextValue() {
 }
 
 function prevValue() {
-  if (currentIndex > 0) {
-    currentIndex--;
+  var activeIndices = getActiveIndices();
+  var currentPos = activeIndices.indexOf(currentIndex);
+  if (currentPos > 0) {
+    currentIndex = activeIndices[currentPos - 1];
     saveProgress();
     renderValue();
   }
@@ -145,11 +175,14 @@ function prevValue() {
 function skipValue() {
   skippedSet.add(currentIndex);
   saveProgress();
-  if (currentIndex < VALUES_DATA.length - 1) {
-    currentIndex++;
+
+  var activeIndices = getActiveIndices();
+  var currentPos = activeIndices.indexOf(currentIndex);
+  if (currentPos < activeIndices.length - 1) {
+    currentIndex = activeIndices[currentPos + 1];
     renderValue();
   } else {
-    const next = findNextUnanswered(0);
+    var next = findNextUnansweredActive(0);
     if (next !== -1) {
       currentIndex = next;
       renderValue();
@@ -159,17 +192,22 @@ function skipValue() {
   }
 }
 
-function findNextUnanswered(startFrom) {
-  for (let i = startFrom; i < VALUES_DATA.length; i++) {
-    if (!isValueCompleted(i)) return i;
+function findNextUnansweredActive(startFromPos) {
+  var activeIndices = getActiveIndices();
+  for (var i = startFromPos; i < activeIndices.length; i++) {
+    if (!isValueCompleted(activeIndices[i])) return activeIndices[i];
   }
   return -1;
 }
 
 function goToNextSkipped() {
-  const arr = [...skippedSet].sort((a, b) => a - b);
+  var activeSet = new Set(getActiveIndices());
+  var arr = [];
+  skippedSet.forEach(function(i) { if (activeSet.has(i)) arr.push(i); });
+  arr.sort(function(a, b) { return a - b; });
   if (arr.length > 0) {
-    const next = arr.find(i => i > currentIndex) ?? arr[0];
+    var next = arr.find(function(i) { return i > currentIndex; });
+    if (next === undefined) next = arr[0];
     currentIndex = next;
     renderValue();
   }
@@ -184,10 +222,11 @@ function jumpToValue(index) {
 }
 
 function endTest() {
-  const completed = getCompletedCount();
+  var completed = getActiveCompletedCount();
+  var total = getActiveTotal();
   if (completed === 0) {
     showModal({
-      icon: '⚠️',
+      icon: '\u26A0\uFE0F',
       title: 'No Values Completed',
       message: 'Please complete at least one value before ending the test.',
       buttons: [{ label: 'Got it', cls: 'btn-primary' }]
@@ -195,9 +234,9 @@ function endTest() {
     return;
   }
   showModal({
-    icon: '🏁',
+    icon: '\uD83C\uDFC1',
     title: 'End Test?',
-    message: `You have completed ${completed} of ${VALUES_DATA.length} values. End now and see results?`,
+    message: 'You have completed ' + completed + ' of ' + total + ' values. End now and see results?',
     buttons: [
       { label: 'Cancel', cls: 'btn-secondary' },
       { label: 'See Results', cls: 'btn-primary', action: showResults }
@@ -207,7 +246,7 @@ function endTest() {
 
 function restartTest() {
   showModal({
-    icon: '🔄',
+    icon: '\uD83D\uDD04',
     title: 'Restart Test?',
     message: 'This will erase all your progress. Are you sure?',
     buttons: [
@@ -220,7 +259,8 @@ function restartTest() {
 function doRestart() {
   clearProgress();
   currentIndex = 0;
-  Object.keys(answers).forEach(k => delete answers[k]);
+  quizLevel = null;
+  Object.keys(answers).forEach(function(k) { delete answers[k]; });
   skippedSet.clear();
   navigateToLanding();
 }
@@ -228,8 +268,10 @@ function doRestart() {
 // --- Skipped Banner ---
 
 function updateSkippedBanner() {
-  const count = skippedSet.size;
-  const banner = document.getElementById('skippedBanner');
+  var activeSet = new Set(getActiveIndices());
+  var count = 0;
+  skippedSet.forEach(function(i) { if (activeSet.has(i)) count++; });
+  var banner = document.getElementById('skippedBanner');
   if (count > 0) {
     banner.style.display = 'flex';
     document.getElementById('skippedCount').textContent = count;
@@ -246,37 +288,40 @@ function toggleSummary() {
 }
 
 function updateSummaryPanel() {
-  const total = VALUES_DATA.length;
-  const completed = getCompletedCount();
-  const skipped = skippedSet.size;
-  const pending = total - completed - skipped;
+  var activeIndices = getActiveIndices();
+  var total = activeIndices.length;
+  var completed = getActiveCompletedCount();
+  var activeSkipped = 0;
+  skippedSet.forEach(function(i) { if (activeIndices.indexOf(i) !== -1) activeSkipped++; });
+  var pending = total - completed - activeSkipped;
 
   document.getElementById('summaryStats').innerHTML =
-    `<span class="stat"><span class="stat-dot completed"></span> ${completed} completed</span>` +
-    `<span class="stat"><span class="stat-dot skipped"></span> ${skipped} skipped</span>` +
-    `<span class="stat"><span class="stat-dot pending"></span> ${pending} remaining</span>`;
+    '<span class="stat"><span class="stat-dot completed"></span> ' + completed + ' completed</span>' +
+    '<span class="stat"><span class="stat-dot skipped"></span> ' + activeSkipped + ' skipped</span>' +
+    '<span class="stat"><span class="stat-dot pending"></span> ' + pending + ' remaining</span>';
 
-  let html = '';
-  VALUES_DATA.forEach((v, i) => {
-    const done = isValueCompleted(i);
-    const skip = skippedSet.has(i);
-    const active = i === currentIndex ? ' active' : '';
-    let icon, scoreText = '';
+  var html = '';
+  activeIndices.forEach(function(i) {
+    var v = VALUES_DATA[i];
+    var done = isValueCompleted(i);
+    var skip = skippedSet.has(i);
+    var active = i === currentIndex ? ' active' : '';
+    var icon, scoreText = '';
     if (done) {
-      icon = '✅';
-      let sum = 0;
-      for (let qi = 0; qi < 5; qi++) sum += answers[`${i}_${qi}`] || 0;
+      icon = '\u2705';
+      var sum = 0;
+      for (var qi = 0; qi < 5; qi++) sum += answers[i + '_' + qi] || 0;
       scoreText = (sum / 5).toFixed(1);
     } else if (skip) {
-      icon = '⏭';
+      icon = '\u23ED';
     } else {
-      icon = '○';
+      icon = '\u25CB';
     }
-    html += `<div class="summary-item${active}" onclick="jumpToValue(${i})">
-      <span class="status-icon">${icon}</span>
-      <span class="item-name">${v.name}</span>
-      ${scoreText ? `<span class="item-score">${scoreText}</span>` : ''}
-    </div>`;
+    html += '<div class="summary-item' + active + '" onclick="jumpToValue(' + i + ')">' +
+      '<span class="status-icon">' + icon + '</span>' +
+      '<span class="item-name">' + v.name + '</span>' +
+      (scoreText ? '<span class="item-score">' + scoreText + '</span>' : '') +
+    '</div>';
   });
   document.getElementById('summaryGrid').innerHTML = html;
 }
