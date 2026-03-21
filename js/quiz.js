@@ -85,7 +85,7 @@ function renderValue() {
   var desc = VALUE_DESCRIPTIONS[v.name] || '';
   var html = '<div class="value-name">' + v.name + '</div>';
   if (desc) html += '<div class="value-desc">' + desc + '</div>';
-  html += '<div class="value-number">Value ' + position + ' of ' + total + ' \u2014 Rate each scenario from 1 (Not at all) to 5 (Absolutely)</div>';
+  html += '<div class="value-number">Value ' + position + ' of ' + total + ' \u2014 Rate each scenario based on how likely you would do it</div>';
 
   v.questions.forEach(function(q, qi) {
     var key = currentIndex + '_' + qi;
@@ -93,12 +93,12 @@ function renderValue() {
     html += '<div class="question">';
     html += '<div class="q-area">' + q.area + '</div>';
     html += '<div class="q-label">' + q.text + '</div>';
+    var chipLabels = ['No way', 'Unlikely', 'Maybe', 'Likely', 'Definitely'];
     html += '<div class="likert">';
     for (var s = 1; s <= 5; s++) {
-      html += '<label><input type="radio" name="q' + key + '" value="' + s + '" ' + (saved === s ? 'checked' : '') + ' onchange="saveAnswer(\'' + key + '\',' + s + ')"><span class="chip">' + s + '</span></label>';
+      html += '<label><input type="radio" name="q' + key + '" value="' + s + '" ' + (saved === s ? 'checked' : '') + ' onchange="saveAnswer(\'' + key + '\',' + s + ')"><span class="chip">' + chipLabels[s - 1] + '</span></label>';
     }
     html += '</div>';
-    html += '<div class="likert-labels"><span>Not at all</span><span>Absolutely</span></div>';
     html += '</div>';
   });
 
