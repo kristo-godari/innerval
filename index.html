@@ -465,9 +465,11 @@
       <div class="progress-wrap">
         <div class="progress-header">
           <span id="progressLabel">Completed 0 of 0</span>
+          <span class="progress-badge" id="progressBadge"></span>
           <span id="progressPct">0%</span>
         </div>
         <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="streak-pill" id="streakPill" style="display:none"></div>
       </div>
       <div class="summary-toggle">
         <button class="btn btn-secondary" onclick="toggleSummary()" id="summaryBtn">📋 Summary</button>
@@ -488,11 +490,19 @@
       <div class="value-card" id="valueCard"></div>
       <div class="nav-row">
         <div class="nav-left">
-          <button class="btn btn-secondary" id="prevBtn" onclick="prevValue()">← Previous</button>
+          <button class="btn btn-secondary" id="prevBtn" onclick="prevValue()">&larr; Previous</button>
         </div>
         <div class="nav-right">
-          <button class="btn btn-skip" id="skipBtn" onclick="skipValue()">⏭ Skip</button>
-          <button class="btn btn-primary" id="nextBtn" onclick="nextValue()">Next →</button>
+          <button class="btn btn-skip" id="skipBtn" onclick="skipValue()">&#9197; Skip</button>
+          <button class="btn btn-primary" id="nextBtn" onclick="nextValue()">Next &rarr;</button>
+          <div class="keyboard-help">
+            <button class="keyboard-help-btn" type="button" aria-label="Keyboard shortcuts">?</button>
+            <div class="keyboard-help-tooltip">
+              <div><kbd>1</kbd>-<kbd>5</kbd> Answer question</div>
+              <div><kbd>&larr;</kbd><kbd>&rarr;</kbd> Navigate values</div>
+              <div><kbd>S</kbd> Toggle summary</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
