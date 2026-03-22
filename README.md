@@ -15,57 +15,59 @@ No backend, no build system, no tracking — just vanilla HTML, CSS, and JavaScr
 
 ## Getting Started
 
-No installation or build step required. Simply serve the files with any static file server:
+No installation or build step required. Simply serve the `src/` directory with any static file server:
 
 ```bash
 # Using Python
-python3 -m http.server 8000
+cd src && python3 -m http.server 8000
 
 # Using Node.js
-npx serve .
+npx serve src
 
 # Using PHP
-php -S localhost:8000
+cd src && php -S localhost:8000
 ```
 
 Then open `http://localhost:8000` in your browser.
 
-You can also open `index.html` directly in a browser.
+You can also open `src/index.html` directly in a browser.
 
 ## Project Structure
 
 ```
 innerval/
-├── index.html              # Main application (all screens)
-├── privacy.html            # Privacy policy
-├── terms.html              # Terms of service
-├── css/                    # Stylesheets (one per component)
-│   ├── base.css
-│   ├── header.css
-│   ├── landing.css
-│   ├── quiz.css
-│   ├── results.css
-│   ├── compare.css
-│   ├── explore.css
-│   ├── growth-plan.css
-│   ├── modal.css
-│   ├── footer.css
-│   └── legal.css
-├── js/                     # Application logic (globals, no module system)
-│   ├── state.js            # Global state and localStorage persistence
-│   ├── quiz.js             # Quiz rendering and navigation
-│   ├── results.js          # Results display, PDF/JSON export
-│   ├── navigation.js       # Screen switching and header nav
-│   ├── compare.js          # JSON comparison, radar chart, alignment
-│   ├── explore.js          # Value browsing, filtering, aspirations
-│   ├── growth-plan.js      # AI prompt generation
-│   ├── modal.js            # Generic modal system
-│   ├── contact.js          # Contact form
-│   └── init.js             # App initialization
-└── data/                   # Static data files
-    ├── values-data.js      # Quiz questions per value
-    ├── value-descriptions.js   # Short value descriptions
-    └── value-explore-data.js   # Rich data for the explore feature
+├── src/
+│   ├── index.html              # Main application (all screens)
+│   ├── privacy.html            # Privacy policy
+│   ├── terms.html              # Terms of service
+│   ├── css/                    # Stylesheets (one per component)
+│   │   ├── base.css
+│   │   ├── header.css
+│   │   ├── landing.css
+│   │   ├── quiz.css
+│   │   ├── results.css
+│   │   ├── compare.css
+│   │   ├── explore.css
+│   │   ├── growth-plan.css
+│   │   ├── modal.css
+│   │   ├── footer.css
+│   │   └── legal.css
+│   ├── js/                     # Application logic (globals, no module system)
+│   │   ├── state.js            # Global state and localStorage persistence
+│   │   ├── quiz.js             # Quiz rendering and navigation
+│   │   ├── results.js          # Results display, PDF/JSON export
+│   │   ├── navigation.js       # Screen switching and header nav
+│   │   ├── compare.js          # JSON comparison, radar chart, alignment
+│   │   ├── explore.js          # Value browsing, filtering, aspirations
+│   │   ├── growth-plan.js      # AI prompt generation
+│   │   ├── modal.js            # Generic modal system
+│   │   ├── contact.js          # Contact form
+│   │   └── init.js             # App initialization
+│   ├── data/                   # Static data files
+│   │   ├── values-data.js      # Quiz questions per value
+│   │   ├── value-descriptions.js   # Short value descriptions
+│   │   └── value-explore-data.js   # Rich data for the explore feature
+│   └── images/                 # Image assets
 ```
 
 ## Architecture
