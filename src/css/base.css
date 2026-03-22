@@ -1,15 +1,15 @@
 /* Reset, CSS variables, typography, container, and shared button styles. */
 
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--primary:#c06b5e;--primary-light:#d49a90;--bg:#faf7f3;--card:#fffcf9;--text:#362b2b;--muted:#8a7575;--border:#e8ddd4;--green:#5a9e6f;--gold:#d4a04a;--blue:#6b9ec0;--purple:#9b7db8;--rose:#c86482;--radius:14px;--header-h:60px}
+:root{--primary:#c06b5e;--primary-light:#d49a90;--bg:#faf7f3;--card:#fffcf9;--text:#362b2b;--muted:#8a7575;--border:#e8ddd4;--green:#5a9e6f;--gold:#d4a04a;--blue:#6b9ec0;--purple:#9b7db8;--rose:#c86482;--radius:10px;--header-h:52px}
 html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + 16px)}
-body{font-family:'Nunito','Avenir Next',Avenir,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh;padding-top:var(--header-h);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-.container{max-width:800px;margin:0 auto;padding:24px 16px}
-@media(min-width:1024px){.container{max-width:1100px;padding:32px 32px}}
-@media(min-width:1400px){.container{max-width:1320px;padding:40px 48px}}
+body{font-family:'Nunito','Avenir Next',Avenir,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;padding-top:var(--header-h);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+.container{max-width:800px;margin:0 auto;padding:20px 16px}
+@media(min-width:1024px){.container{max-width:1000px;padding:24px 28px}}
+@media(min-width:1400px){.container{max-width:1140px;padding:32px 36px}}
 
 /* BUTTONS */
-.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border:none;border-radius:14px;font-size:.92rem;font-weight:600;cursor:pointer;transition:all .25s;letter-spacing:.01em}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 22px;border:none;border-radius:10px;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .25s;letter-spacing:.01em}
 .btn-primary{background:var(--primary);color:#fff}
 .btn-primary:hover{background:#a85a4e;transform:translateY(-1px);box-shadow:0 4px 16px rgba(192,107,94,.3)}
 .btn-secondary{background:var(--card);color:var(--text);border:1px solid var(--border)}
@@ -21,7 +21,7 @@ body{font-family:'Nunito','Avenir Next',Avenir,-apple-system,BlinkMacSystemFont,
 .btn-end:hover{background:rgba(190,80,70,.12)}
 .btn-compare{background:linear-gradient(135deg,#c06b5e,#9b7db8);color:#fff;border:none}
 .btn-compare:hover{background:linear-gradient(135deg,#a85a4e,#856ba3);transform:translateY(-1px);box-shadow:0 4px 12px rgba(155,125,184,.3)}
-.btn-sm{padding:8px 18px;font-size:.82rem}
+.btn-sm{padding:6px 14px;font-size:.78rem}
 
 /* Back link */
 .back-link{display:inline-flex;align-items:center;gap:6px;font-size:.85rem;font-weight:600;color:var(--muted);text-decoration:none;transition:color .2s}
