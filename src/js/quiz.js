@@ -598,7 +598,7 @@ function endTest() {
   var total = getActiveTotal();
 
   showModal({
-    icon: '\uD83C\uDFC1',
+    icon: 'flag',
     title: 'End Test?',
     message: 'You have ' + completed + ' of ' + total + ' values fully scored across all life areas. End now and see results?',
     buttons: [
@@ -610,7 +610,7 @@ function endTest() {
 
 function restartTest() {
   showModal({
-    icon: '\uD83D\uDD04',
+    icon: 'restart',
     title: 'Restart Test?',
     message: 'This will erase all your progress. Are you sure?',
     buttons: [

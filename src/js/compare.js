@@ -22,7 +22,7 @@ function compareFromResults() {
   const currentUserData = buildCurrentUserExport();
   if (!currentUserData) {
     showModal({
-      icon: '⚠️',
+      icon: 'warning',
       title: 'No Results',
       message: 'Please complete at least one value before comparing.',
       buttons: [{ label: 'Got it', cls: 'btn-primary' }]
@@ -109,7 +109,7 @@ function handleFileSelect(e, num) {
 function processFile(file, num) {
   if (!file.name.endsWith('.json')) {
     showModal({
-      icon: '⚠️',
+      icon: 'warning',
       title: 'Invalid File',
       message: 'Please upload a .json file exported from Innerval.',
       buttons: [{ label: 'Got it', cls: 'btn-primary' }]
@@ -122,7 +122,7 @@ function processFile(file, num) {
       const data = JSON.parse(e.target.result);
       if (!validateExport(data)) {
         showModal({
-          icon: '⚠️',
+          icon: 'warning',
           title: 'Invalid Format',
           message: 'This file doesn\'t appear to be a valid Innerval export. Make sure to use the "Export Data" button to generate it.',
           buttons: [{ label: 'Got it', cls: 'btn-primary' }]
@@ -143,7 +143,7 @@ function processFile(file, num) {
       updateCompareBtn();
     } catch (err) {
       showModal({
-        icon: '❌',
+        icon: 'error',
         title: 'Parse Error',
         message: 'Could not read this file. Please make sure it\'s a valid JSON export.',
         buttons: [{ label: 'Got it', cls: 'btn-primary' }]

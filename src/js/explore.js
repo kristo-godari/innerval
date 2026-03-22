@@ -193,7 +193,7 @@ function updatePlanCta() {
 
 function clearAllAspirations() {
   showModal({
-    icon: '⭐',
+    icon: 'warning',
     title: 'Clear All Aspirations?',
     message: 'This will remove all values from your aspirations list.',
     buttons: [

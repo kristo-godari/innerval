@@ -24,7 +24,7 @@ function showGrowthPlan() {
 
   if (!hasResults && !hasAspirations) {
     showModal({
-      icon: '📋',
+      icon: 'info',
       title: 'Nothing to Plan Yet',
       message: 'Take the assessment to discover your values, or add aspirations — values you want to cultivate.',
       buttons: [{ label: 'Got it', cls: 'btn-primary' }]
