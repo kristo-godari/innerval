@@ -28,19 +28,6 @@ function updateLandingButtons() {
   }
 }
 
-function showLeaveModal(navigateFn) {
-  showModal({
-    icon: '🚪',
-    title: 'Leave the Quiz?',
-    message: 'Your progress is saved automatically. You can come back and continue later.',
-    buttons: [
-      { label: 'Stay', cls: 'btn-primary' },
-      { label: 'Save & Leave', cls: 'btn-secondary', action: navigateFn },
-      { label: 'Leave & Lose Progress', cls: 'btn-end', action: function() { doRestart(); navigateFn(); } }
-    ]
-  });
-}
-
 function navigateToLanding() {
   hideAllScreens();
   document.getElementById('landing').style.display = 'block';
@@ -49,11 +36,7 @@ function navigateToLanding() {
 }
 
 function goHome() {
-  if (isInQuiz()) {
-    showLeaveModal(navigateToLanding);
-    return;
-  }
-  if (isInAnyActiveScreen()) {
+  if (isInQuiz() || isInAnyActiveScreen()) {
     navigateToLanding();
     return;
   }
@@ -72,11 +55,7 @@ function goSection(id) {
     }, 100);
   }
 
-  if (isInQuiz()) {
-    showLeaveModal(scrollToSection);
-    return;
-  }
-  if (isInAnyActiveScreen()) {
+  if (isInQuiz() || isInAnyActiveScreen()) {
     scrollToSection();
     return;
   }

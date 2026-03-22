@@ -36,15 +36,14 @@ window.addEventListener('scroll', function() {
   document.getElementById('siteHeader').classList.toggle('scrolled', window.scrollY > 10);
 });
 
-// Intercept external page links during quiz
+// Intercept external page links during quiz — progress is auto-saved
 document.addEventListener('click', function(e) {
   if (!isInQuiz()) return;
   const link = e.target.closest('a[href]');
   if (!link) return;
   const href = link.getAttribute('href');
   if (!href || href.startsWith('#') || href.startsWith('javascript:') || href.startsWith('blob:')) return;
-  e.preventDefault();
-  showLeaveModal(function() { window.location.href = href; });
+  window.location.href = href;
 });
 
 // Close explore detail on overlay click

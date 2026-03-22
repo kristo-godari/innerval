@@ -20,6 +20,7 @@
 .progress-bar{height:8px;background:var(--border);border-radius:99px;overflow:hidden}
 .progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),#9b7db8,var(--primary-light));border-radius:99px;transition:width .4s ease;background-size:200% 100%;animation:shimmer 2s ease infinite}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.autosave-hint{font-size:.78rem;color:var(--muted);text-align:center;margin-top:10px;opacity:.7}
 
 /* Value Card */
 .value-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:36px;margin-bottom:24px;box-shadow:0 1px 3px rgba(54,43,43,.04);position:relative;overflow:hidden}
