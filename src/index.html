@@ -444,12 +444,6 @@
         </div>
 
       </div>
-      <div class="level-back">
-        <button class="btn btn-secondary" onclick="goHome()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
-          Back to Home
-        </button>
-      </div>
     </div>
   </div>
 
@@ -625,6 +619,12 @@
 
   <!-- GROWTH PLAN SCREEN -->
   <div id="growthPlan" style="display:none">
+    <div class="plan-back">
+      <a href="#" class="back-link" onclick="backToExploreFromPlan()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        Explore Values
+      </a>
+    </div>
     <div class="plan-header">
       <h2>Your Growth Plan</h2>
       <p class="subtitle">A personalised AI prompt based on your values and aspirations</p>
@@ -661,10 +661,6 @@
       <div class="plan-prompt-text" id="planPromptText"></div>
     </div>
 
-    <div class="plan-back">
-      <button class="btn btn-secondary" onclick="backToExploreFromPlan()">← Back to Explore Values</button>
-      <button class="btn btn-primary" onclick="goHome()">🏠 Back to Home</button>
-    </div>
   </div>
 
   <!-- COMPARE UPLOAD SCREEN -->
@@ -702,6 +698,12 @@
 
   <!-- COMPARISON RESULTS SCREEN -->
   <div id="compareResults" style="display:none">
+    <div class="compare-back">
+      <a href="#" class="back-link" onclick="backToCompareUpload()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        New Comparison
+      </a>
+    </div>
     <div class="compare-results-header">
       <h2>Values Comparison</h2>
       <p class="subtitle" id="compareSubtitle">Person A vs Person B</p>
@@ -782,10 +784,6 @@
       <div id="categoryBreakdown"></div>
     </div>
 
-    <div class="compare-back">
-      <button class="btn btn-secondary" onclick="backToCompareUpload()">← New Comparison</button>
-      <button class="btn btn-primary" onclick="goHome()">🏠 Back to Home</button>
-    </div>
   </div>
 </div>
 

@@ -38,7 +38,7 @@
 .compare-actions{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;flex-wrap:wrap;gap:8px}
 .compare-actions .btn{padding:10px 20px;font-size:.85rem;border-radius:12px}
 
-.compare-back{display:flex;justify-content:center;gap:12px;margin-top:40px;padding-top:32px;border-top:1px solid var(--border)}
+.compare-back{margin-bottom:8px}
 
 /* Alignment Score Ring */
 .compare-score-card{display:flex;align-items:center;gap:28px;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px;margin-bottom:24px;box-shadow:0 1px 3px rgba(54,43,43,.04)}

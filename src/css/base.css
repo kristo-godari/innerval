@@ -23,5 +23,11 @@ body{font-family:'Nunito','Avenir Next',Avenir,-apple-system,BlinkMacSystemFont,
 .btn-compare:hover{background:linear-gradient(135deg,#a85a4e,#856ba3);transform:translateY(-1px);box-shadow:0 4px 12px rgba(155,125,184,.3)}
 .btn-sm{padding:8px 18px;font-size:.82rem}
 
+/* Back link */
+.back-link{display:inline-flex;align-items:center;gap:6px;font-size:.85rem;font-weight:600;color:var(--muted);text-decoration:none;transition:color .2s}
+.back-link:hover{color:var(--primary)}
+.back-link svg{transition:transform .2s}
+.back-link:hover svg{transform:translateX(-2px)}
+
 /* Selection highlight */
 ::selection{background:rgba(192,107,94,.15);color:var(--text)}
