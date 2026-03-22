@@ -211,8 +211,8 @@ function renderComparison(dataA, dataB) {
   }));
   diffs.sort((a, b) => a.diff - b.diff);
 
-  renderSimilarities(diffs.slice(0, 8), nameA, nameB);
-  renderDifferences([...diffs].sort((a, b) => b.diff - a.diff).slice(0, 8), nameA, nameB);
+  renderSimilarities(diffs.slice(0, 5), nameA, nameB);
+  renderDifferences([...diffs].sort((a, b) => b.diff - a.diff).slice(0, 5), nameA, nameB);
   renderTierTable(dataA.values, dataB.values, mapA, mapB, commonNames);
   renderCategoryBreakdown(dataA.values, dataB.values, nameA, nameB);
 }
