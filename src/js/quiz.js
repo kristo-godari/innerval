@@ -37,6 +37,15 @@ function showLevelSelect() {
   hideAllScreens();
   document.getElementById('levelSelect').style.display = 'block';
   window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Scroll to the second card (Deep Dive / Recommended) on mobile
+  var container = document.querySelector('.level-cards');
+  var secondCard = container && container.children[1];
+  if (secondCard && window.innerWidth <= 768) {
+    requestAnimationFrame(function() {
+      secondCard.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'instant' });
+    });
+  }
 }
 
 function selectLevel(level) {

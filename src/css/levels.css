@@ -269,19 +269,35 @@
 /* === RESPONSIVE === */
 
 @media (max-width: 768px) {
-  .level-cards {
-    grid-template-columns: 1fr;
-    max-width: 420px;
-    margin-left: auto;
-    margin-right: auto;
+  .level-select-wrap {
+    padding: 24px 0 48px;
   }
 
   .level-select-header {
-    padding-top: 16px;
-    margin-bottom: 32px;
+    padding: 16px 16px 0;
+    margin-bottom: 24px;
+  }
+
+  .level-cards {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 16px;
+    padding: 16px 16px 20px;
+    margin-bottom: 24px;
+    scrollbar-width: none;
+  }
+
+  .level-cards::-webkit-scrollbar {
+    display: none;
   }
 
   .level-card {
+    flex: 0 0 70vw;
+    max-width: 300px;
+    min-width: 240px;
+    scroll-snap-align: center;
     padding: 28px 20px 20px;
   }
 
