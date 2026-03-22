@@ -149,10 +149,11 @@ function renderValue() {
 
   var allDone = completed === total;
   var isLast = activeIndices.indexOf(currentIndex) === activeIndices.length - 1;
-  document.getElementById('nextBtn').textContent = (allDone || isLast) ? 'See Results \u2192' : 'Next \u2192';
+  var nextBtn = document.getElementById('nextBtn');
+  var arrowSvg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
+  nextBtn.innerHTML = (allDone || isLast) ? 'See Results ' + arrowSvg : 'Next ' + arrowSvg;
 
   updateSkippedBanner();
-  updateSummaryPanel();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -171,7 +172,6 @@ function saveAnswer(key, val) {
   if (justCompleted) {
     skippedSet.delete(currentIndex);
     updateSkippedBanner();
-    updateSummaryPanel();
     document.getElementById('skipBtn').style.display = 'none';
 
     // Completion celebration
@@ -349,9 +349,6 @@ function goToNextSkipped() {
 function jumpToValue(index) {
   currentIndex = index;
   renderValue();
-  if (window.innerWidth < 600) {
-    document.getElementById('summaryPanel').classList.remove('open');
-  }
 }
 
 function endTest() {
@@ -411,52 +408,6 @@ function updateSkippedBanner() {
   } else {
     banner.style.display = 'none';
   }
-}
-
-// --- Summary Panel ---
-
-function toggleSummary() {
-  document.getElementById('summaryPanel').classList.toggle('open');
-  updateSummaryPanel();
-}
-
-function updateSummaryPanel() {
-  var activeIndices = getActiveIndices();
-  var total = activeIndices.length;
-  var completed = getActiveCompletedCount();
-  var activeSkipped = 0;
-  skippedSet.forEach(function(i) { if (activeIndices.indexOf(i) !== -1) activeSkipped++; });
-  var pending = total - completed - activeSkipped;
-
-  document.getElementById('summaryStats').innerHTML =
-    '<span class="stat"><span class="stat-dot completed"></span> ' + completed + ' completed</span>' +
-    '<span class="stat"><span class="stat-dot skipped"></span> ' + activeSkipped + ' skipped</span>' +
-    '<span class="stat"><span class="stat-dot pending"></span> ' + pending + ' remaining</span>';
-
-  var html = '';
-  activeIndices.forEach(function(i) {
-    var v = VALUES_DATA[i];
-    var done = isValueCompleted(i);
-    var skip = skippedSet.has(i);
-    var active = i === currentIndex ? ' active' : '';
-    var icon, scoreText = '';
-    if (done) {
-      icon = '\u2705';
-      var sum = 0;
-      for (var qi = 0; qi < 5; qi++) sum += answers[i + '_' + qi] || 0;
-      scoreText = (sum / 5).toFixed(1);
-    } else if (skip) {
-      icon = '\u23ED';
-    } else {
-      icon = '\u25CB';
-    }
-    html += '<div class="summary-item' + active + '" onclick="jumpToValue(' + i + ')">' +
-      '<span class="status-icon">' + icon + '</span>' +
-      '<span class="item-name">' + v.name + '</span>' +
-      (scoreText ? '<span class="item-score">' + scoreText + '</span>' : '') +
-    '</div>';
-  });
-  document.getElementById('summaryGrid').innerHTML = html;
 }
 
 // --- Segmented Progress Bar ---
@@ -533,10 +484,4 @@ document.addEventListener('keydown', function(e) {
     return;
   }
 
-  // 's' or 'S': toggle summary
-  if (e.key === 's' || e.key === 'S') {
-    e.preventDefault();
-    toggleSummary();
-    return;
-  }
 });
