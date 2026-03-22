@@ -108,16 +108,16 @@
 
 /* ===== PROGRESS ===== */
 
-.progress-wrap{margin-bottom:24px;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px 24px;box-shadow:0 1px 3px rgba(54,43,43,.04)}
+.progress-wrap{margin-bottom:24px;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px 18px;box-shadow:0 1px 3px rgba(54,43,43,.04)}
 .progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:.88rem;color:var(--muted);font-weight:600}
 .progress-bar{height:8px;background:var(--border);border-radius:99px;overflow:hidden}
 .progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),#9b7db8,var(--primary-light));border-radius:99px;transition:width .4s ease;background-size:200% 100%;animation:shimmer 2s ease infinite}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.autosave-hint{font-size:.78rem;color:var(--muted);text-align:center;margin-top:10px;opacity:.7}
+.autosave-hint{font-size:.72rem;color:var(--muted);opacity:.6;margin-left:auto;margin-right:auto}
 
 /* ===== VALUE CARD ===== */
 
-.value-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:36px;margin-bottom:24px;box-shadow:0 1px 3px rgba(54,43,43,.04);position:relative;overflow:hidden}
+.value-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;margin-bottom:24px;box-shadow:0 1px 3px rgba(54,43,43,.04);position:relative;overflow:hidden}
 .value-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),#9b7db8);opacity:.6}
 .value-number{font-size:.82rem;color:var(--muted);margin-bottom:24px;font-weight:500;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .value-position-pill{display:inline-block;background:rgba(192,107,94,.08);padding:3px 12px;border-radius:20px;font-weight:700;font-size:.78rem;color:var(--primary)}
@@ -271,8 +271,8 @@
 /* ===== RESPONSIVE ===== */
 
 @media(max-width:600px){
-  .value-card{padding:24px 20px}
-  .progress-wrap{padding:16px 20px}
+  .value-card{padding:14px 12px}
+  .progress-wrap{padding:12px 14px}
   /* Mobile: vertical stack Likert */
   .likert{flex-direction:column;gap:6px}
   .likert label{flex:none;text-align:left}
@@ -311,17 +311,17 @@
 /* Large screens */
 @media(min-width:1024px){
   #quiz{max-width:900px;margin:0 auto}
-  .value-card{padding:44px 48px}
+  .value-card{padding:20px 24px}
   .question{padding:24px 28px}
   .q-label{font-size:1rem;font-weight:500;line-height:1.7}
   .likert .chip{padding:5px 0;font-size:.95rem}
   .likert{gap:10px}
-  .progress-wrap{padding:24px 32px}
+  .progress-wrap{padding:16px 24px}
   .area-cards{grid-template-columns:repeat(3,1fr)}
 }
 @media(min-width:1400px){
   #quiz{max-width:1000px}
-  .value-card{padding:48px 56px}
+  .value-card{padding:24px 32px}
   .likert .chip{padding:6px 0;font-size:1rem;border-radius:14px}
   .likert{gap:12px}
 }
