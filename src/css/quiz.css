@@ -1,4 +1,4 @@
-/* Quiz screen: progress bar, value card, questions, likert scale, summary panel, skipped banner. */
+/* Quiz screen: progress bar, value card, questions, likert scale, area select, area tabs. */
 
 #quiz{display:none}
 
@@ -14,31 +14,140 @@
   .previous-results-actions{width:100%;justify-content:center}
 }
 
-/* Progress */
-.progress-wrap{margin-bottom:32px;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px 24px;box-shadow:0 1px 3px rgba(54,43,43,.04)}
+/* ===== AREA SELECT SCREEN ===== */
+
+.area-select-header{text-align:center;margin-bottom:28px}
+.area-select-header .section-title{margin-bottom:8px}
+
+.area-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:24px}
+
+.area-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;cursor:pointer;transition:all .25s;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}
+.area-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:.7;transition:opacity .25s}
+.area-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(54,43,43,.08)}
+.area-card:hover::before{opacity:1}
+
+/* Area-specific top accent */
+.area-card--work::before{background:var(--primary)}
+.area-card--relationships::before{background:var(--purple)}
+.area-card--personal::before{background:var(--green)}
+.area-card--social::before{background:var(--gold)}
+.area-card--leisure::before{background:var(--blue)}
+
+/* Area card header */
+.area-card-header{display:flex;align-items:center;justify-content:space-between}
+.area-card-icon{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;transition:all .25s}
+.area-card--work .area-card-icon{background:rgba(192,107,94,.08);color:var(--primary)}
+.area-card--relationships .area-card-icon{background:rgba(155,125,184,.08);color:var(--purple)}
+.area-card--personal .area-card-icon{background:rgba(90,158,111,.08);color:var(--green)}
+.area-card--social .area-card-icon{background:rgba(212,160,74,.08);color:var(--gold)}
+.area-card--leisure .area-card-icon{background:rgba(107,158,192,.08);color:var(--blue)}
+
+/* Status badge */
+.area-card-status{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;padding:3px 10px;border-radius:20px;background:rgba(0,0,0,.04);color:var(--muted)}
+.area-card--complete .area-card-status{background:rgba(90,158,111,.1);color:#3a6b48}
+.area-card--progress .area-card-status{background:rgba(212,160,74,.1);color:#8b6914}
+
+.area-card-name{font-size:1.1rem;font-weight:700;color:var(--text);margin:0}
+.area-card-desc{font-size:.82rem;color:var(--muted);line-height:1.5;margin:0;flex:1}
+
+/* Progress bar inside card */
+.area-card-progress{display:flex;align-items:center;gap:10px}
+.area-card-progress-bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.area-card-progress-fill{height:100%;border-radius:3px;transition:width .4s ease}
+.area-card-progress-fill--work{background:var(--primary)}
+.area-card-progress-fill--relationships{background:var(--purple)}
+.area-card-progress-fill--personal{background:var(--green)}
+.area-card-progress-fill--social{background:var(--gold)}
+.area-card-progress-fill--leisure{background:var(--blue)}
+.area-card-progress-text{font-size:.78rem;font-weight:600;color:var(--muted);white-space:nowrap}
+
+/* Card CTA button */
+.area-card-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:12px;font-size:.85rem;font-weight:600;transition:all .25s}
+.area-card-btn--work{color:var(--primary);background:rgba(192,107,94,.06)}
+.area-card-btn--relationships{color:var(--purple);background:rgba(155,125,184,.06)}
+.area-card-btn--personal{color:var(--green);background:rgba(90,158,111,.06)}
+.area-card-btn--social{color:var(--gold);background:rgba(212,160,74,.06)}
+.area-card-btn--leisure{color:var(--blue);background:rgba(107,158,192,.06)}
+.area-card--work:hover .area-card-btn{background:var(--primary);color:#fff}
+.area-card--relationships:hover .area-card-btn{background:var(--purple);color:#fff}
+.area-card--personal:hover .area-card-btn{background:var(--green);color:#fff}
+.area-card--social:hover .area-card-btn{background:var(--gold);color:#fff}
+.area-card--leisure:hover .area-card-btn{background:var(--blue);color:#fff}
+
+/* Completed card */
+.area-card--complete{background:linear-gradient(135deg,rgba(90,158,111,.04),rgba(90,158,111,.01))}
+.area-card--complete .area-card-btn{color:var(--green);background:rgba(90,158,111,.06)}
+.area-card--complete:hover .area-card-btn{background:var(--green);color:#fff}
+
+.area-select-actions{position:sticky;bottom:0;z-index:40;display:flex;justify-content:flex-start;gap:8px;padding:12px 24px;margin-top:8px;background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:0 -2px 16px rgba(54,43,43,.06)}
+
+.area-results-hint{text-align:center;margin-bottom:16px}
+
+/* ===== AREA TABS (in questions view) ===== */
+
+.area-tabs{display:flex;gap:4px;margin-bottom:16px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px;scrollbar-width:none}
+.area-tabs::-webkit-scrollbar{display:none}
+
+.area-tab{display:flex;align-items:center;gap:5px;padding:8px 14px;border-radius:12px;border:1px solid var(--border);background:var(--card);font-size:.78rem;font-weight:600;color:var(--muted);cursor:pointer;transition:all .25s;white-space:nowrap;flex-shrink:0}
+.area-tab:hover{background:rgba(0,0,0,.02)}
+
+/* Active tab - area specific colors */
+.area-tab--active.area-tab--work{border-color:var(--primary);color:#8b5a50;background:rgba(192,107,94,.06)}
+.area-tab--active.area-tab--relationships{border-color:var(--purple);color:#6b5a7a;background:rgba(155,125,184,.06)}
+.area-tab--active.area-tab--personal{border-color:var(--green);color:#3a6b48;background:rgba(90,158,111,.06)}
+.area-tab--active.area-tab--social{border-color:var(--gold);color:#8b6914;background:rgba(212,160,74,.06)}
+.area-tab--active.area-tab--leisure{border-color:var(--blue);color:#4a6a8b;background:rgba(107,158,192,.06)}
+
+/* Completed tab */
+.area-tab--complete{color:var(--green)}
+.area-tab--complete.area-tab--active{border-color:var(--green);color:#3a6b48;background:rgba(90,158,111,.06)}
+.area-tab-check{display:flex;align-items:center;color:var(--green)}
+
+.area-tab-icon{display:flex;align-items:center}
+.area-tab-label{line-height:1}
+
+/* ===== PROGRESS ===== */
+
+.progress-wrap{margin-bottom:24px;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px 24px;box-shadow:0 1px 3px rgba(54,43,43,.04)}
 .progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:.88rem;color:var(--muted);font-weight:600}
 .progress-bar{height:8px;background:var(--border);border-radius:99px;overflow:hidden}
 .progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),#9b7db8,var(--primary-light));border-radius:99px;transition:width .4s ease;background-size:200% 100%;animation:shimmer 2s ease infinite}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .autosave-hint{font-size:.78rem;color:var(--muted);text-align:center;margin-top:10px;opacity:.7}
 
-/* Value Card */
+/* ===== VALUE CARD ===== */
+
 .value-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:36px;margin-bottom:24px;box-shadow:0 1px 3px rgba(54,43,43,.04);position:relative;overflow:hidden}
 .value-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),#9b7db8);opacity:.6}
 .value-number{font-size:.82rem;color:var(--muted);margin-bottom:24px;font-weight:500;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .value-position-pill{display:inline-block;background:rgba(192,107,94,.08);padding:3px 12px;border-radius:20px;font-weight:700;font-size:.78rem;color:var(--primary)}
+/* Area-specific pill colors */
+.value-position-pill--work{background:rgba(192,107,94,.08);color:#8b5a50}
+.value-position-pill--relationships{background:rgba(155,125,184,.08);color:#6b5a7a}
+.value-position-pill--personal{background:rgba(90,158,111,.08);color:#3a6b48}
+.value-position-pill--social{background:rgba(212,160,74,.08);color:#8b6914}
+.value-position-pill--leisure{background:rgba(107,158,192,.08);color:#4a6a8b}
 
-/* Questions */
-.question{margin-bottom:24px;padding:20px 20px 20px 24px;border-left:3px solid var(--border);border-radius:0 12px 12px 0;background:rgba(0,0,0,.01);transition:border-color .3s,background .3s}
+/* ===== QUESTIONS ===== */
+
+.question{margin-bottom:16px;padding:20px 24px;border-radius:14px;background:var(--card);border:1px solid var(--border);transition:border-color .3s,background .3s,box-shadow .3s,transform .4s ease,opacity .4s ease}
+.question.reorder-out{transform:translateY(10px);opacity:0}
+.question.reorder-in{animation:reorderSlideIn .35s ease forwards}
+@keyframes reorderSlideIn{from{transform:translateY(-10px);opacity:0}to{transform:translateY(0);opacity:1}}
 .question:last-child{margin-bottom:0}
-/* Area-specific left borders */
-.question--work{border-left-color:var(--primary)}
-.question--relationships{border-left-color:var(--purple)}
-.question--personal{border-left-color:var(--green)}
-.question--social{border-left-color:var(--gold)}
-.question--leisure{border-left-color:var(--blue)}
 
-.q-label{font-size:.95rem;font-weight:500;margin-bottom:6px;line-height:1.7}
+/* Answered state - subtle visual confirmation */
+.question--answered{background:linear-gradient(135deg,rgba(90,158,111,.03),rgba(90,158,111,.01));border-color:rgba(90,158,111,.25)}
+
+/* Question header: number + check */
+.q-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.q-number{font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}
+.q-check{display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--border);transition:all .3s;opacity:.4}
+.q-check svg{display:none}
+.question--answered .q-check{background:var(--green);opacity:1}
+.question--answered .q-check svg{display:block}
+
+.q-label{font-size:.95rem;font-weight:500;margin-bottom:14px;line-height:1.7;color:var(--text)}
 .q-area{font-size:.72rem;font-weight:700;margin-bottom:10px;text-transform:uppercase;letter-spacing:1.2px;display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:8px}
 /* Area badge colors */
 .q-area--work{background:rgba(192,107,94,.1);color:#8b5a50}
@@ -48,9 +157,8 @@
 .q-area--leisure{background:rgba(107,158,192,.1);color:#4a6a8b}
 .q-area svg{flex-shrink:0}
 
-/* Question status dot */
-.q-status-dot{display:inline-block;width:10px;height:10px;border-radius:50%;border:2px solid var(--border);vertical-align:middle;margin-left:8px;transition:all .3s}
-.q-status-dot--done{background:var(--green);border-color:var(--green)}
+/* ===== LIKERT SCALE ===== */
+
 .likert{display:flex;gap:8px}
 .likert label{flex:1;text-align:center;cursor:pointer}
 .likert input{display:none}
@@ -81,8 +189,8 @@
 .likert label[data-value="4"]:hover .chip{border-color:rgba(120,170,130,.45);transform:translateY(-2px);box-shadow:0 3px 8px rgba(120,170,130,.12)}
 .likert label[data-value="5"]:hover .chip{border-color:rgba(90,158,111,.45);transform:translateY(-2px);box-shadow:0 3px 8px rgba(90,158,111,.12)}
 
+/* ===== COMPLETION EFFECTS ===== */
 
-/* Completion Flash */
 .value-card.completed-flash{animation:completionFlash .6s ease}
 @keyframes completionFlash{0%{border-color:var(--border);box-shadow:0 1px 3px rgba(54,43,43,.04)}30%{border-color:var(--green);box-shadow:0 0 20px rgba(90,158,111,.2)}100%{border-color:var(--border);box-shadow:0 1px 3px rgba(54,43,43,.04)}}
 
@@ -97,19 +205,21 @@
 .streak-pulse{animation:streakGlow 1s ease}
 @keyframes streakGlow{0%{box-shadow:0 2px 12px rgba(212,160,74,.2)}50%{box-shadow:0 2px 24px rgba(212,160,74,.5)}100%{box-shadow:0 2px 12px rgba(212,160,74,.2)}}
 
-/* Nav Row */
+/* ===== NAV ROW ===== */
+
 .nav-row{position:sticky;bottom:0;z-index:40;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:12px 24px;background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:0 -2px 16px rgba(54,43,43,.06)}
 .nav-left,.nav-right{display:flex;gap:8px;align-items:center}
 
-/* Quiz Action Buttons (Restart, End Test) */
+/* Quiz Action Buttons (All Areas, Restart, End Test) */
 .btn-quiz-action{padding:10px 18px;font-size:.82rem;font-weight:600;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--muted);transition:all .25s;gap:6px}
 .btn-quiz-action:hover{transform:translateY(-1px)}
 .btn-quiz-action svg{opacity:.7;transition:opacity .2s}
 .btn-quiz-action:hover svg{opacity:1}
+.btn-quiz-areas:hover{border-color:rgba(155,125,184,.5);color:#6b5a7a;background:rgba(155,125,184,.06)}
 .btn-quiz-restart:hover{border-color:rgba(212,160,74,.5);color:#8b6914;background:rgba(212,160,74,.06)}
 .btn-quiz-end:hover{border-color:rgba(190,80,70,.4);color:#8b3530;background:rgba(190,80,70,.05)}
 
-/* Quiz Nav Buttons (Previous, Skip, Next) */
+/* Quiz Nav Buttons (Previous, Next) */
 .btn-quiz-nav{padding:10px 20px;font-size:.85rem;font-weight:600;border-radius:12px;transition:all .25s;gap:6px}
 .btn-quiz-prev{background:var(--card);color:var(--text);border:1px solid var(--border)}
 .btn-quiz-prev:hover{background:#f5efe9;border-color:#d4c8bc;transform:translateY(-1px)}
@@ -122,7 +232,8 @@
 .skipped-banner{background:linear-gradient(135deg,rgba(212,160,74,.1),rgba(212,160,74,.05));border:1px solid #f0d890;border-radius:16px;padding:14px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;font-size:.9rem;color:#8b6914;font-weight:500}
 .skipped-banner .btn{padding:6px 16px;font-size:.8rem}
 
-/* Slide Transitions */
+/* ===== SLIDE TRANSITIONS ===== */
+
 .value-card.slide-out-left{animation:slideOutLeft .2s ease forwards}
 .value-card.slide-out-right{animation:slideOutRight .2s ease forwards}
 .value-card.slide-in-right{animation:slideInRight .35s ease-out forwards}
@@ -132,7 +243,8 @@
 @keyframes slideInRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
 @keyframes slideInLeft{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
 
-/* Segmented Progress Bar */
+/* ===== SEGMENTED PROGRESS BAR ===== */
+
 .progress-segments{display:flex;gap:2px;margin-bottom:8px}
 .progress-segment{flex:1;height:6px;border-radius:3px;background:var(--border);cursor:pointer;transition:all .25s;position:relative}
 .progress-segment:hover{transform:scaleY(1.6);opacity:.9}
@@ -141,11 +253,13 @@
 .progress-segment--current{background:var(--primary-light);animation:segmentPulse 2s ease-in-out infinite}
 @keyframes segmentPulse{0%,100%{opacity:.6}50%{opacity:1}}
 
-/* Unanswered Question Highlight */
-.question.unanswered{border-left-color:#e07050!important;animation:unansweredPulse 1.5s ease infinite;background:rgba(224,112,80,.03)}
-@keyframes unansweredPulse{0%,100%{border-left-color:#e07050}50%{border-left-color:#f0a090}}
+/* ===== UNANSWERED HIGHLIGHT ===== */
 
-/* Keyboard Shortcut Hint */
+.question.unanswered{border-color:rgba(224,112,80,.5)!important;animation:unansweredPulse 1.5s ease infinite;background:rgba(224,112,80,.03)}
+@keyframes unansweredPulse{0%,100%{border-color:rgba(224,112,80,.5)}50%{border-color:rgba(224,112,80,.3)}}
+
+/* ===== KEYBOARD SHORTCUTS ===== */
+
 .keyboard-help{position:relative;display:inline-flex}
 .keyboard-help-btn{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:.78rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
 .keyboard-help-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
@@ -154,7 +268,8 @@
 .keyboard-help-tooltip div{padding:3px 0;color:var(--muted)}
 .keyboard-help-tooltip kbd{display:inline-block;padding:1px 6px;background:var(--bg);border:1px solid var(--border);border-radius:4px;font-size:.72rem;font-weight:700;color:var(--text);margin-right:6px}
 
-/* Responsive */
+/* ===== RESPONSIVE ===== */
+
 @media(max-width:600px){
   .value-card{padding:24px 20px}
   .progress-wrap{padding:16px 20px}
@@ -181,16 +296,28 @@
   .btn-quiz-action{flex:1;justify-content:center;padding:9px 14px;font-size:.8rem}
   .btn-quiz-nav{flex:1;justify-content:center;padding:9px 14px;font-size:.82rem}
   .keyboard-help{display:none}
+  /* Area cards single column on small screens */
+  .area-cards{grid-template-columns:1fr}
+  /* Area tabs: smaller padding */
+  .area-tab{padding:6px 10px;font-size:.72rem}
+  .area-tab-label{display:none}
+  .area-tab-icon{margin-right:0}
+}
+
+@media(min-width:601px) and (max-width:767px){
+  .area-tab-label--full{display:none}
 }
 
 /* Large screens */
 @media(min-width:1024px){
   #quiz{max-width:900px;margin:0 auto}
   .value-card{padding:44px 48px}
+  .question{padding:24px 28px}
   .q-label{font-size:1rem;font-weight:500;line-height:1.7}
   .likert .chip{padding:5px 0;font-size:.95rem}
   .likert{gap:10px}
   .progress-wrap{padding:24px 32px}
+  .area-cards{grid-template-columns:repeat(3,1fr)}
 }
 @media(min-width:1400px){
   #quiz{max-width:1000px}

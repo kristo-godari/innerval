@@ -9,6 +9,13 @@ const skippedSet = new Set();
 let aspirations = new Set();
 let quizLevel = null; // 'essentials' | 'deep-dive' | 'full-spectrum'
 
+// --- Area-based quiz state ---
+let currentArea = null; // 'Work' | 'Relationships' | 'Personal' | 'Social' | 'Leisure'
+let currentAreaPage = 0; // 0-based page index within current area
+
+const LIFE_AREAS = ['Work', 'Relationships', 'Personal', 'Social', 'Leisure'];
+const AREA_QUESTION_INDEX = { Work: 0, Relationships: 1, Personal: 2, Social: 3, Leisure: 4 };
+
 // --- Quiz Level Configuration ---
 
 const LEVEL_ESSENTIALS_NAMES = [
@@ -121,12 +128,46 @@ function getActiveDetailedCompletedValues() {
   return completed;
 }
 
+// --- Area-based Quiz Helpers ---
+
+function getAreaQuestions(area) {
+  var qi = AREA_QUESTION_INDEX[area];
+  var activeIndices = getActiveIndices();
+  return activeIndices.map(function(vi) {
+    return {
+      valueIndex: vi,
+      questionIndex: qi,
+      key: vi + '_' + qi,
+      valueName: VALUES_DATA[vi].name,
+      text: VALUES_DATA[vi].questions[qi].text
+    };
+  });
+}
+
+function getAreaAnsweredCount(area) {
+  return getAreaQuestions(area).filter(function(q) { return !!answers[q.key]; }).length;
+}
+
+function isAreaComplete(area) {
+  return getAreaQuestions(area).every(function(q) { return !!answers[q.key]; });
+}
+
+function getAllAreasComplete() {
+  return LIFE_AREAS.every(isAreaComplete);
+}
+
+function getAreaPageCount(area) {
+  return Math.ceil(getAreaQuestions(area).length / 5);
+}
+
 // --- Quiz Progress Storage ---
 
 function saveProgress(screen) {
   const data = {
     answers: { ...answers },
     currentIndex,
+    currentArea: currentArea,
+    currentAreaPage: currentAreaPage,
     skipped: [...skippedSet],
     screen: screen || 'quiz',
     quizLevel: quizLevel
