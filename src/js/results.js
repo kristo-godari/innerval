@@ -1,11 +1,11 @@
 // Results screen: display ranked values, PDF download, JSON export.
 
 const TIER_DEFINITIONS = [
-  { label: '🏆 Core Values (Top Tier)', pct: 0.16 },
-  { label: '⭐ Very Important', pct: 0.32 },
-  { label: '✅ Important', pct: 0.56 },
-  { label: '➖ Moderate', pct: 0.80 },
-  { label: '📉 Less Important', pct: 1.0 }
+  { label: 'Core Values (Top Tier)', pct: 0.16 },
+  { label: 'Very Important', pct: 0.32 },
+  { label: 'Important', pct: 0.56 },
+  { label: 'Moderate', pct: 0.80 },
+  { label: 'Less Important', pct: 1.0 }
 ];
 
 function showResults() {

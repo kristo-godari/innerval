@@ -4,7 +4,7 @@
 
 /* Previous Results Banner */
 .previous-results-banner{background:linear-gradient(135deg,rgba(90,158,111,.1),rgba(90,158,111,.05));border:1px solid rgba(90,158,111,.3);border-radius:18px;padding:24px;margin-bottom:24px;display:flex;align-items:center;gap:20px;box-shadow:0 2px 8px rgba(54,43,43,.04)}
-.previous-results-icon{font-size:2rem;flex-shrink:0}
+.previous-results-icon{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;background:rgba(90,158,111,.08);flex-shrink:0}
 .previous-results-content{flex:1;min-width:0}
 .previous-results-content h3{font-size:1.1rem;font-weight:700;margin:0 0 4px;color:var(--text)}
 .previous-results-content p{font-size:.88rem;color:var(--muted);margin:0}

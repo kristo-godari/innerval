@@ -413,11 +413,11 @@ function renderDifferences(items, nameA, nameB) {
 
 function getTier(rank, total) {
   const pct = rank / total;
-  if (pct <= 0.16) return '🏆 Core';
-  if (pct <= 0.32) return '⭐ Very Important';
-  if (pct <= 0.56) return '✅ Important';
-  if (pct <= 0.80) return '➖ Moderate';
-  return '📉 Less Important';
+  if (pct <= 0.16) return 'Core';
+  if (pct <= 0.32) return 'Very Important';
+  if (pct <= 0.56) return 'Important';
+  if (pct <= 0.80) return 'Moderate';
+  return 'Less Important';
 }
 
 function getTierClass(rank, total) {
@@ -462,7 +462,13 @@ function renderTierTable(valsA, valsB, mapA, mapB, commonNames) {
 
 function renderCategoryBreakdown(valsA, valsB, nameA, nameB) {
   const areas = ['Work', 'Relationships', 'Personal', 'Social', 'Leisure'];
-  const icons = { Work: '💼', Relationships: '❤️', Personal: '🌱', Social: '🤝', Leisure: '🎯' };
+  const icons = {
+    Work: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>',
+    Relationships: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+    Personal: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c0-6-4.5-8-4.5-12a4.5 4.5 0 0 1 9 0c0 4-4.5 6-4.5 12z"/><path d="M12 22c0-3 1.5-4 1.5-6"/></svg>',
+    Social: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+    Leisure: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>'
+  };
 
   function areaAverages(vals) {
     const areaMap = {};
@@ -493,7 +499,7 @@ function renderCategoryBreakdown(valsA, valsB, nameA, nameB) {
       const pctB = (avgB[area] / 5) * 100;
       return `
         <div class="cat-card">
-          <div class="cat-icon">${icons[area] || '📊'}</div>
+          <div class="cat-icon">${icons[area] || ''}</div>
           <div class="cat-name">${area}</div>
           <div class="cat-bars">
             <div class="cat-bar-row">

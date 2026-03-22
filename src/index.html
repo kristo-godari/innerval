@@ -450,7 +450,7 @@
   <!-- QUIZ SCREEN -->
   <div id="quiz">
     <div id="previousResultsBanner" class="previous-results-banner" style="display:none">
-      <div class="previous-results-icon">📊</div>
+      <div class="previous-results-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
       <div class="previous-results-content">
         <h3>Previous Results Found</h3>
         <p>You have results from a previous test. Would you like to view them or start fresh?</p>
@@ -574,12 +574,12 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           Compare With Someone
         </button>
-        <button class="btn btn-skip" onclick="restartTest()">↻ Restart</button>
+        <button class="btn btn-secondary" onclick="restartTest()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg> Restart</button>
       </div>
     </div>
-    <p class="export-note">💡 <strong>Download Report</strong> saves a visual PDF. <strong>Export Data</strong> saves JSON for comparison. <strong>Compare With Someone</strong> lets you upload another person's export to see how you align.</p>
+    <p class="export-note"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg><span><strong>Download Report</strong> saves a visual PDF. <strong>Export Data</strong> saves JSON for comparison. <strong>Compare With Someone</strong> lets you upload another person's export to see how you align.</span></p>
     <div class="results-explore-cta">
-      <p>🧭 <strong>Now that you know your values</strong> — explore all values in depth and build a list of values you want to cultivate.</p>
+      <p><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> <strong>Now that you know your values</strong> — explore all values in depth and build a list of values you want to cultivate.</p>
       <button class="btn btn-compare" onclick="showExploreValues()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         Explore Values &amp; Set Aspirations
@@ -601,7 +601,7 @@
       <!-- My Values (from quiz) -->
       <div class="dashboard-card dashboard-values" id="dashboardMyValues" style="display:none">
         <div class="dashboard-card-header">
-          <div class="dashboard-card-icon">🧭</div>
+          <div class="dashboard-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>
           <div>
             <h3>My Values</h3>
             <p class="dashboard-card-desc">Discovered from your assessment</p>
@@ -614,7 +614,7 @@
       <!-- My Aspirations -->
       <div class="dashboard-card dashboard-aspirations" id="dashboardAspirations">
         <div class="dashboard-card-header">
-          <div class="dashboard-card-icon">⭐</div>
+          <div class="dashboard-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
           <div>
             <h3>My Aspirations</h3>
             <p class="dashboard-card-desc">Values you want to cultivate</p>
@@ -622,7 +622,7 @@
         </div>
         <div id="aspirationsList" class="aspirations-list"></div>
         <div id="aspirationsEmpty" class="aspirations-empty">
-          <p>No aspirations yet. Browse the values below and tap ⭐ to add values you want to cultivate.</p>
+          <p>No aspirations yet. Browse the values below and tap the star button to add values you want to cultivate.</p>
         </div>
         <div class="dashboard-card-footer" id="aspirationsPanelActions" style="display:none">
           <button class="btn btn-secondary btn-sm" onclick="clearAllAspirations()">Clear All</button>
@@ -781,8 +781,8 @@
       <p class="subtitle" id="compareSubtitle">Person A vs Person B</p>
     </div>
     <div class="compare-actions">
-      <button class="btn btn-secondary" onclick="backToCompareUpload()">← New Comparison</button>
-      <button class="btn btn-primary" onclick="downloadComparisonPDF()">📄 Download PDF</button>
+      <button class="btn btn-secondary" onclick="backToCompareUpload()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg> New Comparison</button>
+      <button class="btn btn-primary" onclick="downloadComparisonPDF()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download PDF</button>
     </div>
 
     <!-- Alignment Score -->
@@ -823,21 +823,21 @@
 
     <!-- Biggest Similarities -->
     <div class="compare-section">
-      <h3 class="compare-section-title">🤝 Strongest Similarities</h3>
+      <h3 class="compare-section-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Strongest Similarities</h3>
       <p class="compare-section-desc">Values where you both scored very closely</p>
       <div id="similarities"></div>
     </div>
 
     <!-- Biggest Differences -->
     <div class="compare-section">
-      <h3 class="compare-section-title">⚡ Biggest Differences</h3>
+      <h3 class="compare-section-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Biggest Differences</h3>
       <p class="compare-section-desc">Values where your scores diverge the most</p>
       <div id="differences"></div>
     </div>
 
     <!-- Tier Comparison -->
     <div class="compare-section">
-      <h3 class="compare-section-title">📊 Tier Comparison</h3>
+      <h3 class="compare-section-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Tier Comparison</h3>
       <p class="compare-section-desc">How each value is tiered for both persons</p>
       <div class="tier-compare-table-wrap">
         <table class="tier-compare-table" id="tierTable">
@@ -851,7 +851,7 @@
 
     <!-- Category Breakdown -->
     <div class="compare-section">
-      <h3 class="compare-section-title">📁 Category Breakdown</h3>
+      <h3 class="compare-section-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg> Category Breakdown</h3>
       <p class="compare-section-desc">Average scores by life area</p>
       <div id="categoryBreakdown"></div>
     </div>

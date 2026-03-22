@@ -2,6 +2,42 @@
 
 let activeCategory = 'All';
 
+// Professional SVG icons per category (replacing emojis)
+var STAR_FILLED_SM = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+var STAR_EMPTY_SM = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+
+var CATEGORY_ICONS = {
+  'Character': '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+  'Relationships': '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>',
+  'Achievement': '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+  'Well-being': '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>',
+  'Purpose': '<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>',
+  'Growth': '<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>'
+};
+
+var CATEGORY_COLORS = {
+  'Character': ['#c06b5e', 'rgba(192,107,94,.1)'],
+  'Relationships': ['#9b7db8', 'rgba(155,125,184,.1)'],
+  'Achievement': ['#d4a04a', 'rgba(212,160,74,.1)'],
+  'Well-being': ['#5a9e6f', 'rgba(90,158,111,.1)'],
+  'Purpose': ['#6b9ec0', 'rgba(107,158,192,.1)'],
+  'Growth': ['#d49a90', 'rgba(212,154,144,.1)']
+};
+
+function getCategoryIcon(category, size) {
+  size = size || 24;
+  var path = CATEGORY_ICONS[category] || CATEGORY_ICONS['Character'];
+  return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + path + '</svg>';
+}
+
+function getCategoryColor(category) {
+  return (CATEGORY_COLORS[category] || CATEGORY_COLORS['Character'])[0];
+}
+
+function getCategoryBg(category) {
+  return (CATEGORY_COLORS[category] || CATEGORY_COLORS['Character'])[1];
+}
+
 function showExploreValues() {
   doShowExplore();
 }
@@ -69,12 +105,12 @@ function renderExploreGrid() {
     const isAsp = aspirations.has(name);
     const escaped = escapeName(name);
     return '<div class="explore-card' + (isAsp ? ' is-aspirated' : '') + '" onclick="openExploreDetail(\'' + escaped + '\')">' +
-      '<div class="explore-card-emoji">' + d.emoji + '</div>' +
+      '<div class="explore-card-icon-wrap" style="color:' + getCategoryColor(d.category) + ';background:' + getCategoryBg(d.category) + '">' + getCategoryIcon(d.category) + '</div>' +
       '<div class="explore-card-name">' + name + '</div>' +
       '<div class="explore-card-desc">' + d.shortDesc + '</div>' +
       '<div class="explore-card-footer">' +
         '<span class="explore-card-category">' + d.category + '</span>' +
-        '<button class="explore-card-aspire' + (isAsp ? ' active' : '') + '" onclick="event.stopPropagation();toggleAspiration(\'' + escaped + '\')" title="' + (isAsp ? 'Remove from aspirations' : 'Add to aspirations') + '">' + (isAsp ? '⭐' : '☆') + '</button>' +
+        '<button class="explore-card-aspire' + (isAsp ? ' active' : '') + '" onclick="event.stopPropagation();toggleAspiration(\'' + escaped + '\')" title="' + (isAsp ? 'Remove from aspirations' : 'Add to aspirations') + '">' + (isAsp ? STAR_FILLED_SM : STAR_EMPTY_SM) + '</button>' +
       '</div>' +
     '</div>';
   }).join('');
@@ -131,7 +167,7 @@ function renderAspirationsPanel() {
     const d = VALUE_EXPLORE_DATA[name];
     const escaped = escapeName(name);
     return '<span class="aspiration-tag" onclick="openExploreDetail(\'' + escaped + '\')">' +
-      (d ? d.emoji + ' ' : '') + name +
+      (d ? getCategoryIcon(d.category, 14) + ' ' : '') + name +
       '<span class="remove-asp" onclick="event.stopPropagation();toggleAspiration(\'' + escaped + '\')" title="Remove">&times;</span>' +
     '</span>';
   }).join('');
@@ -159,7 +195,7 @@ function renderMyValuesPanel() {
     const escaped = escapeName(v.name);
     return '<div class="my-value-item" onclick="openExploreDetail(\'' + escaped + '\')">' +
       '<span class="my-value-rank">#' + (i + 1) + '</span>' +
-      '<span class="my-value-emoji">' + (d ? d.emoji : '') + '</span>' +
+      '<span class="my-value-icon" style="color:' + (d ? getCategoryColor(d.category) : 'var(--primary)') + '">' + (d ? getCategoryIcon(d.category, 16) : '') + '</span>' +
       '<span class="my-value-name">' + v.name + '</span>' +
       '<span class="my-value-score">' + v.avg.toFixed(1) + '</span>' +
     '</div>';
@@ -223,7 +259,7 @@ function renderExploreDetailContent(name) {
 
   document.getElementById('exploreDetailContent').innerHTML =
     '<div class="detail-header">' +
-      '<span class="detail-emoji">' + d.emoji + '</span>' +
+      '<span class="detail-icon-wrap" style="color:' + getCategoryColor(d.category) + ';background:' + getCategoryBg(d.category) + '">' + getCategoryIcon(d.category, 28) + '</span>' +
       '<div><div class="detail-title">' + name + '</div><div class="detail-category">' + d.category + '</div></div>' +
     '</div>' +
     '<div class="detail-short">' + d.shortDesc + '</div>' +
@@ -233,7 +269,7 @@ function renderExploreDetailContent(name) {
     '</div>' +
     '<div class="detail-section"><h4>Why Cultivate This Value?</h4><div class="detail-why">' + d.whyCultivate + '</div></div>' +
     '<button class="detail-aspire-btn' + (isAsp ? ' active' : '') + '" onclick="toggleAspiration(\'' + escaped + '\')">' +
-      (isAsp ? '⭐ In My Aspirations' : '☆ Add to My Aspirations') +
+      (isAsp ? STAR_FILLED_SM + ' In My Aspirations' : STAR_EMPTY_SM + ' Add to My Aspirations') +
     '</button>';
 }
 

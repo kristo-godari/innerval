@@ -2,7 +2,7 @@
 
 #growthPlan{padding:0 0 40px}
 
-.plan-header{text-align:center;padding:48px 0 24px}
+.plan-header{text-align:center;padding:32px 0 16px}
 .plan-header h2{font-size:2rem;font-weight:800;margin-bottom:8px;letter-spacing:-.01em}
 .plan-header .subtitle{color:var(--muted);font-size:1rem}
 
@@ -12,7 +12,11 @@
 .plan-context-card:hover{box-shadow:0 4px 16px rgba(54,43,43,.06)}
 .plan-context-values{border-color:rgba(192,107,94,.25);background:linear-gradient(135deg,rgba(192,107,94,.05),rgba(155,125,184,.04))}
 .plan-context-aspirations{border-color:#f0d890;background:linear-gradient(135deg,rgba(212,160,74,.05),rgba(212,160,74,.02))}
-.plan-context-icon{font-size:2rem;flex-shrink:0;line-height:1}
+.plan-context-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.plan-context-values .plan-context-icon{background:rgba(192,107,94,.08)}
+.plan-context-aspirations .plan-context-icon{background:rgba(212,160,74,.08)}
+.plan-context-tip{display:flex;align-items:flex-start;gap:8px}
+.plan-context-tip svg{flex-shrink:0;margin-top:1px}
 .plan-context-info{flex:1;font-size:.9rem;color:var(--text);line-height:1.6}
 .plan-context-info strong{font-size:1rem}
 .plan-context-detail{font-size:.85rem;color:var(--muted);margin-top:6px}

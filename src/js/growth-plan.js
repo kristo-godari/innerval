@@ -60,7 +60,7 @@ function renderPlanContext(results, hasResults, aspirationNames, hasAspirations)
   if (hasResults) {
     const topValues = results.slice(0, 5).map(v => v.name + ' (' + v.avg.toFixed(1) + '/5)');
     html += '<div class="plan-context-card plan-context-values">' +
-      '<div class="plan-context-icon">🧭</div>' +
+      '<div class="plan-context-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>' +
       '<div class="plan-context-info">' +
         '<strong>My Values</strong> — discovered from your assessment' +
         '<div class="plan-context-detail">Top values: ' + topValues.join(', ') + '</div>' +
@@ -70,7 +70,7 @@ function renderPlanContext(results, hasResults, aspirationNames, hasAspirations)
 
   if (hasAspirations) {
     html += '<div class="plan-context-card plan-context-aspirations">' +
-      '<div class="plan-context-icon">⭐</div>' +
+      '<div class="plan-context-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d4a04a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>' +
       '<div class="plan-context-info">' +
         '<strong>My Aspirations</strong> — values you want to cultivate' +
         '<div class="plan-context-detail">' + aspirationNames.join(', ') + '</div>' +
@@ -79,9 +79,9 @@ function renderPlanContext(results, hasResults, aspirationNames, hasAspirations)
   }
 
   if (hasResults && !hasAspirations) {
-    html += '<div class="plan-context-tip">💡 Add aspirations in Explore Values to get a richer plan that bridges your current values with where you want to grow.</div>';
+    html += '<div class="plan-context-tip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg> Add aspirations in Explore Values to get a richer plan that bridges your current values with where you want to grow.</div>';
   } else if (!hasResults && hasAspirations) {
-    html += '<div class="plan-context-tip">💡 Take the assessment to discover your current values — your plan will be even more personalised.</div>';
+    html += '<div class="plan-context-tip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg> Take the assessment to discover your current values — your plan will be even more personalised.</div>';
   }
 
   contextEl.innerHTML = html;

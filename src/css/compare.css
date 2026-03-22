@@ -2,7 +2,7 @@
 
 /* --- Upload Screen --- */
 #compareUpload{padding:0 0 40px}
-.compare-upload-header{text-align:center;padding:48px 0 24px}
+.compare-upload-header{text-align:center;padding:32px 0 16px}
 .compare-upload-header h2{font-size:2rem;font-weight:800;margin-bottom:8px;letter-spacing:-.01em}
 .compare-upload-header .subtitle{color:var(--muted);font-size:1rem}
 
@@ -90,7 +90,8 @@
 .compare-section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(54,43,43,.04);overflow:hidden;position:relative}
 .compare-section::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),#9b7db8);opacity:.4}
 @media(max-width:600px){.compare-section{padding:12px 10px;margin-bottom:8px;border-radius:10px}}
-.compare-section-title{font-size:1rem;font-weight:700;margin-bottom:4px;color:var(--text)}
+.compare-section-title{font-size:1rem;font-weight:700;margin-bottom:4px;color:var(--text);display:inline-flex;align-items:center;gap:6px}
+.compare-section-title svg{color:var(--primary);opacity:.7;flex-shrink:0}
 @media(max-width:600px){.compare-section-title{font-size:.82rem;margin-bottom:2px}}
 .compare-section-desc{font-size:.8rem;color:var(--muted);margin-bottom:14px}
 @media(max-width:600px){.compare-section-desc{font-size:.68rem;margin-bottom:8px}}
@@ -184,8 +185,8 @@
 .cat-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .25s}
 @media(max-width:600px){.cat-card{padding:10px 8px;border-radius:8px}}
 .cat-card:hover{box-shadow:0 4px 12px rgba(54,43,43,.04)}
-.cat-icon{font-size:1.2rem;margin-bottom:4px}
-@media(max-width:600px){.cat-icon{font-size:.9rem;margin-bottom:2px}}
+.cat-icon{display:flex;align-items:center;margin-bottom:4px}
+@media(max-width:600px){.cat-icon{margin-bottom:2px}.cat-icon svg{width:14px;height:14px}}
 .cat-name{font-size:.88rem;font-weight:700;margin-bottom:8px;color:var(--text)}
 @media(max-width:600px){.cat-name{font-size:.72rem;margin-bottom:5px}}
 .cat-bars{display:flex;flex-direction:column;gap:5px}
