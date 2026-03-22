@@ -4,6 +4,7 @@ function hideAllScreens() {
   ['landing', 'levelSelect', 'quiz', 'results', 'compareUpload', 'compareResults', 'exploreValues', 'growthPlan'].forEach(id => {
     document.getElementById(id).style.display = 'none';
   });
+  document.getElementById('navLinks').classList.remove('open');
 }
 
 function isInQuiz() {
@@ -56,6 +57,7 @@ function goHome() {
     navigateToLanding();
     return;
   }
+  document.getElementById('navLinks').classList.remove('open');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
