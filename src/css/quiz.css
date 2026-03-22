@@ -25,36 +25,8 @@
 /* Value Card */
 .value-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:36px;margin-bottom:24px;box-shadow:0 1px 3px rgba(54,43,43,.04);position:relative;overflow:hidden}
 .value-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),#9b7db8);opacity:.6}
-/* Value Header with Emoji */
-.value-header{display:flex;align-items:center;gap:14px;margin-bottom:8px}
-.value-emoji{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;background:rgba(192,107,94,.08);border:1px solid rgba(192,107,94,.12)}
-.value-header-text{flex:1;min-width:0}
-.value-name{font-size:1.5rem;font-weight:800;margin-bottom:2px;color:var(--primary);letter-spacing:-.02em}
-/* Category Badge */
-.value-category-badge{display:inline-block;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;border-radius:20px;background:rgba(192,107,94,.08);color:var(--muted)}
-.value-cat--wellbeing{background:rgba(90,158,111,.1);color:#3a6b48}
-.value-cat--character{background:rgba(192,107,94,.1);color:#8b5a50}
-.value-cat--growth{background:rgba(155,125,184,.1);color:#6b5a7a}
-.value-cat--achievement{background:rgba(212,160,74,.1);color:#8b6914}
-.value-cat--relationships{background:rgba(200,100,130,.1);color:#8b4a5a}
-.value-cat--purpose{background:rgba(107,158,192,.1);color:#4a6a8b}
-.value-desc{font-size:.92rem;color:var(--muted);margin-bottom:8px;font-style:italic;line-height:1.7}
 .value-number{font-size:.82rem;color:var(--muted);margin-bottom:24px;font-weight:500;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .value-position-pill{display:inline-block;background:rgba(192,107,94,.08);padding:3px 12px;border-radius:20px;font-weight:700;font-size:.78rem;color:var(--primary)}
-
-/* Category-themed card gradients */
-.value-card--wellbeing::before{background:linear-gradient(90deg,#5a9e6f,#78b88a)!important}
-.value-card--wellbeing{background:radial-gradient(ellipse at top,rgba(90,158,111,.02),var(--card) 60%)}
-.value-card--character::before{background:linear-gradient(90deg,#c06b5e,#d49a90)!important}
-.value-card--character{background:radial-gradient(ellipse at top,rgba(192,107,94,.02),var(--card) 60%)}
-.value-card--growth::before{background:linear-gradient(90deg,#9b7db8,#b89ad0)!important}
-.value-card--growth{background:radial-gradient(ellipse at top,rgba(155,125,184,.02),var(--card) 60%)}
-.value-card--achievement::before{background:linear-gradient(90deg,#d4a04a,#e0b86a)!important}
-.value-card--achievement{background:radial-gradient(ellipse at top,rgba(212,160,74,.02),var(--card) 60%)}
-.value-card--relationships::before{background:linear-gradient(90deg,#c86482,#d88a9e)!important}
-.value-card--relationships{background:radial-gradient(ellipse at top,rgba(200,100,130,.02),var(--card) 60%)}
-.value-card--purpose::before{background:linear-gradient(90deg,#6b9ec0,#8ab4d0)!important}
-.value-card--purpose{background:radial-gradient(ellipse at top,rgba(107,158,192,.02),var(--card) 60%)}
 
 /* Questions */
 .question{margin-bottom:24px;padding:20px 20px 20px 24px;border-left:3px solid var(--border);border-radius:0 12px 12px 0;background:rgba(0,0,0,.01);transition:border-color .3s,background .3s}
@@ -215,8 +187,6 @@
 @media(min-width:1024px){
   #quiz{max-width:900px;margin:0 auto}
   .value-card{padding:44px 48px}
-  .value-name{font-size:1.8rem;letter-spacing:-.03em}
-  .value-emoji{width:54px;height:54px;font-size:1.7rem}
   .q-label{font-size:1rem;font-weight:500;line-height:1.7}
   .likert .chip{padding:5px 0;font-size:.95rem}
   .likert{gap:10px}
@@ -225,8 +195,6 @@
 @media(min-width:1400px){
   #quiz{max-width:1000px}
   .value-card{padding:48px 56px}
-  .value-name{font-size:1.95rem}
-  .value-emoji{width:58px;height:58px;font-size:1.8rem}
   .likert .chip{padding:6px 0;font-size:1rem;border-radius:14px}
   .likert{gap:12px}
 }

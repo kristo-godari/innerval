@@ -97,24 +97,10 @@ function renderValue() {
   // Render segmented progress bar
   renderProgressSegments(activeIndices, currentIndex);
 
-  var desc = VALUE_DESCRIPTIONS[v.name] || '';
-  var exploreData = VALUE_EXPLORE_DATA[v.name] || {};
-  var emoji = exploreData.emoji || '';
-  var category = exploreData.category || '';
-  var categoryClass = category ? 'value-card--' + category.toLowerCase().replace(/[^a-z]/g, '') : '';
-
-  // Set category class on the card wrapper
   var cardEl = document.getElementById('valueCard');
-  cardEl.className = 'value-card' + (categoryClass ? ' ' + categoryClass : '');
+  cardEl.className = 'value-card';
 
-  var html = '<div class="value-header">';
-  if (emoji) html += '<div class="value-emoji">' + emoji + '</div>';
-  html += '<div class="value-header-text">';
-  html += '<div class="value-name">' + v.name + '</div>';
-  if (category) html += '<div class="value-category-badge value-cat--' + category.toLowerCase().replace(/[^a-z]/g, '') + '">' + category + '</div>';
-  html += '</div></div>';
-  if (desc) html += '<div class="value-desc">' + desc + '</div>';
-  html += '<div class="value-number"><span class="value-position-pill">Value ' + position + ' of ' + total + '</span> Rate each scenario based on how likely you would do it</div>';
+  var html = '<div class="value-number"><span class="value-position-pill">Set ' + position + ' of ' + total + '</span> Rate each scenario based on how likely you would do it</div>';
 
   var areaIcons = {
     'Work': '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>',
@@ -431,8 +417,7 @@ function renderProgressSegments(activeIndices, current) {
     if (done) cls += ' progress-segment--done';
     else if (skip) cls += ' progress-segment--skipped';
     if (isCurrent) cls += ' progress-segment--current';
-    var name = VALUES_DATA[i].name;
-    html += '<div class="' + cls + '" title="' + name + '" onclick="jumpToValue(' + i + ')"></div>';
+    html += '<div class="' + cls + '" onclick="jumpToValue(' + i + ')"></div>';
   });
   container.innerHTML = html;
 }
