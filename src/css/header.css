@@ -29,4 +29,5 @@
   .nav-group{flex-direction:column;width:100%;gap:4px}
   .nav-links a{padding:10px 16px;border-radius:12px}
   .nav-toggle{display:flex}
+  .nav-right-group{border-left:none!important;margin-left:0!important;padding-left:0!important}
 }

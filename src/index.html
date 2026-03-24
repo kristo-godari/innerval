@@ -6,7 +6,7 @@
 <title>Innerval — Discover Your Personal Values</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/header.css">
 <link rel="stylesheet" href="css/landing.css">
@@ -43,9 +43,9 @@
         <a href="#author" onclick="goSection('author')">Contact</a>
       </div>
       <div class="nav-group nav-right-group">
-        <a href="#" onclick="showExploreValues()" class="nav-action nav-explore">Explore Values</a>
-        <a href="#" onclick="showCompareUpload()" class="nav-action nav-compare">Compare Profiles</a>
-        <a href="#" onclick="startQuiz()" class="nav-action nav-quiz">Start Quiz &rarr;</a>
+        <a href="#" onclick="showExploreValues()" class="nav-action nav-explore">Explore values</a>
+        <a href="#" onclick="showCompareUpload()" class="nav-action nav-compare">Compare profiles</a>
+        <a href="#" onclick="startQuiz()" class="nav-action nav-quiz">Start quiz &rarr;</a>
       </div>
     </nav>
     <button class="nav-toggle" id="navToggle" onclick="toggleNav()" aria-label="Toggle menu">
@@ -67,49 +67,17 @@
         <div class="hero-orb hero-orb-3"></div>
       </div>
       <div class="hero-content">
-        <div class="hero-badge">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-          Trusted Self-Discovery Tool
-        </div>
-        <h1>Discover What<br><span class="highlight">Truly Matters</span> to You</h1>
-        <p class="hero-sub">Choose your depth &mdash; from 22 essential values to the full 62 &mdash; and rate real-life scenarios to uncover the principles guiding your decisions, relationships, and life direction.</p>
+        <p class="hero-trust-strip">100% free &middot; 100% private &middot; No account needed &middot; Auto-saved progress &middot; Made in the EU</p>
+        <h1>You are more<br>than you <span class="highlight">think</span></h1>
+        <p class="hero-sub">Take the quiz and discover what you don't know you didn't know about you. <a href="#" onclick="showExploreValues();return false" class="hero-link">Explore values</a> and set up achievable goals. <a href="#" onclick="showCompareUpload();return false" class="hero-link">Compare your results</a> with your partner or friends and align your perspectives &mdash; or just have fun.</p>
         <div class="hero-buttons">
           <button class="btn btn-primary btn-hero" onclick="startQuiz()">
-            <span>Begin Your Journey</span>
+            <span>Start quiz</span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </button>
-          <button class="btn btn-ghost btn-hero" onclick="showExploreValues()">
-            <span>Explore Values</span>
-          </button>
-          <button class="btn btn-ghost btn-hero" onclick="showCompareUpload()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            <span>Compare</span>
           </button>
         </div>
         <div id="landingRestart" class="restart-wrap" style="display:none">
-          <button class="btn btn-secondary" onclick="restartTest()">Restart Test</button>
-        </div>
-        <div class="hero-trust">
-          <div class="hero-trust-item">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            100% Free
-          </div>
-          <div class="hero-trust-item">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            100% Private
-          </div>
-          <div class="hero-trust-item">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            No Account Needed
-          </div>
-          <div class="hero-trust-item">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-            Auto-Saves Progress
-          </div>
-          <div class="hero-trust-item">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-            Made in the EU
-          </div>
+          <button class="btn btn-secondary" onclick="restartTest()">Restart test</button>
         </div>
       </div>
     </div>
