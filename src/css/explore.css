@@ -80,9 +80,9 @@
 .explore-card-desc{font-size:.78rem;color:var(--muted);line-height:1.5;flex:1}
 .explore-card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
 .explore-card-category{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--primary);background:rgba(192,107,94,.08);padding:4px 10px;border-radius:8px}
-.explore-card-aspire{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.88rem;cursor:pointer;transition:all .25s;flex-shrink:0}
-.explore-card-aspire:hover{background:#fdf3e0;border-color:#d4a04a;transform:scale(1.15)}
-.explore-card-aspire.active{background:#fdf3e0;border-color:#d4a04a;box-shadow:0 0 0 3px rgba(212,160,74,.15)}
+.explore-card-aspire{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.88rem;cursor:pointer;transition:all .25s;flex-shrink:0;color:var(--muted)}
+.explore-card-aspire:hover{background:#fdf3e0;border-color:#d4a04a;color:#d4a04a;transform:scale(1.15)}
+.explore-card-aspire.active{background:#fdf3e0;border-color:#d4a04a;color:#d4a04a;box-shadow:0 0 0 3px rgba(212,160,74,.15)}
 .explore-card.is-aspirated{border-color:#f0d890;background:linear-gradient(135deg,rgba(212,160,74,.04),transparent)}
 
 /* Detail Modal */
