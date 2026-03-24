@@ -17,12 +17,10 @@
 
 /* Nav action links */
 .nav-action{font-weight:700;letter-spacing:0;transition:all .2s!important}
-.nav-quiz{color:var(--primary)!important}
-.nav-quiz:hover{color:#a85a4e!important;background:rgba(192,107,94,.08)!important}
-.nav-compare{color:var(--text)!important}
-.nav-compare:hover{color:var(--primary)!important}
-.nav-explore{color:var(--primary)!important}
-.nav-explore:hover{color:#a85a4e!important;background:rgba(192,107,94,.08)!important}
+.nav-explore,.nav-compare{color:var(--muted)!important}
+.nav-explore:hover,.nav-compare:hover{color:var(--primary)!important;background:rgba(192,107,94,.06)!important}
+.nav-quiz{color:#000!important}
+.nav-quiz:hover{color:#333!important;background:rgba(0,0,0,.06)!important}
 
 /* Responsive */
 @media(max-width:600px){
