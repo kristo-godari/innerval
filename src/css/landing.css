@@ -3,12 +3,12 @@
 #landing{padding:0 0 0}
 
 /* ===== HERO ===== */
-.hero{position:relative;overflow:hidden;width:100vw;left:50%;margin-left:-50vw;margin-top:-20px;padding:72px 24px 56px;text-align:center;background:linear-gradient(168deg,#faf7f3 0%,#f5ece4 25%,#f0ddd8 50%,#ecdbd5 75%,#f5ece4 100%)}
+.hero{position:relative;overflow:hidden;width:100vw;left:50%;margin-left:-50vw;margin-top:-20px;padding:56px 24px 40px;text-align:center;background:linear-gradient(168deg,#faf7f3 0%,#f5ece4 20%,#f0ddd8 45%,#e8d0ca 65%,#ecdbd5 80%,#f5ece4 100%)}
 .hero-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.hero-orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:.35;animation:orbFloat 14s ease-in-out infinite}
-.hero-orb-1{width:600px;height:600px;background:rgba(192,107,94,.18);top:-220px;right:-160px;animation-delay:0s}
-.hero-orb-2{width:500px;height:500px;background:rgba(155,125,184,.14);bottom:-200px;left:-160px;animation-delay:4s}
-.hero-orb-3{width:350px;height:350px;background:rgba(212,160,74,.1);top:40%;left:55%;animation-delay:7s}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.45;animation:orbFloat 14s ease-in-out infinite}
+.hero-orb-1{width:650px;height:650px;background:rgba(192,107,94,.22);top:-220px;right:-160px;animation-delay:0s}
+.hero-orb-2{width:550px;height:550px;background:rgba(155,125,184,.18);bottom:-200px;left:-160px;animation-delay:4s}
+.hero-orb-3{width:400px;height:400px;background:rgba(212,160,74,.14);top:35%;left:50%;animation-delay:7s}
 @keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,-20px) scale(1.06)}}
 
 .hero-content{position:relative;z-index:1;max-width:620px;margin:0 auto}
@@ -16,8 +16,9 @@
 /* Trust strip */
 .hero-trust-strip{font-size:.75rem;color:var(--muted);letter-spacing:.6px;margin-bottom:32px;font-weight:500;opacity:.8}
 
-#landing h1{font-family:'Satisfy',cursive;font-size:3.6rem;line-height:1.15;margin-bottom:20px;color:var(--text);font-weight:400;letter-spacing:.01em}
-#landing h1 .highlight{color:var(--primary)}
+#landing h1{font-family:'Playfair Display',serif;font-style:italic;font-size:3.6rem;line-height:1.15;margin-bottom:20px;color:var(--text);font-weight:700;letter-spacing:-.02em}
+#landing h1 .highlight{color:var(--primary);position:relative}
+#landing h1 .highlight::after{content:'';position:absolute;left:-4px;right:-4px;bottom:2px;height:8px;background:rgba(192,107,94,.12);border-radius:4px;z-index:-1}
 .hero-sub{color:var(--muted);font-size:1.02rem;max-width:500px;margin:0 auto 36px;line-height:1.75}
 .hero-link{color:var(--text);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--primary-light);font-weight:700;transition:text-decoration-color .2s}
 .hero-link:hover{text-decoration-color:var(--primary)}
@@ -25,8 +26,8 @@
 .btn-hero{padding:15px 40px;font-size:1rem;gap:8px;border-radius:99px;font-weight:700;letter-spacing:.01em}
 .btn-hero svg{transition:transform .2s}
 .btn-hero:hover svg{transform:translateX(3px)}
-.hero .btn-primary{background:var(--primary);color:#fff;box-shadow:0 4px 24px rgba(192,107,94,.2)}
-.hero .btn-primary:hover{background:#a85a4e;box-shadow:0 8px 32px rgba(192,107,94,.3);transform:translateY(-2px)}
+.hero .btn-primary{background:linear-gradient(135deg,var(--primary),#a85a4e);color:#fff;box-shadow:0 6px 28px rgba(192,107,94,.25)}
+.hero .btn-primary:hover{background:linear-gradient(135deg,#a85a4e,#924d42);box-shadow:0 10px 36px rgba(192,107,94,.35);transform:translateY(-3px)}
 @media(prefers-reduced-motion:reduce){.hero-orb{animation:none}}
 
 /* ===== STATS ===== */
@@ -163,8 +164,8 @@
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:768px){
-  .hero{padding:48px 20px 40px}
-  #landing h1{font-size:2.4rem}
+  .hero{padding:40px 20px 28px}
+  #landing h1{font-size:2.6rem}
   .hero-sub{font-size:.95rem;margin-bottom:28px}
   .hero-trust-strip{margin-bottom:24px;font-size:.72rem}
   .stats-strip{gap:4px;padding:12px 16px;flex-wrap:wrap;border-radius:14px;width:auto;margin:24px 16px}
@@ -188,8 +189,8 @@
   .cta-section{padding:36px 20px;border-radius:16px}
 }
 @media(max-width:480px){
-  .hero{padding:40px 16px 32px}
-  #landing h1{font-size:2rem}
+  .hero{padding:36px 16px 24px}
+  #landing h1{font-size:2.1rem}
   .hero-trust-strip{margin-bottom:20px}
   .hero-sub{margin-bottom:24px}
   .section-title{font-size:1.25rem}
@@ -200,9 +201,9 @@
 
 /* ===== LARGE SCREENS ===== */
 @media(min-width:1024px){
-  .hero{padding:80px 28px 64px}
+  .hero{padding:56px 28px 40px;margin-top:-24px}
   .hero-content{max-width:680px}
-  #landing h1{font-size:3.8rem}
+  #landing h1{font-size:4rem}
   .hero-sub{font-size:1.08rem;max-width:540px}
   .stats-strip{margin:36px auto;padding:16px 36px}
   .how-it-works{margin-bottom:64px}
@@ -232,9 +233,9 @@
   .section-title{font-size:1.65rem}
 }
 @media(min-width:1400px){
-  .hero{padding:96px 36px 72px}
+  .hero{padding:64px 36px 48px;margin-top:-32px}
   .hero-content{max-width:740px}
-  #landing h1{font-size:4.2rem}
+  #landing h1{font-size:4.5rem}
   .hero-sub{font-size:1.12rem;max-width:580px}
   .hero-buttons{gap:14px}
   .btn-hero{padding:16px 44px;font-size:1.05rem}
