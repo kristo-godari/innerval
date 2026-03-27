@@ -743,40 +743,55 @@
 
   <!-- COMPARE UPLOAD SCREEN -->
   <div id="compareUpload" style="display:none">
-    <div class="compare-upload-header">
-      <h2>Compare Values</h2>
-      <p class="subtitle">Upload two Innerval export files to see how your values align</p>
+    <!-- Hero -->
+    <div class="compare-hero">
+      <div class="compare-hero-bg">
+        <div class="compare-orb compare-orb-1"></div>
+        <div class="compare-orb compare-orb-2"></div>
+      </div>
+      <div class="compare-hero-content">
+        <div class="compare-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h2>Compare Your Values</h2>
+        <p class="compare-hero-sub">See how your values align with someone else's. Upload two exported results to discover what you share and where you differ.</p>
+      </div>
     </div>
 
     <div class="compare-benefits">
       <div class="compare-benefit">
         <svg class="compare-benefit-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
         <div>
-          <strong>See how much you match</strong>
-          <span>Discover your overall values alignment score with a partner, friend, or colleague</span>
+          <strong>Alignment score</strong>
+          <span>Get a percentage showing how closely your value priorities match</span>
         </div>
       </div>
       <div class="compare-benefit">
-        <svg class="compare-benefit-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <svg class="compare-benefit-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
         <div>
-          <strong>Find shared priorities</strong>
-          <span>Identify the values you both care about most — and where you differ</span>
+          <strong>Side-by-side breakdown</strong>
+          <span>See your top values, biggest similarities, and key differences at a glance</span>
         </div>
       </div>
       <div class="compare-benefit">
         <svg class="compare-benefit-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         <div>
-          <strong>Start better conversations</strong>
-          <span>Use your comparison as a springboard for deeper, more meaningful discussions</span>
+          <strong>Conversation starter</strong>
+          <span>Use the results as a springboard for deeper, more meaningful discussions</span>
         </div>
       </div>
+    </div>
+
+    <div class="compare-upload-label">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      Upload your exported JSON files
     </div>
 
     <div class="compare-dropzones">
       <div class="dropzone" id="dropzone1" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event,1)">
         <div class="dropzone-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M12 14c-6 0-8 3-8 5v1h16v-1c0-2-2-5-8-5z"/></svg></div>
         <div class="dropzone-label">Person A</div>
-        <div class="dropzone-hint">Drop JSON file here or click to browse</div>
+        <div class="dropzone-hint">Drop .json file here or click below</div>
         <div class="dropzone-file" id="dropFile1" style="display:none"></div>
         <input type="file" id="fileInput1" accept=".json" onchange="handleFileSelect(event,1)" style="display:none">
         <button class="btn btn-secondary btn-sm" onclick="document.getElementById('fileInput1').click()">Choose File</button>
@@ -787,47 +802,56 @@
       <div class="dropzone" id="dropzone2" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event,2)">
         <div class="dropzone-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M12 14c-6 0-8 3-8 5v1h16v-1c0-2-2-5-8-5z"/></svg></div>
         <div class="dropzone-label">Person B</div>
-        <div class="dropzone-hint">Drop JSON file here or click to browse</div>
+        <div class="dropzone-hint">Drop .json file here or click below</div>
         <div class="dropzone-file" id="dropFile2" style="display:none"></div>
         <input type="file" id="fileInput2" accept=".json" onchange="handleFileSelect(event,2)" style="display:none">
         <button class="btn btn-secondary btn-sm" onclick="document.getElementById('fileInput2').click()">Choose File</button>
       </div>
     </div>
     <div class="compare-upload-actions">
-      <button class="btn btn-primary" id="compareBtn" onclick="runComparison()" disabled>Compare Now</button>
+      <button class="btn btn-secondary" onclick="cancelCompare()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        Back
+      </button>
+      <button class="btn btn-compare" id="compareBtn" onclick="runComparison()" disabled>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Compare Now
+      </button>
     </div>
   </div>
 
   <!-- COMPARISON RESULTS SCREEN -->
   <div id="compareResults" style="display:none">
-    <div class="compare-back">
-      <a href="#" class="back-link" onclick="backToCompareUpload()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
-        New Comparison
-      </a>
-    </div>
-    <div class="compare-results-header">
-      <h2>Values Comparison</h2>
-      <p class="subtitle" id="compareSubtitle">Person A vs Person B</p>
-    </div>
-    <div class="compare-actions">
-      <button class="btn btn-secondary" onclick="backToCompareUpload()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg> New Comparison</button>
-      <button class="btn btn-primary" onclick="downloadComparisonPDF()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download PDF</button>
+    <!-- Hero with alignment score -->
+    <div class="compare-results-hero">
+      <div class="compare-hero-bg">
+        <div class="compare-orb compare-orb-1"></div>
+        <div class="compare-orb compare-orb-2"></div>
+      </div>
+      <div class="compare-results-hero-content">
+        <div class="alignment-ring" id="alignmentRing">
+          <svg viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="54" stroke="rgba(232,221,212,.5)" stroke-width="8" fill="none"/>
+            <circle cx="60" cy="60" r="54" stroke="var(--primary)" stroke-width="8" fill="none" stroke-dasharray="339.29" stroke-dashoffset="339.29" stroke-linecap="round" id="alignmentArc" transform="rotate(-90 60 60)"/>
+          </svg>
+          <div class="alignment-value" id="alignmentValue">0%</div>
+        </div>
+        <h2>Values Alignment</h2>
+        <p class="compare-results-hero-sub" id="compareSubtitle">Person A vs Person B</p>
+        <p class="compare-results-hero-desc" id="alignmentDesc">How closely your value priorities match</p>
+      </div>
     </div>
 
-    <!-- Alignment Score -->
-    <div class="compare-score-card" id="alignmentCard">
-      <div class="alignment-ring" id="alignmentRing">
-        <svg viewBox="0 0 120 120">
-          <circle cx="60" cy="60" r="54" stroke="var(--border)" stroke-width="8" fill="none"/>
-          <circle cx="60" cy="60" r="54" stroke="var(--primary)" stroke-width="8" fill="none" stroke-dasharray="339.29" stroke-dashoffset="339.29" stroke-linecap="round" id="alignmentArc" transform="rotate(-90 60 60)"/>
-        </svg>
-        <div class="alignment-value" id="alignmentValue">0%</div>
-      </div>
-      <div class="alignment-info">
-        <h3>Values Alignment</h3>
-        <p id="alignmentDesc">How closely your value priorities match</p>
-      </div>
+    <!-- Actions -->
+    <div class="compare-actions">
+      <button class="btn btn-secondary" onclick="backToCompareUpload()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        New Comparison
+      </button>
+      <button class="btn btn-primary" onclick="downloadComparisonPDF()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF
+      </button>
     </div>
 
     <!-- Summary Stats -->
@@ -835,7 +859,11 @@
 
     <!-- Radar Chart -->
     <div class="compare-section">
-      <h3 class="compare-section-title">Top 10 Values — Radar View</h3>
+      <h3 class="compare-section-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Top Values Radar
+      </h3>
+      <p class="compare-section-desc">Your top-ranked values plotted together for a visual overview</p>
       <div class="radar-container" id="radarContainer">
         <svg id="radarChart" viewBox="0 0 500 500"></svg>
         <div class="radar-legend">
@@ -847,32 +875,45 @@
 
     <!-- Side by Side Top Values -->
     <div class="compare-section">
-      <h3 class="compare-section-title">Top 5 Values — Side by Side</h3>
+      <h3 class="compare-section-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Top 5 Side by Side
+      </h3>
+      <p class="compare-section-desc">Each person's five most important values ranked</p>
       <div class="side-by-side" id="sideBySide"></div>
     </div>
 
     <!-- Biggest Similarities -->
     <div class="compare-section">
-      <h3 class="compare-section-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Strongest Similarities</h3>
-      <p class="compare-section-desc">Values where you both scored very closely</p>
+      <h3 class="compare-section-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Where You Align
+      </h3>
+      <p class="compare-section-desc">Values you both scored almost identically on</p>
       <div id="similarities"></div>
     </div>
 
     <!-- Biggest Differences -->
     <div class="compare-section">
-      <h3 class="compare-section-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Biggest Differences</h3>
-      <p class="compare-section-desc">Values where your scores diverge the most</p>
+      <h3 class="compare-section-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Where You Differ
+      </h3>
+      <p class="compare-section-desc">The values with the biggest gap between your scores</p>
       <div id="differences"></div>
     </div>
 
     <!-- Tier Comparison -->
     <div class="compare-section">
-      <h3 class="compare-section-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Tier Comparison</h3>
-      <p class="compare-section-desc">How each value is tiered for both persons</p>
+      <h3 class="compare-section-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Full Tier Comparison
+      </h3>
+      <p class="compare-section-desc">Every shared value with its importance tier for each person</p>
       <div class="tier-compare-table-wrap">
         <table class="tier-compare-table" id="tierTable">
           <thead>
-            <tr><th>Value</th><th id="tierColA">Person A</th><th id="tierColB">Person B</th><th>Difference</th></tr>
+            <tr><th>Value</th><th id="tierColA">Person A</th><th id="tierColB">Person B</th><th>Gap</th></tr>
           </thead>
           <tbody id="tierTableBody"></tbody>
         </table>
@@ -881,8 +922,11 @@
 
     <!-- Category Breakdown -->
     <div class="compare-section">
-      <h3 class="compare-section-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg> Category Breakdown</h3>
-      <p class="compare-section-desc">Average scores by life area</p>
+      <h3 class="compare-section-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        Life Area Breakdown
+      </h3>
+      <p class="compare-section-desc">How you compare across Work, Relationships, Personal, Social, and Leisure</p>
       <div id="categoryBreakdown"></div>
     </div>
 

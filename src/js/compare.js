@@ -181,6 +181,12 @@ function renderComparison(dataA, dataB) {
   document.getElementById('tierColA').textContent = nameA;
   document.getElementById('tierColB').textContent = nameB;
 
+  // Update section descriptions with person names
+  var simDesc = document.querySelector('#similarities')?.closest('.compare-section')?.querySelector('.compare-section-desc');
+  if (simDesc) simDesc.textContent = 'Values where ' + nameA + ' and ' + nameB + ' scored almost identically';
+  var diffDesc = document.querySelector('#differences')?.closest('.compare-section')?.querySelector('.compare-section-desc');
+  if (diffDesc) diffDesc.textContent = 'The values with the biggest gap between ' + nameA + ' and ' + nameB;
+
   const mapA = {};
   dataA.values.forEach(v => { mapA[v.name] = v; });
   const mapB = {};
