@@ -34,25 +34,35 @@ function startQuiz() {
   var hasResults = saved && saved.screen === 'results' && Object.keys(saved.answers).length > 0;
   var hasProgress = saved && saved.screen === 'quiz' && Object.keys(saved.answers).length > 0;
 
-  if (hasResults) {
-    quizLevel = saved.quizLevel || 'full-spectrum';
-    hideAllScreens();
-    document.getElementById('quiz').style.display = 'block';
-    Object.entries(saved.answers).forEach(function(entry) { answers[entry[0]] = entry[1]; });
-    currentIndex = saved.currentIndex || 0;
-    currentArea = saved.currentArea || null;
-    currentAreaPage = saved.currentAreaPage || 0;
-    (saved.skipped || []).forEach(function(i) { skippedSet.add(i); });
-    showPreviousResultsBanner(true);
+  if (hasResults || hasProgress) {
+    showModal({
+      icon: 'info',
+      title: 'Test in Progress',
+      message: 'You have an existing test in progress. Would you like to continue where you left off or start a new test?',
+      buttons: [
+        { label: 'Start New Test', cls: 'btn-end', action: function() { resetQuizState(); showLevelSelect(); } },
+        { label: 'Continue', cls: 'btn-primary', action: function() { resumeQuiz(saved, hasResults); } }
+      ]
+    });
     return;
   }
 
-  if (hasProgress) {
-    quizLevel = saved.quizLevel || 'full-spectrum';
-    hideAllScreens();
-    document.getElementById('quiz').style.display = 'block';
-    currentArea = saved.currentArea || null;
-    currentAreaPage = saved.currentAreaPage || 0;
+  showLevelSelect();
+}
+
+function resumeQuiz(saved, hasResults) {
+  quizLevel = saved.quizLevel || 'full-spectrum';
+  hideAllScreens();
+  document.getElementById('quiz').style.display = 'block';
+  Object.entries(saved.answers).forEach(function(entry) { answers[entry[0]] = entry[1]; });
+  currentIndex = saved.currentIndex || 0;
+  currentArea = saved.currentArea || null;
+  currentAreaPage = saved.currentAreaPage || 0;
+  (saved.skipped || []).forEach(function(i) { skippedSet.add(i); });
+
+  if (hasResults) {
+    showPreviousResultsBanner(true);
+  } else {
     showPreviousResultsBanner(false);
     if (currentArea) {
       showQuizContent();
@@ -60,10 +70,7 @@ function startQuiz() {
     } else {
       showAreaSelect();
     }
-    return;
   }
-
-  showLevelSelect();
 }
 
 function showLevelSelect() {
@@ -616,7 +623,7 @@ function restartTest() {
   });
 }
 
-function doRestart() {
+function resetQuizState() {
   clearProgress();
   currentIndex = 0;
   currentArea = null;
@@ -624,6 +631,10 @@ function doRestart() {
   quizLevel = null;
   Object.keys(answers).forEach(function(k) { delete answers[k]; });
   skippedSet.clear();
+}
+
+function doRestart() {
+  resetQuizState();
   navigateToLanding();
 }
 

@@ -16,16 +16,7 @@ function isInAnyActiveScreen() {
 }
 
 function updateLandingButtons() {
-  const hasProgress = loadProgress();
-  const restartWrap = document.getElementById('landingRestart');
-  const heroBtn = document.querySelector('.btn-hero span');
-  if (hasProgress && Object.keys(hasProgress.answers).length > 0) {
-    restartWrap.style.display = '';
-    heroBtn.textContent = hasProgress.screen === 'results' ? 'View Results' : 'Continue Test';
-  } else {
-    restartWrap.style.display = 'none';
-    heroBtn.textContent = 'Begin Your Journey';
-  }
+  // Landing buttons no longer change — the popup in startQuiz() handles in-progress state.
 }
 
 function navigateToLanding() {

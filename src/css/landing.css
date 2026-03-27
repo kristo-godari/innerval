@@ -160,9 +160,6 @@
 /* ===== LANDING SECTIONS ===== */
 .landing-section{margin-bottom:56px;scroll-margin-top:calc(var(--header-h) + 16px)}
 
-/* Restart wrap */
-.restart-wrap{text-align:center;margin-top:16px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-
 /* ===== RESPONSIVE ===== */
 @media(max-width:768px){
   .hero{padding:40px 20px 28px}
