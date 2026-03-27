@@ -16,10 +16,12 @@
 /* Trust strip */
 .hero-trust-strip{font-size:.75rem;color:var(--muted);letter-spacing:.6px;margin-bottom:32px;font-weight:500;opacity:.8}
 
-#landing h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:3.6rem;line-height:1.15;margin-bottom:20px;color:var(--text);font-weight:700;letter-spacing:-.02em}
+#landing h1{font-family:'Cormorant Garamond',serif;font-style:normal;font-size:2.6rem;line-height:1.2;margin-bottom:12px;color:var(--text);font-weight:700;letter-spacing:-.01em}
 #landing h1 .highlight{color:var(--primary);position:relative}
 #landing h1 .highlight::after{content:'';position:absolute;left:-4px;right:-4px;bottom:2px;height:8px;background:rgba(192,107,94,.12);border-radius:4px;z-index:-1}
-.hero-sub{color:var(--muted);font-size:1.02rem;max-width:500px;margin:0 auto 36px;line-height:1.75}
+.hero-tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.5rem;color:var(--muted);margin-bottom:20px;font-weight:400}
+.hero-sub{color:var(--muted);font-size:1.02rem;max-width:520px;margin:0 auto 12px;line-height:1.75}
+.hero-sub-secondary{color:var(--muted);font-size:.95rem;max-width:500px;margin:0 auto 36px;line-height:1.7}
 .hero-link{color:var(--text);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--primary-light);font-weight:700;transition:text-decoration-color .2s}
 .hero-link:hover{text-decoration-color:var(--primary)}
 .hero-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
@@ -160,11 +162,38 @@
 /* ===== LANDING SECTIONS ===== */
 .landing-section{margin-bottom:56px;scroll-margin-top:calc(var(--header-h) + 16px)}
 
+/* ===== COMPARISON TABLE ===== */
+.comparison-table-wrapper{overflow-x:auto;margin:0 auto;max-width:800px}
+.comparison-table{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden;border:1px solid var(--border);margin:0 auto}
+.comparison-table thead{background:rgba(192,107,94,.05)}
+.comparison-table th,.comparison-table td{padding:14px 18px;text-align:left;font-size:.85rem;border-bottom:1px solid var(--border)}
+.comparison-table th{font-weight:700;color:var(--text);text-transform:uppercase;font-size:.72rem;letter-spacing:.5px}
+.comparison-table td{color:var(--muted);line-height:1.6}
+.comparison-table tbody tr:last-child td{border-bottom:none}
+.comparison-table tbody tr:hover{background:rgba(192,107,94,.02)}
+.comparison-table td:first-child{font-weight:600;color:var(--text)}
+
+/* ===== STATS GRID ===== */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;max-width:900px;margin:0 auto}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 20px;text-align:center;transition:all .3s}
+.stat-card:hover{box-shadow:0 6px 24px rgba(54,43,43,.08);border-color:var(--primary-light);transform:translateY(-3px)}
+.stat-number{font-size:2.2rem;font-weight:800;color:var(--primary);margin-bottom:8px;font-family:'Cormorant Garamond',serif}
+.stat-label{font-size:.82rem;color:var(--muted);line-height:1.5;font-weight:500}
+
+/* ===== CONTENT META ===== */
+.content-meta{font-size:.78rem;color:var(--muted);margin-top:24px;padding-top:20px;border-top:1px solid var(--border);font-style:italic}
+
 /* ===== RESPONSIVE ===== */
 @media(max-width:768px){
   .hero{padding:40px 20px 28px}
-  #landing h1{font-size:2.6rem}
-  .hero-sub{font-size:.95rem;margin-bottom:28px}
+  #landing h1{font-size:2.2rem}
+  .hero-tagline{font-size:1.2rem}
+  .hero-sub{font-size:.95rem;margin-bottom:12px}
+  .hero-sub-secondary{font-size:.9rem;margin-bottom:28px}
+  .comparison-table{font-size:.8rem}
+  .comparison-table th,.comparison-table td{padding:10px 12px}
+  .stats-grid{grid-template-columns:1fr}
+  .stat-number{font-size:1.9rem}
   .hero-trust-strip{margin-bottom:24px;font-size:.72rem}
   .stats-strip{gap:4px;padding:12px 16px;flex-wrap:wrap;border-radius:14px;width:auto;margin:24px 16px}
   .stat-item{padding:0 14px}
@@ -233,8 +262,10 @@
 @media(min-width:1400px){
   .hero{padding:64px 36px 48px;margin-top:-32px}
   .hero-content{max-width:740px}
-  #landing h1{font-size:4.5rem}
+  #landing h1{font-size:3.2rem}
+  .hero-tagline{font-size:1.8rem}
   .hero-sub{font-size:1.12rem;max-width:580px}
+  .hero-sub-secondary{font-size:1.05rem;max-width:560px}
   .hero-buttons{gap:14px}
   .btn-hero{padding:16px 44px;font-size:1.05rem}
   .stats-strip{margin:40px auto;padding:18px 40px}

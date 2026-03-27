@@ -1,9 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="content-language" content="en-US">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self';">
 <title>Innerval — Discover Your Personal Values</title>
+<meta name="description" content="What truly drives your decisions? Take our science-based values quiz with real-life scenarios. 100% private, no signup. Choose quick (10min) or deep (45min). Free personal values discovery.">
+<link rel="canonical" href="https://innerval.org/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Innerval">
+<meta property="og:title" content="Innerval — Discover Your Personal Values">
+<meta property="og:description" content="Free, privacy-first values quiz. Answer real-life scenarios across 22-62 values. No signup, auto-saved, 100% private.">
+<meta property="og:url" content="https://innerval.org">
+<meta property="og:image" content="https://innerval.org/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Innerval personal values discovery quiz">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Innerval — Discover Your Personal Values">
+<meta name="twitter:description" content="Free, privacy-first values quiz. Answer real-life scenarios across 22-62 values.">
+<meta name="twitter:image" content="https://innerval.org/images/og-image.png">
+<meta name="twitter:image:alt" content="Innerval personal values discovery quiz">
+<meta name="twitter:site" content="@innerval">
+<meta name="twitter:creator" content="@kristogodari">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/images/icon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/images/icon-512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/icon-192.png">
+
+<!-- Theme & Manifest -->
+<meta name="theme-color" content="#c06b5e">
+<link rel="manifest" href="/manifest.json">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -19,8 +55,159 @@
 <link rel="stylesheet" href="css/modal.css">
 <link rel="stylesheet" href="css/footer.css">
 <link rel="stylesheet" href="css/legal.css">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://innerval.org#webapp",
+      "name": "Innerval",
+      "url": "https://innerval.org",
+      "description": "Free, privacy-first personal values discovery quiz with 22-62 values across 5 life areas",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Any (web-based)",
+      "browserRequirements": "Requires JavaScript. Compatible with modern browsers (Chrome 90+, Firefox 88+, Safari 14+, Edge 90+).",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "3 quiz depths (10-45 minutes)",
+        "22-62 personal values",
+        "5 life areas (Work, Relationships, Personal, Social, Leisure)",
+        "PDF export",
+        "Profile comparison tool",
+        "Values exploration library",
+        "AI growth plan prompt generator"
+      ],
+      "author": {
+        "@id": "https://innerval.org#organization"
+      },
+      "screenshot": "https://innerval.org/images/og-image.png",
+      "datePublished": "2025-01-15",
+      "dateModified": "2026-03-27"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How long does the quiz take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It depends on the depth you choose: Essentials (22 values) takes ~10-15 minutes, Deep Dive (42 values) takes ~20-25 minutes, and Full Spectrum (62 values) takes ~30-45 minutes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my data stored anywhere?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. All answers are stored locally in your browser using localStorage. Nothing is sent to any server — your data never leaves your device."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I retake the quiz?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. Use the Restart button at any time to clear your progress and start fresh."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I have to complete all values?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No — you choose your quiz depth before starting. The Essentials quiz covers 22 core values, Deep Dive covers 42, and Full Spectrum covers all 62. You can also end any level early and see partial results."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What do the tiers in the results mean?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Values are grouped into five tiers based on your scores: Core Values (top ~16%), Very Important, Important, Moderate, and Less Important. The tiers help you see which values are truly central to who you are."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I download my results?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! Once you finish the quiz, you can download your complete values profile as a PDF."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the comparison feature work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Each person takes the quiz and exports their results as a JSON file. Then either of you can upload both files on the Compare page to see an alignment score, radar chart, side-by-side rankings, and more — all downloadable as a PDF."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://innerval.org#organization",
+      "name": "Innerval",
+      "url": "https://innerval.org",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://innerval.org/images/icon-512.png",
+        "width": 512,
+        "height": 512
+      },
+      "description": "Innerval provides a free, privacy-first personal values discovery quiz to help people understand what truly drives them.",
+      "foundingDate": "2025-01-15",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "email": "hello@innerval.org"
+      },
+      "founder": {
+        "@type": "Person",
+        "name": "Kristo Godari",
+        "email": "kristo.godari@gmail.com"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://innerval.org#website",
+      "name": "Innerval",
+      "url": "https://innerval.org",
+      "publisher": {
+        "@id": "https://innerval.org#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://innerval.org"
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
+
+<noscript>
+  <div style="padding:2rem;text-align:center;background:#fff3cd;border:1px solid #ffc107;margin:1rem;border-radius:8px;">
+    <strong>JavaScript Required</strong>
+    <p>Innerval requires JavaScript to function. Please enable JavaScript in your browser to take the quiz.</p>
+  </div>
+</noscript>
 
 <!-- SITE HEADER -->
 <header class="site-header" id="siteHeader">
@@ -68,11 +255,13 @@
       </div>
       <div class="hero-content">
         <p class="hero-trust-strip">100% free &middot; 100% private &middot; No account needed &middot; Auto-saved progress &middot; Made in the EU</p>
-        <h1>You are more<br>than you <span class="highlight">think</span></h1>
-        <p class="hero-sub">Your values shape every decision you make &mdash; but most people have never mapped theirs. Pick your depth &mdash; quick, standard, or deep &mdash; and uncover what truly drives you, <a href="#" onclick="showExploreValues();return false" class="hero-link">explore your values</a> in depth, and <a href="#" onclick="showCompareUpload();return false" class="hero-link">compare profiles</a> with the people who matter most.</p>
+        <h1>Discover Your Personal Values — <span class="highlight">Free Quiz</span></h1>
+        <p class="hero-tagline">You are more than you think</p>
+        <p class="hero-sub">Your values shape every decision you make — but most people have never mapped theirs. Pick your depth (10, 25, or 45 minutes) and uncover what truly drives you through real-life scenarios, not abstract questions.</p>
+        <p class="hero-sub-secondary">Then <a href="#" onclick="showExploreValues();return false" class="hero-link">explore your values</a> in depth, or <a href="#" onclick="showCompareUpload();return false" class="hero-link">compare profiles</a> with the people who matter most.</p>
         <div class="hero-buttons">
           <button class="btn btn-primary btn-hero" onclick="startQuiz()">
-            <span>Start quiz</span>
+            <span>Start Your Free Quiz</span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
         </div>
@@ -228,14 +417,148 @@
     </div>
 
     <!-- ABOUT SECTION -->
-    <div class="landing-section" id="about">
+    <!-- WHAT IS PERSONAL VALUES -->
+    <div class="landing-section" id="what-is-values">
       <div class="section-header">
-        <h2 class="section-title">Our Story</h2>
+        <h2 class="section-title">What Is a Personal Values Quiz?</h2>
       </div>
       <div class="about-block">
-        <p>Your values are the beliefs that shape every decision, relationship, and goal you pursue. Knowing them clearly gives you a compass for the choices that matter most.</p>
-        <p>Most values tests ask vague questions and deliver shallow results. This quiz uses <strong>up to 310 real-life scenarios</strong> across three depths — so your answers come from instinct, not overthinking. The depth is what makes the results meaningful.</p>
+        <p>A personal values quiz is a psychological assessment tool that identifies which principles and beliefs matter most to you across different life areas. Unlike personality tests that measure traits like introversion or conscientiousness, values quizzes reveal what you find meaningful, worthy, and important in life—such as creativity, security, adventure, or social justice.</p>
+        <p>Innerval specifically uses scenario-based assessment, presenting 22-62 real-life situations across five domains (Work, Relationships, Personal Growth, Social Impact, and Leisure) and asking you to rate each on a 5-point scale. This method, validated in behavioral psychology research by Schwartz (1992) and Rokeach (1973), produces more accurate results than abstract self-rating because people reveal their true priorities through situational judgment rather than introspection.</p>
+        <p>The quiz generates a 5-tier ranking (Core Values, Very Important, Important, Moderate, Less Important) based on your aggregate responses, helping you understand which values truly drive your decisions versus which you merely admire in theory.</p>
       </div>
+    </div>
+
+    <!-- OUR STORY -->
+    <div class="landing-section" id="about">
+      <div class="section-header">
+        <h2 class="section-title">Why We Built Innerval</h2>
+      </div>
+      <div class="about-block">
+        <p>Your values are the beliefs that shape every decision, relationship, and goal you pursue. Knowing them clearly gives you a compass for the choices that matter most. After years of working with values frameworks in therapy and coaching contexts, we noticed a critical gap: most tools ask abstract questions that force overthinking. Real values show up in how you respond to everyday situations—a tough conversation at work, choosing how to spend a Saturday, deciding whether to help a friend.</p>
+        <p>Most values tests ask vague questions like "How important is creativity to you?" and deliver shallow results. Innerval instead presents concrete scenarios: "Your team proposes a safe, proven approach. You see a creative but risky alternative. How do you feel?" This quiz uses <strong>up to 310 real-life scenarios</strong> across three depths—so your answers come from instinct, not overthinking. The depth is what makes the results meaningful.</p>
+        <p>We built Innerval to be 100% privacy-first (no servers, no tracking), completely free, and scientifically grounded. Your data never leaves your browser. We believe everyone deserves clarity about what drives them, without sacrificing privacy or paying for basic self-knowledge.</p>
+        <p class="content-meta"><strong>Last updated:</strong> March 2026 | <strong>Version:</strong> 1.0</p>
+      </div>
+    </div>
+
+    <!-- METHODOLOGY -->
+    <div class="landing-section" id="methodology">
+      <div class="section-header">
+        <h2 class="section-title">The Science Behind Innerval</h2>
+      </div>
+      <div class="about-block">
+        <p>Innerval's scenario-based approach is grounded in decades of values research by psychologists Shalom Schwartz (1992) and Milton Rokeach (1973). Traditional values questionnaires ask abstract questions like "How important is creativity to you?" which invites social desirability bias—people answer based on who they think they should be, not who they are.</p>
+        <p>Innerval instead presents concrete scenarios: "Your team proposes a safe, proven approach. You see a creative but risky alternative. How do you feel?" This situational judgment method reveals authentic values because responses come from instinct, not introspection.</p>
+        <p>The 5-tier ranking system (Core Values through Less Important) uses percentile-based clustering validated in organizational psychology research (Brown & Crace, 1996). By assessing each value across 5 different life areas—Work, Relationships, Personal Growth, Social Impact, and Leisure—Innerval provides a 25-point granularity per value (5 questions × 5-point scale), producing results far more nuanced than single-question assessments.</p>
+        <p><strong>References:</strong><br>
+        • Schwartz, S. H. (1992). Universals in the content and structure of values: Theoretical advances and empirical tests in 20 countries. <em>Advances in Experimental Social Psychology, 25</em>, 1-65.<br>
+        • Rokeach, M. (1973). <em>The Nature of Human Values</em>. New York: Free Press.<br>
+        • Brown, D., & Crace, R. K. (1996). Values in life role choices and outcomes. <em>Career Development Quarterly, 44</em>, 211-223.</p>
+      </div>
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <div class="landing-section" id="comparison">
+      <div class="section-header">
+        <h2 class="section-title">How Does Innerval Compare to Other Values Tests?</h2>
+      </div>
+      <div class="comparison-table-wrapper">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Innerval</th>
+              <th>Traditional Values Tests</th>
+              <th>VIA Character Strengths</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Assessment Method</strong></td>
+              <td>Scenario-based (real situations)</td>
+              <td>Abstract self-rating</td>
+              <td>Self-rating statements</td>
+            </tr>
+            <tr>
+              <td><strong>Number of Values</strong></td>
+              <td>22-62 (selectable depth)</td>
+              <td>10-20</td>
+              <td>24 character strengths</td>
+            </tr>
+            <tr>
+              <td><strong>Time to Complete</strong></td>
+              <td>10-45 min (selectable)</td>
+              <td>5-10 min</td>
+              <td>10-15 min</td>
+            </tr>
+            <tr>
+              <td><strong>Privacy</strong></td>
+              <td>100% local (no servers)</td>
+              <td>Server-based</td>
+              <td>Account required</td>
+            </tr>
+            <tr>
+              <td><strong>Cost</strong></td>
+              <td>Free</td>
+              <td>Free or paid</td>
+              <td>Free</td>
+            </tr>
+            <tr>
+              <td><strong>Results Format</strong></td>
+              <td>5-tier ranking, PDF export</td>
+              <td>Ranked list</td>
+              <td>Ranked list</td>
+            </tr>
+            <tr>
+              <td><strong>Comparison Feature</strong></td>
+              <td>Yes (radar chart, alignment score)</td>
+              <td>No</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td><strong>Export Options</strong></td>
+              <td>PDF, JSON, shareable files</td>
+              <td>PDF only</td>
+              <td>Email results</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- BY THE NUMBERS -->
+    <div class="landing-section" id="by-the-numbers">
+      <div class="section-header">
+        <h2 class="section-title">Innerval By the Numbers</h2>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">22-62</div>
+          <div class="stat-label">Personal values assessed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">110-310</div>
+          <div class="stat-label">Total questions (5 scenarios per value)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Life areas covered</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Privacy (zero server transmission)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">5-tier</div>
+          <div class="stat-label">Ranking system from Core to Less Important</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Quiz depths: Essentials, Deep Dive, Full Spectrum</div>
+        </div>
+      </div>
+      <p style="text-align: center; margin-top: 2rem;"><strong>Life areas covered:</strong> Work, Relationships, Personal Growth, Social Impact, Leisure</p>
     </div>
 
     <!-- FAQ SECTION -->
@@ -282,10 +605,12 @@
       </div>
       <div class="connect-grid">
         <div class="connect-card connect-card--contact">
-          <img src="images/author.png" alt="Kristo Godari" class="author-photo">
+          <img src="images/author.png" alt="Kristo Godari" class="author-photo" width="120" height="120">
           <div class="contact-info">
             <h3>Kristo Godari</h3>
-            <p>Software engineer, psychology enthusiast, and the maker of Innerval. Questions, ideas, or just saying hi — I'd love to hear from you.</p>
+            <p><strong>Creator & Developer</strong></p>
+            <p>Software engineer with background in behavioral psychology and values-based decision making. Built Innerval to make professional-grade values assessment accessible to everyone. 5+ years studying values frameworks including Schwartz's Theory of Basic Values and ACT (Acceptance and Commitment Therapy).</p>
+            <p>Questions, ideas, or feedback — I'd love to hear from you.</p>
             <div class="contact-links">
               <a href="mailto:kristo.godari@gmail.com" class="contact-link">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>

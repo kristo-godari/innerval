@@ -1,0 +1,40 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#faf9f8"/>
+
+  <!-- Decorative orbs -->
+  <circle cx="900" cy="120" r="200" fill="#c06b5e" opacity="0.06"/>
+  <circle cx="200" cy="500" r="160" fill="#9b7db8" opacity="0.06"/>
+  <circle cx="1050" cy="480" r="120" fill="#d49a90" opacity="0.08"/>
+
+  <!-- Logo icon -->
+  <g transform="translate(480, 80)">
+    <circle cx="120" cy="120" r="90" stroke="#c06b5e" stroke-width="10" fill="none"/>
+    <circle cx="120" cy="120" r="59" stroke="#d49a90" stroke-width="5" fill="none"/>
+    <polygon points="120,23 108,120 132,120" fill="#9b7db8"/>
+    <polygon points="120,217 108,120 132,120" fill="#c9b8d9"/>
+    <circle cx="120" cy="120" r="12" fill="#c06b5e"/>
+    <circle cx="120" cy="120" r="5" fill="white"/>
+  </g>
+
+  <!-- Title -->
+  <text x="600" y="360" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="72" font-weight="700" fill="#2d2d2d">Innerval</text>
+
+  <!-- Subtitle -->
+  <text x="600" y="420" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#666666">Discover Your Personal Values</text>
+
+  <!-- Tags -->
+  <g transform="translate(600, 480)">
+    <rect x="-340" y="-18" width="160" height="36" rx="18" fill="#c06b5e" opacity="0.12"/>
+    <text x="-260" y="6" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" fill="#c06b5e">100% Free</text>
+
+    <rect x="-120" y="-18" width="160" height="36" rx="18" fill="#9b7db8" opacity="0.12"/>
+    <text x="-40" y="6" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" fill="#9b7db8">100% Private</text>
+
+    <rect x="100" y="-18" width="240" height="36" rx="18" fill="#c06b5e" opacity="0.12"/>
+    <text x="220" y="6" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" fill="#c06b5e">No Account Needed</text>
+  </g>
+
+  <!-- Bottom accent line -->
+  <rect x="440" y="550" width="320" height="3" rx="1.5" fill="#c06b5e" opacity="0.3"/>
+</svg>
