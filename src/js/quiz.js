@@ -547,10 +547,6 @@ function reorderQuestions(answeredEl) {
     answeredEl.classList.remove('reorder-out');
     answeredEl.classList.add('reorder-in');
 
-    // Scroll to top of the first unanswered question
-    if (unanswered.length > 0) {
-      unanswered[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
 
     setTimeout(function() {
       answeredEl.classList.remove('reorder-in');

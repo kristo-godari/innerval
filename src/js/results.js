@@ -1,11 +1,11 @@
 // Results screen: display ranked values, PDF download, JSON export.
 
 const TIER_DEFINITIONS = [
-  { label: 'Core Values (Top Tier)', pct: 0.16 },
-  { label: 'Very Important', pct: 0.32 },
-  { label: 'Important', pct: 0.56 },
-  { label: 'Moderate', pct: 0.80 },
-  { label: 'Less Important', pct: 1.0 }
+  { label: 'Core Values', pct: 0.16, color: 'var(--primary)', bg: 'rgba(192,107,94,.08)' },
+  { label: 'Very Important', pct: 0.32, color: 'var(--purple)', bg: 'rgba(155,125,184,.08)' },
+  { label: 'Important', pct: 0.56, color: 'var(--green)', bg: 'rgba(90,158,111,.08)' },
+  { label: 'Moderate', pct: 0.80, color: 'var(--gold)', bg: 'rgba(212,160,74,.08)' },
+  { label: 'Less Important', pct: 1.0, color: 'var(--muted)', bg: 'rgba(138,117,117,.06)' }
 ];
 
 function showResults() {
@@ -40,6 +40,9 @@ function showResults() {
   // Compute tier boundaries
   const tierBounds = TIER_DEFINITIONS.map(t => Math.round(t.pct * count));
 
+  // Theme-consistent bar colors that blend from primary to green
+  const BAR_COLORS = ['#c06b5e', '#b87a60', '#9b7db8', '#6aaa78', '#5a9e6f'];
+
   let html = '';
   let tierIdx = 0;
   let tierStart = 0;
@@ -49,7 +52,13 @@ function showResults() {
       tierIdx++;
     }
     if (i === tierStart && tierIdx < TIER_DEFINITIONS.length) {
-      html += `<div class="tier-label">${TIER_DEFINITIONS[tierIdx].label}</div>`;
+      const tier = TIER_DEFINITIONS[tierIdx];
+      html += `<div class="tier-label" style="background:${tier.bg};border-color:transparent">
+        <span class="tier-label-icon" style="background:${tier.bg};color:${tier.color}">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </span>
+        ${tier.label}
+      </div>`;
       tierStart = tierBounds[tierIdx] || count;
     }
 
@@ -59,7 +68,10 @@ function showResults() {
     else if (i === 1) rankClass = 'silver';
     else if (i === 2) rankClass = 'bronze';
 
-    const hue = Math.round((pct / 100) * 120);
+    // Pick bar color based on score range (high=primary, low=muted)
+    const barColorIdx = Math.min(Math.floor(((5 - s.avg) / 4) * BAR_COLORS.length), BAR_COLORS.length - 1);
+    const barColor = BAR_COLORS[barColorIdx];
+
     const desc = VALUE_DESCRIPTIONS[s.name] || '';
     html += `
       <div class="result-row">
@@ -68,7 +80,7 @@ function showResults() {
           <div class="result-name">${s.name}</div>
           ${desc ? `<div class="result-desc">${desc}</div>` : ''}
           <div class="result-bar-wrap">
-            <div class="result-bar" style="width:${pct}%;background:hsl(${hue},70%,50%)"></div>
+            <div class="result-bar" style="width:${pct}%;background:${barColor}"></div>
           </div>
         </div>
         <div class="result-score">${s.avg.toFixed(1)}</div>

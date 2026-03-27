@@ -550,36 +550,76 @@
 
   <!-- RESULTS SCREEN -->
   <div id="results">
-    <h2>Your Values Profile</h2>
-    <p class="subtitle">Ranked from most to least important based on your responses</p>
-    <div id="resultsLevelBadge" class="results-level-badge" style="display:none"></div>
-    <div class="results-actions">
-      <button class="btn btn-primary" onclick="downloadPDF()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download Report
-      </button>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn btn-secondary" onclick="exportResultsJSON()" title="Export raw data as JSON so you can compare results across different sessions">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          Export Data
-        </button>
-        <button class="btn btn-compare" onclick="compareFromResults()" title="Upload someone else's exported results to compare">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          Compare With Someone
-        </button>
-        <button class="btn btn-secondary" onclick="restartTest()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg> Restart</button>
+    <!-- Results Hero -->
+    <div class="results-hero">
+      <div class="results-hero-bg">
+        <div class="results-orb results-orb-1"></div>
+        <div class="results-orb results-orb-2"></div>
+      </div>
+      <div class="results-hero-content">
+        <div class="results-icon-wrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+        </div>
+        <h2>Your Values Profile</h2>
+        <p class="results-hero-sub">Here are your personal values, ranked by how strongly they showed up in your responses.</p>
+        <div id="resultsLevelBadge" class="results-level-badge" style="display:none"></div>
       </div>
     </div>
-    <p class="export-note"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg><span><strong>Download Report</strong> saves a visual PDF. <strong>Export Data</strong> saves JSON for comparison. <strong>Compare With Someone</strong> lets you upload another person's export to see how you align.</span></p>
-    <div class="results-explore-cta">
-      <p><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> <strong>Now that you know your values</strong> — explore all values in depth and build a list of values you want to cultivate.</p>
-      <button class="btn btn-compare" onclick="showExploreValues()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        Explore Values &amp; Set Aspirations
-      </button>
+
+    <!-- Save & Share -->
+    <div class="results-save-section">
+      <div class="results-save-header">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
+        <span>Save your results to revisit later or share with others</span>
+      </div>
+      <div class="results-save-actions">
+        <button class="btn btn-primary" onclick="downloadPDF()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download PDF
+        </button>
+        <button class="btn btn-secondary" onclick="exportResultsJSON()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Export JSON
+        </button>
+        <button class="btn btn-secondary" onclick="restartTest()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+          Retake Quiz
+        </button>
+      </div>
     </div>
+
+    <!-- Partial Notice -->
     <div id="partialNotice" class="partial-notice" style="display:none"></div>
+
+    <!-- Results List -->
     <div id="resultsList"></div>
+
+    <!-- Next Steps -->
+    <div class="results-next-steps">
+      <div class="section-header">
+        <span class="section-eyebrow">What's Next</span>
+        <h3 class="section-title">Make Your Values Actionable</h3>
+      </div>
+      <div class="results-next-grid">
+        <div class="results-next-card" onclick="showExploreValues()">
+          <div class="results-next-icon results-next-icon--explore">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </div>
+          <h4>Explore Values</h4>
+          <p>Dive deeper into each value and set aspirations for the ones you want to grow.</p>
+          <span class="results-next-link">Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+        </div>
+        <div class="results-next-card" onclick="compareFromResults()">
+          <div class="results-next-icon results-next-icon--compare">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h4>Compare With Someone</h4>
+          <p>See how your values align with a partner, friend, or colleague.</p>
+          <span class="results-next-link">Compare <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- EXPLORE VALUES SCREEN -->
