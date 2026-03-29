@@ -229,24 +229,34 @@
         <a href="#" onclick="goHome()">Home</a>
         <a href="#about" onclick="goSection('about')">About</a>
         <a href="#author" onclick="goSection('author')">Contact</a>
-        <button class="theme-toggle theme-toggle-mobile" onclick="toggleTheme()" aria-label="Toggle theme">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-          </svg>
-          <span>Toggle theme</span>
-        </button>
       </div>
       <div class="nav-group nav-right-group">
         <a href="#" onclick="showExploreValues()" class="nav-action nav-explore">Explore values</a>
         <a href="#" onclick="showCompareUpload()" class="nav-action nav-compare">Compare profiles</a>
         <a href="#" onclick="startQuiz()" class="nav-action nav-quiz">Start quiz &rarr;</a>
       </div>
+      <div class="theme-toggle-mobile-wrapper">
+        <span class="theme-toggle-mobile-label">Theme</span>
+        <div class="theme-toggle-pill theme-toggle-pill-mobile" onclick="toggleTheme()" aria-label="Toggle theme" role="button" tabindex="0">
+          <span class="theme-label theme-label-day">DAY MODE</span>
+          <span class="theme-label theme-label-night">NIGHT MODE</span>
+          <div class="theme-knob">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
     </nav>
-    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-      </svg>
-    </button>
+    <div class="theme-toggle-pill" id="themeTogglePill" onclick="toggleTheme()" aria-label="Toggle theme" role="button" tabindex="0">
+      <span class="theme-label theme-label-day">DAY MODE</span>
+      <span class="theme-label theme-label-night">NIGHT MODE</span>
+      <div class="theme-knob">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </div>
+    </div>
     <button class="nav-toggle" id="navToggle" onclick="toggleNav()" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
