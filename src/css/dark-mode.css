@@ -57,6 +57,11 @@
   opacity:.25;
 }
 
+[data-theme="dark"] .results-level-badge{
+  background:rgba(0,0,0,.3);
+  border-color:rgba(168,157,148,.3);
+}
+
 /* Compare Hero */
 [data-theme="dark"] .compare-hero{
   background:linear-gradient(168deg,#1a1614 0%,#221d1a 40%,#28242a 70%,#221d1a 100%);
