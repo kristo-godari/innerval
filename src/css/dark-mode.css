@@ -2,19 +2,19 @@
 
 /* Hero Section */
 [data-theme="dark"] .hero{
-  background:linear-gradient(168deg,#1a1614 0%,#221d1a 20%,#2a2420 45%,#322b26 65%,#2a2420 80%,#221d1a 100%);
+  background:linear-gradient(180deg,#1a1614 0%,#221d1a 100%);
 }
 
 [data-theme="dark"] .hero-orb-1{
-  background:rgba(212,154,144,.15);
+  background:rgba(212,154,144,.1);
 }
 
 [data-theme="dark"] .hero-orb-2{
-  background:rgba(176,148,200,.12);
+  background:rgba(176,148,200,.08);
 }
 
 [data-theme="dark"] .hero-orb-3{
-  background:rgba(230,181,94,.1);
+  background:rgba(230,181,94,.06);
 }
 
 /* Stats Strip */

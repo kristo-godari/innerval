@@ -3,12 +3,12 @@
 #landing{padding:0 0 0}
 
 /* ===== HERO ===== */
-.hero{position:relative;overflow:hidden;width:100vw;left:50%;margin-left:-50vw;margin-top:-20px;padding:56px 24px 40px;text-align:center;background:linear-gradient(168deg,#faf7f3 0%,#f5ece4 20%,#f0ddd8 45%,#e8d0ca 65%,#ecdbd5 80%,#f5ece4 100%)}
+.hero{position:relative;overflow:hidden;width:100vw;left:50%;margin-left:-50vw;margin-top:-20px;padding:56px 24px 40px;text-align:center;background:linear-gradient(180deg,#faf7f3 0%,#f5ece4 100%)}
 .hero-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.hero-orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.45;animation:orbFloat 14s ease-in-out infinite}
-.hero-orb-1{width:650px;height:650px;background:rgba(192,107,94,.22);top:-220px;right:-160px;animation-delay:0s}
-.hero-orb-2{width:550px;height:550px;background:rgba(155,125,184,.18);bottom:-200px;left:-160px;animation-delay:4s}
-.hero-orb-3{width:400px;height:400px;background:rgba(212,160,74,.14);top:35%;left:50%;animation-delay:7s}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:.25;animation:orbFloat 14s ease-in-out infinite}
+.hero-orb-1{width:650px;height:650px;background:rgba(192,107,94,.15);top:-220px;right:-160px;animation-delay:0s}
+.hero-orb-2{width:550px;height:550px;background:rgba(155,125,184,.12);bottom:-200px;left:-160px;animation-delay:4s}
+.hero-orb-3{width:400px;height:400px;background:rgba(212,160,74,.1);top:35%;left:50%;animation-delay:7s}
 @keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,-20px) scale(1.06)}}
 
 .hero-content{position:relative;z-index:1;max-width:620px;margin:0 auto}
