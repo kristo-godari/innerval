@@ -1,6 +1,10 @@
 // Explore values screen: browsing, filtering, aspirations, detail modal.
 
 let activeCategory = 'All';
+let currentExploreValue = null;
+let exploreKeyboardListener = null;
+let exploreTouchStartX = null;
+let exploreTouchStartY = null;
 
 // Professional SVG icons per category (replacing emojis)
 var STAR_FILLED_SM = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
@@ -247,8 +251,11 @@ function clearAllAspirations() {
 // --- Detail Modal ---
 
 function openExploreDetail(name) {
+  currentExploreValue = name;
   renderExploreDetailContent(name);
   document.getElementById('exploreDetailOverlay').classList.add('visible');
+  updateExploreNavButtons();
+  attachExploreDetailListeners();
 }
 
 function renderExploreDetailContent(name) {
@@ -275,4 +282,98 @@ function renderExploreDetailContent(name) {
 
 function closeExploreDetail() {
   document.getElementById('exploreDetailOverlay').classList.remove('visible');
+  detachExploreDetailListeners();
+  currentExploreValue = null;
+}
+
+function navigateExploreDetail(direction) {
+  const filtered = getFilteredValues();
+  const currentIndex = filtered.indexOf(currentExploreValue);
+  if (currentIndex === -1) return;
+
+  let newIndex = currentIndex + direction;
+  // Wrap around
+  if (newIndex < 0) newIndex = filtered.length - 1;
+  if (newIndex >= filtered.length) newIndex = 0;
+
+  currentExploreValue = filtered[newIndex];
+  renderExploreDetailContent(currentExploreValue);
+  updateExploreNavButtons();
+}
+
+function updateExploreNavButtons() {
+  const filtered = getFilteredValues();
+  const prevBtn = document.getElementById('exploreNavPrev');
+  const nextBtn = document.getElementById('exploreNavNext');
+
+  // Hide navigation buttons if there's only one value
+  if (filtered.length <= 1) {
+    prevBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+  } else {
+    prevBtn.style.display = 'flex';
+    nextBtn.style.display = 'flex';
+  }
+}
+
+function attachExploreDetailListeners() {
+  // Keyboard listener
+  exploreKeyboardListener = function(e) {
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      navigateExploreDetail(-1);
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      navigateExploreDetail(1);
+    } else if (e.key === 'Escape') {
+      closeExploreDetail();
+    }
+  };
+  document.addEventListener('keydown', exploreKeyboardListener);
+
+  // Touch/swipe listeners
+  const modal = document.querySelector('.explore-detail');
+  modal.addEventListener('touchstart', handleExploreTouchStart, { passive: true });
+  modal.addEventListener('touchend', handleExploreTouchEnd, { passive: true });
+}
+
+function detachExploreDetailListeners() {
+  if (exploreKeyboardListener) {
+    document.removeEventListener('keydown', exploreKeyboardListener);
+    exploreKeyboardListener = null;
+  }
+
+  const modal = document.querySelector('.explore-detail');
+  modal.removeEventListener('touchstart', handleExploreTouchStart);
+  modal.removeEventListener('touchend', handleExploreTouchEnd);
+}
+
+function handleExploreTouchStart(e) {
+  exploreTouchStartX = e.touches[0].clientX;
+  exploreTouchStartY = e.touches[0].clientY;
+}
+
+function handleExploreTouchEnd(e) {
+  if (!exploreTouchStartX || !exploreTouchStartY) return;
+
+  const touchEndX = e.changedTouches[0].clientX;
+  const touchEndY = e.changedTouches[0].clientY;
+
+  const deltaX = touchEndX - exploreTouchStartX;
+  const deltaY = touchEndY - exploreTouchStartY;
+
+  // Only trigger swipe if horizontal movement is dominant and exceeds threshold
+  const threshold = 50;
+  if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > threshold) {
+    if (deltaX > 0) {
+      // Swipe right - go to previous
+      navigateExploreDetail(-1);
+    } else {
+      // Swipe left - go to next
+      navigateExploreDetail(1);
+    }
+  }
+
+  exploreTouchStartX = null;
+  exploreTouchStartY = null;
 }

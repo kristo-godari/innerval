@@ -90,8 +90,12 @@
 .explore-detail-overlay.visible{opacity:1;pointer-events:auto}
 .explore-detail{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;max-width:520px;width:100%;max-height:85vh;overflow-y:auto;transform:scale(.95) translateY(10px);transition:all .25s;box-shadow:0 24px 64px rgba(54,43,43,.16);position:relative}
 .explore-detail-overlay.visible .explore-detail{transform:scale(1) translateY(0)}
-.explore-detail-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:var(--bg);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;color:var(--muted);line-height:1}
+.explore-detail-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:var(--bg);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;color:var(--muted);line-height:1;z-index:10}
 .explore-detail-close:hover{background:#f5dcd9;border-color:#e8b4af;color:#a04040}
+.explore-detail-nav{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;color:var(--muted);z-index:10;box-shadow:0 2px 8px rgba(54,43,43,.08)}
+.explore-detail-nav:hover{background:var(--card);border-color:var(--primary);color:var(--primary);transform:translateY(-50%) scale(1.05);box-shadow:0 4px 12px rgba(54,43,43,.12)}
+.explore-detail-nav-prev{left:-50px}
+.explore-detail-nav-next{right:-50px}
 
 /* Detail Content */
 .detail-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
@@ -122,6 +126,9 @@
   .detail-icon-wrap{width:48px;height:48px}
   .detail-title{font-size:1.2rem}
   .results-explore-cta{flex-direction:column;text-align:center}
+  .explore-detail-nav{width:36px;height:36px}
+  .explore-detail-nav-prev{left:8px}
+  .explore-detail-nav-next{right:8px}
 }
 
 /* Large screens */
