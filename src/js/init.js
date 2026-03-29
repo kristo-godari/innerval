@@ -1,5 +1,8 @@
 // Application initialization: restore state, bind global event listeners.
 
+// Initialize theme before anything else to prevent flash
+setTheme(getTheme());
+
 (function initFromStorage() {
   const saved = loadProgress();
   if (!saved) return;

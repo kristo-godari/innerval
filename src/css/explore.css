@@ -4,7 +4,7 @@
 
 /* Header */
 .explore-header{text-align:center;padding:24px 0 12px}
-.explore-header h2{font-size:1.6rem;font-weight:800;margin-bottom:6px;letter-spacing:-.01em}
+.explore-header h2{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;margin-bottom:6px;letter-spacing:-.01em}
 .explore-header .subtitle{color:var(--muted);font-size:.92rem}
 
 /* Toolbar */
