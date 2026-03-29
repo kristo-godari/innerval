@@ -523,15 +523,363 @@ function renderCategoryBreakdown(valsA, valsB, nameA, nameB) {
     }).join('') + '</div>';
 }
 
-function downloadComparisonPDF() {
-  const element = document.getElementById('compareResults');
-  const opt = {
-    margin: [10, 10, 10, 10],
-    filename: 'innerval-comparison.pdf',
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-  };
-  html2pdf().set(opt).from(element).save();
+/**
+ * Converts SVG element to PNG data URL for PDF embedding
+ * Replaces CSS variables with actual hex colors
+ */
+function svgToImageDataUrl(svgElement) {
+  return new Promise((resolve, reject) => {
+    try {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const svgData = new XMLSerializer().serializeToString(svgElement);
+
+      // Replace CSS custom properties with actual colors
+      const colorReplacements = {
+        'var(--border)': '#e8ddd4',
+        'var(--muted)': '#8a7575',
+        'var(--primary)': '#c06b5e',
+        'var(--purple)': '#9b7db8',
+        'var(--text)': '#362b2b'
+      };
+
+      let processedSvg = svgData;
+      for (const [cssVar, color] of Object.entries(colorReplacements)) {
+        processedSvg = processedSvg.replace(new RegExp(cssVar.replace(/[()]/g, '\\$&'), 'g'), color);
+      }
+
+      const img = new Image();
+      img.onload = function() {
+        canvas.width = 500;
+        canvas.height = 500;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+        resolve(canvas.toDataURL('image/png'));
+      };
+
+      img.onerror = function() {
+        reject(new Error('Failed to convert SVG to image'));
+      };
+
+      img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(processedSvg)));
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
+async function downloadComparisonPDF() {
+  // Check if pdfMake library loaded
+  if (typeof pdfMake === 'undefined') {
+    showModal({
+      icon: 'error',
+      title: 'PDF Library Not Loaded',
+      message: 'The PDF generation library failed to load. Please refresh the page and try again.',
+      buttons: [{ label: 'OK', cls: 'btn-primary' }]
+    });
+    return;
+  }
+
+  if (!compareData1 || !compareData2) {
+    showModal({
+      icon: 'warning',
+      title: 'No Comparison Data',
+      message: 'Please upload two results files to compare.',
+      buttons: [{ label: 'Got it', cls: 'btn-primary' }]
+    });
+    return;
+  }
+
+  try {
+    const nameA = 'Person A';
+    const nameB = 'Person B';
+    const today = new Date().toLocaleDateString('en-US', {
+      year: 'numeric', month: 'long', day: 'numeric'
+    });
+
+    // Get alignment data from DOM
+    const alignmentScore = document.getElementById('alignmentValue').textContent;
+    const alignmentDesc = document.getElementById('alignmentDesc').textContent;
+
+    // Convert radar chart SVG to image
+    const radarSvg = document.getElementById('radarChart');
+    if (!radarSvg || !radarSvg.innerHTML) {
+      throw new Error('Radar chart not available');
+    }
+    const radarImageUrl = await svgToImageDataUrl(radarSvg);
+
+    // Get top 5 values
+    const topA = compareData1.values.slice(0, 5);
+    const topB = compareData2.values.slice(0, 5);
+
+    // Calculate similarities/differences
+    const mapA = {};
+    const mapB = {};
+    compareData1.values.forEach(v => { mapA[v.name] = v; });
+    compareData2.values.forEach(v => { mapB[v.name] = v; });
+
+    const commonNames = compareData1.values
+      .filter(v => mapB[v.name])
+      .map(v => v.name);
+
+    const diffs = commonNames.map(name => ({
+      name,
+      avgA: mapA[name].average,
+      avgB: mapB[name].average,
+      diff: Math.abs(mapA[name].average - mapB[name].average)
+    }));
+
+    diffs.sort((a, b) => a.diff - b.diff);
+    const similarities = diffs.slice(0, 5);
+    const differences = [...diffs].sort((a, b) => b.diff - a.diff).slice(0, 5);
+
+    // Build top values table
+    const topValuesTable = {
+      table: {
+        widths: ['*', '*'],
+        body: [
+          [
+            { text: nameA, style: 'columnHeader', fillColor: '#fce8e5', color: '#c06b5e' },
+            { text: nameB, style: 'columnHeader', fillColor: '#f3edf7', color: '#9b7db8' }
+          ],
+          ...topA.map((valA, i) => {
+            const valB = topB[i];
+            const descA = VALUE_DESCRIPTIONS[valA.name] || '';
+            const descB = VALUE_DESCRIPTIONS[valB.name] || '';
+            return [
+              {
+                stack: [
+                  { text: `#${i + 1}  ${valA.name} (${valA.average.toFixed(1)})`, style: 'topValue' },
+                  descA ? { text: descA, style: 'topValueDesc' } : {}
+                ]
+              },
+              {
+                stack: [
+                  { text: `#${i + 1}  ${valB.name} (${valB.average.toFixed(1)})`, style: 'topValue' },
+                  descB ? { text: descB, style: 'topValueDesc' } : {}
+                ]
+              }
+            ];
+          })
+        ]
+      },
+      layout: {
+        hLineWidth: function(i) { return i === 1 ? 1 : 0.5; },
+        vLineWidth: function() { return 0.5; },
+        hLineColor: function() { return '#e8ddd4'; },
+        vLineColor: function() { return '#e8ddd4'; }
+      }
+    };
+
+    // Build similarities table
+    const similaritiesTable = {
+      table: {
+        widths: [120, 60, 60, 40],
+        body: [
+          [
+            { text: 'Value', style: 'tableHeader' },
+            { text: nameA, style: 'tableHeader', alignment: 'center' },
+            { text: nameB, style: 'tableHeader', alignment: 'center' },
+            { text: 'Δ', style: 'tableHeader', alignment: 'center' }
+          ],
+          ...similarities.map(s => {
+            const desc = VALUE_DESCRIPTIONS[s.name] || '';
+            const valueCell = desc
+              ? { stack: [
+                  { text: s.name, style: 'comparisonValue' },
+                  { text: desc, style: 'comparisonValueDesc' }
+                ] }
+              : { text: s.name, style: 'comparisonValue' };
+            return [
+              valueCell,
+              { text: s.avgA.toFixed(1), alignment: 'center' },
+              { text: s.avgB.toFixed(1), alignment: 'center' },
+              { text: s.diff.toFixed(1), alignment: 'center', fillColor: '#e8f5ec', color: '#3d7a4f', bold: true }
+            ];
+          })
+        ]
+      },
+      layout: 'lightHorizontalLines'
+    };
+
+    // Build differences table
+    const differencesTable = {
+      table: {
+        widths: [120, 60, 60, 40],
+        body: [
+          [
+            { text: 'Value', style: 'tableHeader' },
+            { text: nameA, style: 'tableHeader', alignment: 'center' },
+            { text: nameB, style: 'tableHeader', alignment: 'center' },
+            { text: 'Δ', style: 'tableHeader', alignment: 'center' }
+          ],
+          ...differences.map(d => {
+            const desc = VALUE_DESCRIPTIONS[d.name] || '';
+            const valueCell = desc
+              ? { stack: [
+                  { text: d.name, style: 'comparisonValue' },
+                  { text: desc, style: 'comparisonValueDesc' }
+                ] }
+              : { text: d.name, style: 'comparisonValue' };
+            return [
+              valueCell,
+              { text: d.avgA.toFixed(1), alignment: 'center' },
+              { text: d.avgB.toFixed(1), alignment: 'center' },
+              {
+                text: d.diff.toFixed(1),
+                alignment: 'center',
+                fillColor: d.diff < 1.5 ? '#fdf6e8' : '#fce8e5',
+                color: d.diff < 1.5 ? '#8b6914' : '#a04040',
+                bold: true
+              }
+            ];
+          })
+        ]
+      },
+      layout: 'lightHorizontalLines'
+    };
+
+    const docDefinition = {
+      info: {
+        title: 'Innerval - Values Comparison',
+        author: 'Innerval',
+        subject: 'Personal Values Comparison'
+      },
+
+      pageSize: 'A4',
+      pageMargins: [40, 60, 40, 60],
+
+      header: function(currentPage, pageCount) {
+        return {
+          text: 'Innerval Values Comparison',
+          alignment: 'center',
+          margin: [0, 20, 0, 0],
+          fontSize: 9,
+          color: '#8a7575'
+        };
+      },
+
+      footer: function(currentPage, pageCount) {
+        return {
+          columns: [
+            { text: today, alignment: 'left', margin: [40, 0, 0, 0], fontSize: 8, color: '#8a7575' },
+            { text: `Page ${currentPage} of ${pageCount}`, alignment: 'right', margin: [0, 0, 40, 0], fontSize: 8, color: '#8a7575' }
+          ],
+          margin: [0, 0, 0, 20]
+        };
+      },
+
+      content: [
+        { text: 'Values Alignment', style: 'title', alignment: 'center', margin: [0, 0, 0, 8] },
+        { text: `${nameA} vs ${nameB}`, style: 'subtitle', alignment: 'center', margin: [0, 0, 0, 20] },
+
+        // Alignment score
+        {
+          columns: [
+            { width: '*', text: '' },
+            {
+              width: 'auto',
+              stack: [
+                { text: alignmentScore, fontSize: 36, bold: true, color: '#c06b5e', alignment: 'center' },
+                { text: 'Alignment Score', fontSize: 10, color: '#8a7575', alignment: 'center', margin: [0, 4, 0, 8] },
+                { text: alignmentDesc, fontSize: 9, color: '#362b2b', alignment: 'center', italics: true }
+              ],
+              margin: [0, 0, 0, 20]
+            },
+            { width: '*', text: '' }
+          ]
+        },
+
+        // Summary stats
+        {
+          columns: [
+            {
+              text: [
+                { text: `${commonNames.length}\n`, fontSize: 20, bold: true, color: '#c06b5e' },
+                { text: 'Shared Values', fontSize: 9, color: '#8a7575' }
+              ],
+              alignment: 'center'
+            },
+            {
+              text: [
+                { text: `${compareData1.completedCount}\n`, fontSize: 20, bold: true, color: '#c06b5e' },
+                { text: `${nameA} Values`, fontSize: 9, color: '#8a7575' }
+              ],
+              alignment: 'center'
+            },
+            {
+              text: [
+                { text: `${compareData2.completedCount}\n`, fontSize: 20, bold: true, color: '#c06b5e' },
+                { text: `${nameB} Values`, fontSize: 9, color: '#8a7575' }
+              ],
+              alignment: 'center'
+            }
+          ],
+          margin: [0, 0, 0, 24]
+        },
+
+        // Radar chart
+        { text: 'Top Values Comparison', style: 'sectionTitle', margin: [0, 0, 0, 12] },
+        { image: radarImageUrl, width: 300, alignment: 'center', margin: [0, 0, 0, 12] },
+
+        // Legend
+        {
+          columns: [
+            { width: '*', text: '' },
+            {
+              width: 'auto',
+              columns: [
+                { canvas: [{ type: 'rect', x: 0, y: 0, w: 12, h: 12, r: 6, color: '#c06b5e' }], width: 16 },
+                { text: nameA, fontSize: 9, color: '#8a7575', margin: [4, 1, 12, 0] },
+                { canvas: [{ type: 'rect', x: 0, y: 0, w: 12, h: 12, r: 6, color: '#9b7db8' }], width: 16 },
+                { text: nameB, fontSize: 9, color: '#8a7575', margin: [4, 1, 0, 0] }
+              ]
+            },
+            { width: '*', text: '' }
+          ],
+          margin: [0, 0, 0, 24]
+        },
+
+        // Top values
+        { text: 'Top 5 Values', style: 'sectionTitle', margin: [0, 0, 0, 12], pageBreak: 'before' },
+        topValuesTable,
+
+        // Similarities
+        { text: 'Strongest Similarities', style: 'sectionTitle', margin: [0, 24, 0, 12] },
+        { text: `Values where ${nameA} and ${nameB} scored almost identically`, fontSize: 9, color: '#8a7575', margin: [0, 0, 0, 8] },
+        similaritiesTable,
+
+        // Differences
+        { text: 'Biggest Differences', style: 'sectionTitle', margin: [0, 24, 0, 12] },
+        { text: `The values with the biggest gap between ${nameA} and ${nameB}`, fontSize: 9, color: '#8a7575', margin: [0, 0, 0, 8] },
+        differencesTable
+      ],
+
+      styles: {
+        title: { fontSize: 24, bold: true, color: '#362b2b' },
+        subtitle: { fontSize: 12, color: '#8a7575', bold: true },
+        sectionTitle: { fontSize: 14, bold: true, color: '#362b2b' },
+        tableHeader: { fontSize: 9, bold: true, color: '#362b2b', fillColor: '#faf7f3' },
+        columnHeader: { fontSize: 10, bold: true, alignment: 'center', margin: [0, 4, 0, 4] },
+        topValue: { fontSize: 10, color: '#362b2b', margin: [0, 0, 0, 2] },
+        topValueDesc: { fontSize: 8, color: '#8a7575', italics: true },
+        comparisonValue: { fontSize: 10, bold: true, color: '#362b2b', margin: [0, 0, 0, 2] },
+        comparisonValueDesc: { fontSize: 8, color: '#8a7575', italics: true }
+      },
+
+      defaultStyle: { font: 'Roboto' }
+    };
+
+    pdfMake.createPdf(docDefinition).download('innerval-comparison.pdf');
+
+  } catch (error) {
+    console.error('Comparison PDF generation failed:', error);
+    showModal({
+      icon: 'error',
+      title: 'PDF Error',
+      message: 'Failed to generate comparison PDF. Please try again.',
+      buttons: [{ label: 'OK', cls: 'btn-primary' }]
+    });
+  }
 }
