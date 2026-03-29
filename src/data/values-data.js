@@ -2,9 +2,9 @@ const VALUES_DATA = [
   {
     name: "Acceptance",
     questions: [
-      { area: "Work", text: "A new colleague has very different working methods. Would you let them work their way without trying to change their approach?" },
-      { area: "Relationships", text: "Your partner, whose income you both rely on, decides to leave their stable accounting career to become a freelance artist—something you've expressed concerns about. They feel strongly about the change. Would you support their decision without trying to talk them out of it?" },
-      { area: "Personal", text: "You didn't get a promotion you worked hard for. Would you let go of the disappointment and move forward without bitterness?" },
+      { area: "Work", text: "A project you led failed despite your best efforts. Would you accept this outcome and move forward without ruminating on what could have been different?" },
+      { area: "Relationships", text: "Your partner has habits that annoy you but aren't harmful (leaving dishes out, being chronically late). Would you accept these quirks as part of who they are rather than constantly trying to change them?" },
+      { area: "Personal", text: "You have a personality trait that others sometimes criticize (e.g., being introverted, highly sensitive, or analytical). Would you accept this as part of who you are rather than trying to change it?" },
       { area: "Social", text: "People at a community event express political views opposite to yours. Would you listen calmly and let them hold those views without arguing?" },
       { area: "Leisure", text: "You try a new hobby and realize you're not naturally talented. Would you continue enjoying it despite being a beginner?" }
     ]
@@ -22,8 +22,8 @@ const VALUES_DATA = [
   {
     name: "Adventure",
     questions: [
-      { area: "Work", text: "You're 28, single, with a year of savings and no debt. A stable role at your company pays well, but a friend's promising startup abroad offers equity and a real chance to build something new—though it could fail within a year. Would you pick the startup?" },
-      { area: "Relationships", text: "You and your partner are in your early 30s with no kids, no mortgage, and enough savings to cover a year abroad. Your partner suggests selling your belongings and traveling the world for a year before settling down. Would you say yes?" },
+      { area: "Work", text: "You're offered a short-term project in a foreign country you've never visited, requiring you to live there for 3 months. The pay is equivalent to your current role. Would you take it?" },
+      { area: "Relationships", text: "Your partner suggests trying an adventure activity together this weekend that neither of you has done before—like rock climbing or white-water rafting. Would you enthusiastically say yes?" },
       { area: "Personal", text: "You have a free weekend: relax at home or try skydiving for the first time. Would you go skydiving?" },
       { area: "Social", text: "It's a regular Friday evening with nothing planned for the weekend. Friends call and invite you on a spontaneous road trip to an unknown destination leaving tonight. Would you pack your bag and go?" },
       { area: "Leisure", text: "You can vacation at your favorite familiar resort or explore a remote, uncharted village. Would you choose the unknown village?" }
@@ -35,7 +35,7 @@ const VALUES_DATA = [
       { area: "Work", text: "You're comfortable in your current role with manageable hours and decent pay. A new position at another company offers a steeper learning curve, higher visibility, and faster career growth—but longer hours and more pressure. Would you leave your comfortable role to pursue it?" },
       { area: "Relationships", text: "Your close friend invites you to a weekend getaway, but you've been offered a demanding side project that could significantly advance your career. The project requires your weekends for the next two months. Would you skip the trip and prioritize the career opportunity?" },
       { area: "Personal", text: "You just achieved a personal milestone. Would you immediately start planning an even bigger goal?" },
-      { area: "Social", text: "At a class reunion, would you feel disappointed if your accomplishments seemed modest compared to your peers'?" },
+      { area: "Social", text: "You're offered the chance to lead a high-profile community initiative that would significantly raise your professional standing, but it requires 10 hours per week for a year. Would you commit to it?" },
       { area: "Leisure", text: "When picking up a new sport, would you train to compete rather than just play for fun?" }
     ]
   },
@@ -63,8 +63,8 @@ const VALUES_DATA = [
     name: "Authority",
     questions: [
       { area: "Work", text: "In a group project with no assigned leader, would you step up to direct the team?" },
-      { area: "Relationships", text: "When planning a family vacation, would you insist on making the final call on the destination and itinerary?" },
-      { area: "Personal", text: "When friends or family face a decision, would you want to be the one they look to for direction?" },
+      { area: "Relationships", text: "When your extended family is planning a reunion, would you volunteer to coordinate and make the executive decisions about venue, dates, and activities?" },
+      { area: "Personal", text: "You're organizing a personal project that involves multiple friends. Would you naturally take the role of assigning tasks and making final decisions?" },
       { area: "Social", text: "In a community committee, would you seek a leadership position rather than serve as a regular member?" },
       { area: "Leisure", text: "When playing team sports, would you volunteer to be the captain or the one calling the plays?" }
     ]
@@ -85,7 +85,7 @@ const VALUES_DATA = [
       { area: "Work", text: "You're offered a new role with vague responsibilities versus your current well-defined position. Would you stay in the defined role to avoid the uncertainty?" },
       { area: "Relationships", text: "Early in a relationship, would you have a direct conversation about where things are headed rather than letting it unfold naturally?" },
       { area: "Personal", text: "When making a big purchase like a car, would you research for weeks until you're certain rather than go with your gut?" },
-      { area: "Social", text: "Friends invite you to an event but can't tell you who else will be there. Would the uncertainty make you want to skip it?" },
+      { area: "Social", text: "You're planning a major move to a new city. Would you need to visit multiple times, secure housing, and have a job lined up before committing, rather than moving first and figuring things out?" },
       { area: "Leisure", text: "When booking a vacation, would you plan every single day in detail rather than leave room for spontaneity?" }
     ]
   },
@@ -115,7 +115,7 @@ const VALUES_DATA = [
       { area: "Work", text: "A colleague is underperforming because of personal problems. Would you approach them with understanding and offer support rather than report their poor performance?" },
       { area: "Relationships", text: "A family member keeps making the same mistakes. Would you respond with patience and care each time rather than with frustration?" },
       { area: "Personal", text: "You failed at something important. Would you talk to yourself gently about it rather than beating yourself up?" },
-      { area: "Social", text: "You see a homeless person on your daily route. Would you stop and offer them a warm meal?" },
+      { area: "Social", text: "A colleague is going through a divorce and breaks down crying at work. Would you sit with them, listen, and offer emotional support even if it makes you uncomfortable?" },
       { area: "Leisure", text: "While hiking, you encounter an injured stray animal far from any town. Would you go significantly out of your way to get it help?" }
     ]
   },
@@ -142,10 +142,10 @@ const VALUES_DATA = [
   {
     name: "Control",
     questions: [
-      { area: "Work", text: "If your manager dictated exactly how and when you do every task, would that significantly frustrate you?" },
-      { area: "Relationships", text: "Your partner rearranges the kitchen or redecorates a shared room without consulting you first. Even if the result looks fine, would that bother you significantly?" },
-      { area: "Personal", text: "If an unexpected event disrupted your carefully planned daily routine, would that rattle you?" },
-      { area: "Social", text: "In a group outing, someone else makes all the decisions without asking you. Would that bother you significantly?" },
+      { area: "Work", text: "When starting a new project, would you insist on setting the timeline, process, and milestones yourself rather than having them dictated to you?" },
+      { area: "Relationships", text: "Would you want to be the one who manages household finances, schedules, and major purchases rather than sharing that control equally?" },
+      { area: "Personal", text: "Would you create detailed daily schedules and systems to maintain control over your time and activities?" },
+      { area: "Social", text: "When organizing a group outing, would you want to handle all the planning and decision-making yourself?" },
       { area: "Leisure", text: "When playing cooperative games, would you naturally take over as the strategist directing the group's actions?" }
     ]
   },
@@ -156,7 +156,7 @@ const VALUES_DATA = [
       { area: "Relationships", text: "You need to tell someone you love a painful truth that could hurt them. Would you have that conversation rather than avoid it?" },
       { area: "Personal", text: "You have 12 months of living expenses saved, no dependents, and a solid business idea you've been planning for years. Launching it means quitting your job with no guaranteed income. Would you take the leap despite the fear?" },
       { area: "Social", text: "Someone in a public setting is being bullied. Would you step in and confront the bully despite potential confrontation?" },
-      { area: "Leisure", text: "You're at the top of a cliff-jumping spot and everyone is watching. Would you overcome your fear and jump?" }
+      { area: "Leisure", text: "You've been invited to speak at a large public event about something personally meaningful but vulnerable (like a past failure or struggle). Would you accept despite the fear of public vulnerability?" }
     ]
   },
   {
@@ -232,7 +232,7 @@ const VALUES_DATA = [
   {
     name: "Excitement",
     questions: [
-      { area: "Work", text: "If your workdays became predictable and routine, would you start looking for a new job?" },
+      { area: "Work", text: "Your current job offers a lateral move to a more dynamic role with frequent surprises, changing priorities, and high energy—but same pay and hours. Would you switch?" },
       { area: "Relationships", text: "In a long-term relationship, would you regularly plan surprises and new experiences to keep things thrilling?" },
       { area: "Personal", text: "Would you actively seek out experiences that give you an adrenaline rush—even if they carry some risk?" },
       { area: "Social", text: "Your friends are planning the weekend: one group wants to check out a new live music festival downtown, the other wants a relaxed dinner at someone's home. Would you pick the festival?" },
@@ -244,7 +244,7 @@ const VALUES_DATA = [
     questions: [
       { area: "Work", text: "Would you change your career strategy to increase the chance your achievements become widely recognized in your industry?" },
       { area: "Relationships", text: "Would it matter to you that your partner sees you as someone admired and recognized by others?" },
-      { area: "Personal", text: "If you had to choose, would you prefer doing mediocre work that makes you famous over doing great work anonymously?" },
+      { area: "Personal", text: "If you achieved something significant, would it matter to you whether the recognition stayed within a small expert community versus reaching a large public audience?" },
       { area: "Social", text: "At a party, would you feel disappointed if nobody recognized you or sought you out to talk?" },
       { area: "Leisure", text: "In a hobby, would you work to gain a following or public recognition rather than just enjoy it privately?" }
     ]
@@ -296,7 +296,7 @@ const VALUES_DATA = [
       { area: "Relationships", text: "When life gets busy, would you still carve out time to maintain your closest friendships?" },
       { area: "Personal", text: "When going through a difficult time, would you reach out and confide in friends rather than handle it alone?" },
       { area: "Social", text: "Would you regularly put yourself in new social situations to expand your circle and make new friends?" },
-      { area: "Leisure", text: "You have a free Sunday afternoon. A friend invites you to go for a hike together, but you were also looking forward to a solo activity you enjoy. Would you choose the hike with your friend?" }
+      { area: "Leisure", text: "You have limited free time this month. Would you prioritize maintaining regular hangouts with friends over making progress on a personal goal that excites you?" }
     ]
   },
   {
@@ -312,7 +312,7 @@ const VALUES_DATA = [
   {
     name: "Health",
     questions: [
-      { area: "Work", text: "Your team is pulling an all-nighter to finish a deliverable due tomorrow morning. You've been awake for 18 hours and feel exhausted. Would you go home and sleep, even if it means your teammates have to cover your share?" },
+      { area: "Work", text: "You have the option to work from home on days you're feeling physically run down, but your team prefers everyone in-office for collaboration. Would you prioritize your health and work from home when needed?" },
       { area: "Relationships", text: "Would you actively encourage your family to adopt healthier eating and exercise habits, even if they resist?" },
       { area: "Personal", text: "Would you maintain a disciplined routine of exercise, nutrition, and sleep even when you don't feel like it?" },
       { area: "Social", text: "Friends want to go out for heavy drinking and junk food. Would you order something healthy and skip the drinks?" },
@@ -333,7 +333,7 @@ const VALUES_DATA = [
     name: "Honesty",
     questions: [
       { area: "Work", text: "A client asks your honest opinion about a product flaw. Being truthful would lose the sale. Would you tell them the truth anyway?" },
-      { area: "Relationships", text: "Your partner asks if you like their new haircut and you really don't. Would you say so honestly rather than giving a polite compliment?" },
+      { area: "Relationships", text: "A close friend asks for your honest feedback on their business idea. You think it has serious flaws. Would you share your genuine concerns rather than being encouraging and vague?" },
       { area: "Personal", text: "Would you sit down and honestly confront your own weaknesses rather than avoiding uncomfortable self-reflection?" },
       { area: "Social", text: "Everyone in a group discussion agrees on something you think is wrong. Would you speak up with your dissenting view?" },
       { area: "Leisure", text: "In a party game where bluffing is optional, would you play honestly even if bluffing would help you win?" }
@@ -384,9 +384,9 @@ const VALUES_DATA = [
     questions: [
       { area: "Work", text: "You've been at your company five years with a steady paycheck and clear path upward. A fast-growing but two-year-old company offers you an exciting role with more responsibility, though its long-term future is uncertain. Would you turn it down to keep your secure position?" },
       { area: "Relationships", text: "You have a stable income that covers your basic needs. Your partner wants to leave their steady job to pursue freelance work with unpredictable income. Would their job instability bother you even though you're financially covered?" },
-      { area: "Personal", text: "Does the thought of sudden job loss keep you up at night more than other life worries?" },
+      { area: "Personal", text: "When evaluating a job offer, would the stability and low likelihood of layoffs be your top priority, even over pay, growth, or interest level?" },
       { area: "Social", text: "When friends talk about quitting to start a business, would you advise them to keep the secure job?" },
-      { area: "Leisure", text: "Does having a secure job allow you to truly relax on evenings and weekends, rather than constantly worrying?" }
+      { area: "Leisure", text: "Would you turn down a dream job opportunity if it came from a company with uncertain long-term prospects, even if current compensation was excellent?" }
     ]
   },
   {
@@ -404,7 +404,7 @@ const VALUES_DATA = [
     questions: [
       { area: "Work", text: "You earn a high salary in a career you've invested years in, but you feel no genuine love or excitement for the work. You have enough savings to sustain yourself for a year while pivoting. Would you leave?" },
       { area: "Relationships", text: "Your partner is going through a period of depression—they're withdrawn, irritable, and unable to contribute equally to the relationship. It's been months with slow progress. Would you stay fully emotionally present and supportive rather than pulling away?" },
-      { area: "Personal", text: "You've been so focused on work and personal goals that you realize your life feels emotionally hollow despite the progress. Would you shift your focus toward deepening the love and emotional connections in your life, even if it means slowing down on your goals?" },
+      { area: "Personal", text: "You have a free evening. Would you spend it having a deep, vulnerable conversation with someone you care about rather than pursuing a hobby or personal project?" },
       { area: "Social", text: "Would you openly express warmth and affection to people in your broader community, not just close friends?" },
       { area: "Leisure", text: "Would you choose spending free time with the people you love over pursuing a solo passion project?" }
     ]
@@ -443,7 +443,7 @@ const VALUES_DATA = [
     name: "Peace",
     questions: [
       { area: "Work", text: "Your current workplace pays well but involves constant office politics, heated meetings, and interpersonal conflict that drains you daily. A similar role at a smaller, calm company pays 15% less. Would you take the pay cut for a peaceful work environment?" },
-      { area: "Relationships", text: "Your partner wants to have a difficult conversation about something that's been bothering them. You sense it could get emotional and tense. Would you suggest waiting for a calm moment and setting ground rules for the discussion, rather than diving into it right away?" },
+      { area: "Relationships", text: "You live in a bustling, exciting urban neighborhood with nightlife and constant activity. A quieter, more peaceful neighborhood would add 15 minutes to your commute. Would you move for the peace?" },
       { area: "Personal", text: "Would you remove yourself from situations—parties, groups, conversations—that disrupt your sense of inner peace?" },
       { area: "Social", text: "When a social gathering turns into a heated argument, would you step in and try to calm everyone down?" },
       { area: "Leisure", text: "After a hectic week, you have a free Saturday with no obligations. Would you spend it in a calm, slow-paced way—like walking in nature or sitting quietly with a coffee—rather than filling it with activities and socializing?" }
@@ -462,7 +462,7 @@ const VALUES_DATA = [
   {
     name: "Popularity",
     questions: [
-      { area: "Work", text: "In a team meeting, you have a strong opinion that you know most people will disagree with. Would you soften or hold back your view to stay well-liked by the group, rather than risk being seen as difficult?" },
+      { area: "Work", text: "Would you actively work to be well-liked by everyone on your team—remembering personal details, adjusting your communication style, being agreeable—even when it requires significant effort?" },
       { area: "Relationships", text: "Would it bother you if your partner or friend group wasn't socially popular or well-connected?" },
       { area: "Personal", text: "When making personal choices about your appearance or lifestyle, would you consider how others will perceive you?" },
       { area: "Social", text: "At a party, would you work the room to make sure everyone knows you and likes you?" },
@@ -502,11 +502,11 @@ const VALUES_DATA = [
   {
     name: "Respect",
     questions: [
-      { area: "Work", text: "Would you go above and beyond in your work specifically to earn the respect of colleagues and superiors?" },
+      { area: "Work", text: "When someone at work dismisses your input or talks over you in meetings, would you address it directly to re-establish mutual respect?" },
       { area: "Relationships", text: "Would you end a relationship if your partner repeatedly dismissed your opinions or ignored your boundaries?" },
       { area: "Personal", text: "When someone you care about treats you disrespectfully, does it hurt you deeply—more than other types of conflict?" },
       { area: "Social", text: "You're at a community meeting and someone with a low-status job—a janitor or a cleaner—raises a point that others dismiss or talk over. Would you stop the conversation and insist their input be heard?" },
-      { area: "Leisure", text: "After losing badly in a competition, would you shake your opponent's hand and congratulate them sincerely?" }
+      { area: "Leisure", text: "In a recreational sports league, a new player joins who isn't very skilled. Would you treat them with the same respect and consideration as the best players?" }
     ]
   },
   {
@@ -552,7 +552,7 @@ const VALUES_DATA = [
   {
     name: "Tolerance",
     questions: [
-      { area: "Work", text: "A new colleague from a different culture speaks loudly on personal phone calls at their desk during lunch and regularly microwaves food with strong smells that fill the office. Would you adapt without complaining?" },
+      { area: "Work", text: "A new coworker practices a religion you're unfamiliar with, which involves prayer breaks during the day and different holiday observances. Would you support their practices and learn about them with genuine openness?" },
       { area: "Relationships", text: "A close family member holds beliefs you strongly disagree with. Would you maintain the relationship without trying to change their mind?" },
       { area: "Personal", text: "When someone's lifestyle choices confuse or bother you, would you keep your judgment to yourself and let them live their way?" },
       { area: "Social", text: "Your neighborhood is becoming very diverse with many new cultures. Would you welcome the change and embrace the differences?" },
@@ -575,7 +575,7 @@ const VALUES_DATA = [
       { area: "Work", text: "Would you give a colleague full autonomy on a critical task without checking their work, because you trust them?" },
       { area: "Relationships", text: "If trust broke in a close relationship, would you find it nearly impossible to continue?" },
       { area: "Personal", text: "Would you guard a friend's sensitive secret, never sharing it with anyone, even your partner?" },
-      { area: "Social", text: "When joining a new group, would you hold back from fully engaging until you've built trust with the members?" },
+      { area: "Social", text: "A friend asks to borrow something valuable of yours (car, expensive equipment) for a weekend. Based on your history together, would you lend it without hesitation?" },
       { area: "Leisure", text: "In a team game, would you trust your teammates to do their part without checking on them?" }
     ]
   },
