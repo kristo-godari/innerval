@@ -198,8 +198,13 @@ function renderComparison(dataA, dataB) {
 
   const alignment = calculateAlignment(dataA.values, dataB.values, commonNames);
 
+  // Calculate strongly aligned values (score difference < 0.5)
+  const stronglyAligned = commonNames.filter(name =>
+    Math.abs(mapA[name].average - mapB[name].average) < 0.5
+  ).length;
+
   renderAlignmentRing(alignment);
-  renderSummaryStats(commonNames, onlyA, onlyB, dataA, dataB, alignment);
+  renderSummaryStats(commonNames, onlyA, onlyB, dataA, dataB, alignment, stronglyAligned);
   renderRadarChart(dataA.values, dataB.values, mapA, mapB);
   renderSideBySide(dataA.values, dataB.values, nameA, nameB);
 
@@ -344,16 +349,16 @@ function getLevelDisplayName(data) {
   return 'Full Spectrum';
 }
 
-function renderSummaryStats(common, onlyA, onlyB, dataA, dataB, alignment) {
+function renderSummaryStats(common, onlyA, onlyB, dataA, dataB, alignment, stronglyAligned) {
   const levelA = getLevelDisplayName(dataA);
   const levelB = getLevelDisplayName(dataB);
   let levelNote = '';
   if (levelA !== levelB) {
-    levelNote = `<div class="compare-level-note">Note: Person A took the <strong>${levelA}</strong> assessment and Person B took <strong>${levelB}</strong>. Only shared values are compared.</div>`;
+    levelNote = `<div class="compare-level-note">Note: Person A took the <strong>${levelA}</strong> assessment and Person B took <strong>${levelB}</strong>. Only values in common are compared.</div>`;
   }
 
   document.getElementById('compareStats').innerHTML = `
-    <div class="cstat-card"><div class="cstat-num">${common.length}</div><div class="cstat-label">Shared Values</div></div>
+    <div class="cstat-card"><div class="cstat-num">${common.length}</div><div class="cstat-label">Values in Common<br><small>${stronglyAligned} strongly aligned</small></div></div>
     <div class="cstat-card"><div class="cstat-num">${dataA.completedCount}</div><div class="cstat-label">Person A Values<br><small>${levelA}</small></div></div>
     <div class="cstat-card"><div class="cstat-num">${dataB.completedCount}</div><div class="cstat-label">Person B Values<br><small>${levelB}</small></div></div>
     <div class="cstat-card"><div class="cstat-num">${alignment}%</div><div class="cstat-label">Rank Alignment</div></div>
