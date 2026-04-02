@@ -219,30 +219,103 @@ function renderComparison(dataA, dataB) {
 
 // --- Alignment Calculation ---
 
+/**
+ * Computes values alignment score using Spearman's rank correlation coefficient.
+ * Properly handles tied ranks by computing Pearson correlation on rank vectors.
+ * Returns a 0-100% score where 100% = perfect alignment, 0% = opposite alignment.
+ */
 function calculateAlignment(valsA, valsB, commonNames) {
   if (commonNames.length < 2) return 0;
+
   const mapA = {};
   const mapB = {};
   valsA.forEach(v => { mapA[v.name] = v.average; });
   valsB.forEach(v => { mapB[v.name] = v.average; });
 
-  // Re-rank common values by each person's averages (handles cross-level comparisons)
-  const sortedByA = [...commonNames].sort((a, b) => mapA[b] - mapA[a]);
-  const sortedByB = [...commonNames].sort((a, b) => mapB[b] - mapB[a]);
+  // Extract averages in the same order as commonNames
+  const averagesA = commonNames.map(name => mapA[name]);
+  const averagesB = commonNames.map(name => mapB[name]);
 
-  const rankA = {};
-  const rankB = {};
-  sortedByA.forEach((name, i) => { rankA[name] = i + 1; });
-  sortedByB.forEach((name, i) => { rankB[name] = i + 1; });
+  // Assign ranks with average ranks for ties
+  const ranksA = assignRanks(averagesA);
+  const ranksB = assignRanks(averagesB);
 
-  const n = commonNames.length;
-  let dSquaredSum = 0;
-  commonNames.forEach(name => {
-    const d = rankA[name] - rankB[name];
-    dSquaredSum += d * d;
-  });
-  const rho = 1 - (6 * dSquaredSum) / (n * (n * n - 1));
+  // Compute Spearman's rho (Pearson correlation on ranks)
+  const rho = pearsonCorrelation(ranksA, ranksB);
+
+  // Convert from [-1, 1] to [0%, 100%] alignment score
   return Math.max(0, Math.round(((rho + 1) / 2) * 100));
+}
+
+/**
+ * Assigns ranks to values, using average ranks for ties.
+ * Higher values get lower (better) ranks. E.g., [4.5, 3.2, 4.5] → [1.5, 3, 1.5]
+ */
+function assignRanks(values) {
+  const n = values.length;
+
+  // Create array of {value, originalIndex}
+  const indexed = values.map((val, idx) => ({ val, idx }));
+
+  // Sort by value descending (higher scores = better ranks)
+  indexed.sort((a, b) => b.val - a.val);
+
+  // Assign ranks with tie handling
+  const ranks = new Array(n);
+  let i = 0;
+
+  while (i < n) {
+    // Find the range of tied values
+    let j = i;
+    while (j < n && indexed[j].val === indexed[i].val) {
+      j++;
+    }
+
+    // Average rank for this group of ties
+    // Ranks are 1-based: positions i to j-1 occupy ranks (i+1) to j
+    // Average rank = ((i+1) + (i+2) + ... + j) / (j-i) = (i+1+j)/2
+    const avgRank = (i + 1 + j) / 2;
+
+    // Assign average rank to all tied values
+    for (let k = i; k < j; k++) {
+      ranks[indexed[k].idx] = avgRank;
+    }
+
+    i = j;
+  }
+
+  return ranks;
+}
+
+/**
+ * Computes Pearson correlation coefficient between two arrays.
+ * Used to calculate Spearman's rho from rank vectors.
+ */
+function pearsonCorrelation(x, y) {
+  const n = x.length;
+  if (n === 0) return 0;
+
+  // Calculate means
+  const meanX = x.reduce((sum, val) => sum + val, 0) / n;
+  const meanY = y.reduce((sum, val) => sum + val, 0) / n;
+
+  // Calculate covariance and variances
+  let covariance = 0;
+  let varX = 0;
+  let varY = 0;
+
+  for (let i = 0; i < n; i++) {
+    const dx = x[i] - meanX;
+    const dy = y[i] - meanY;
+    covariance += dx * dy;
+    varX += dx * dx;
+    varY += dy * dy;
+  }
+
+  // Handle edge case where all ranks are identical (no variance)
+  if (varX === 0 || varY === 0) return 0;
+
+  return covariance / Math.sqrt(varX * varY);
 }
 
 // --- Rendering Helpers ---
