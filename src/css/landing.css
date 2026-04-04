@@ -152,6 +152,14 @@
 .coffee-btn:hover{background:#e6c800;transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.15)}
 #contact{scroll-margin-top:calc(var(--header-h) + 16px)}
 
+/* ===== CONTRIBUTORS SUBSECTION ===== */
+.contributors-subsection{margin-top:16px;padding-top:12px;border-top:1px solid var(--border)}
+.contributors-subsection h4{font-size:.84rem;font-weight:700;color:var(--text);margin-bottom:6px}
+.contributors-subtitle{font-size:.78rem;font-weight:400;color:var(--muted)}
+.contributors-subsection p{font-size:.82rem;color:var(--muted);margin:0;line-height:1.5}
+.contributors-subsection a{color:var(--primary);font-weight:600;text-decoration:none;transition:opacity .2s}
+.contributors-subsection a:hover{opacity:.7}
+
 /* ===== CTA ===== */
 .cta-section{text-align:center;margin:0;padding:20px 24px;position:relative;overflow:hidden;background:linear-gradient(160deg,#f5ece4 0%,#ecd3cc 25%,#e8c5bd 50%,#ddb8c8 75%,#d5c0e0 100%);border-radius:20px;box-shadow:0 8px 40px rgba(192,107,94,.15),inset 0 1px 0 rgba(255,255,255,.4)}
 .cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(192,107,94,.14) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(155,125,184,.14) 0%,transparent 60%);pointer-events:none;animation:ctaPulse 4s ease-in-out infinite}
