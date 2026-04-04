@@ -47,6 +47,7 @@ function startQuiz() {
     return;
   }
 
+  trackEvent('quiz_started');
   showLevelSelect();
 }
 
@@ -93,6 +94,8 @@ function selectLevel(level) {
   currentAreaPage = 0;
   Object.keys(answers).forEach(function(k) { delete answers[k]; });
   skippedSet.clear();
+
+  trackEvent('level_selected', { level: level });
 
   hideAllScreens();
   document.getElementById('quiz').style.display = 'block';

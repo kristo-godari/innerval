@@ -49,6 +49,9 @@ function showExploreValues() {
 function doShowExplore() {
   hideAllScreens();
   document.getElementById('exploreValues').style.display = 'block';
+
+  trackEvent('explore_opened');
+
   loadAspirations();
   renderExploreFilters();
   renderExploreGrid();

@@ -4,7 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="content-language" content="en-US">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://cdnjs.buymeacoffee.com https://cdnjs.cloudflare.com; img-src 'self' data:; connect-src 'self' https://cdnjs.cloudflare.com;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://cdnjs.buymeacoffee.com https://cdnjs.cloudflare.com https://www.googletagmanager.com; img-src 'self' data:; connect-src 'self' https://cdnjs.cloudflare.com https://www.google-analytics.com;">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8JNCJ56X4H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-8JNCJ56X4H');
+</script>
+
 <title>Innerval — Discover Your Personal Values</title>
 <meta name="description" content="What truly drives your decisions? Take our science-based values quiz with real-life scenarios. 100% private, no signup. Choose quick (10min) or deep (45min). Free personal values discovery.">
 <link rel="canonical" href="https://innerval.org/">
@@ -1348,6 +1358,7 @@
 <script src="js/explore.js"></script>
 <script src="js/growth-plan.js"></script>
 <script src="js/contact.js"></script>
+<script src="js/analytics.js"></script>
 <script src="js/init.js"></script>
 </body>
 </html>

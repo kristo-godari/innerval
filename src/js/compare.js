@@ -168,6 +168,9 @@ function runComparison() {
   if (!compareData1 || !compareData2) return;
   hideAllScreens();
   document.getElementById('compareResults').style.display = 'block';
+
+  trackEvent('comparison_viewed');
+
   renderComparison(compareData1, compareData2);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }

@@ -33,6 +33,9 @@ function showGrowthPlan() {
   }
   hideAllScreens();
   document.getElementById('growthPlan').style.display = 'block';
+
+  trackEvent('growth_plan_opened');
+
   renderGrowthPlan();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -167,6 +170,8 @@ function buildInstructionsSection(hasResults, hasAspirations) {
 }
 
 function copyPlanPrompt() {
+  trackEvent('prompt_copied');
+
   const text = document.getElementById('planPromptText').textContent;
   navigator.clipboard.writeText(text).then(function() {
     const btn = document.getElementById('copyPromptBtn');

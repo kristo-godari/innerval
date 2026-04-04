@@ -13,6 +13,8 @@ function showResults() {
   document.getElementById('results').style.display = 'block';
   saveProgress('results');
 
+  trackEvent('quiz_completed');
+
   const completedValues = getActiveCompletedValues();
   const totalValues = getActiveTotal();
   const count = completedValues.length;
@@ -92,6 +94,8 @@ function showResults() {
 }
 
 function downloadPDF() {
+  trackEvent('pdf_downloaded');
+
   // Check if pdfMake library loaded
   if (typeof pdfMake === 'undefined') {
     showModal({
@@ -290,6 +294,8 @@ function downloadPDF() {
 }
 
 function exportResultsJSON() {
+  trackEvent('json_exported');
+
   const completedValues = getActiveDetailedCompletedValues();
   const result = buildExportData(completedValues);
 
