@@ -26,7 +26,7 @@ const VALUES_DATA = [
       { area: "Relationships", text: "Your partner suggests trying an adventure activity together this weekend that neither of you has done before—like rock climbing or white-water rafting. Would you enthusiastically say yes?" },
       { area: "Personal", text: "You have a free weekend: relax at home or try skydiving for the first time. Would you go skydiving?" },
       { area: "Social", text: "It's a regular Friday evening with nothing planned for the weekend. Friends call and invite you on a spontaneous road trip to an unknown destination leaving tonight. Would you pack your bag and go?" },
-      { area: "Leisure", text: "You can vacation at your favorite familiar resort or explore a remote, uncharted village. Would you choose the unknown village?" }
+      { area: "Leisure", text: "You can do a vacation at your favorite familiar resort or explore a remote, uncharted village. Would you choose the unknown village?" }
     ]
   },
   {
